@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using MyBlog.Models;
+﻿using MyBlog.Models;
 
 namespace MyBlog.Core.ViewProjections.Home
 {

@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MyBlog.Models;
 using MyExtensionsLib;
+using MyBlog.Web.Filters;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyBlog.Web.Controllers
 {
+    [LoginCheckFilter]
     public class FileController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -21,12 +21,6 @@ namespace MyBlog.Web.Controllers
         {
             this._hostingEnvironment = hostingEnvironment;
             this._webAppConfiguration = webAppConfiguration;
-        }
-
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
         }
 
         /// <summary>
@@ -44,15 +38,13 @@ namespace MyBlog.Web.Controllers
 
             // 判断扩展名是否正确
             var extensionName = Path.GetExtension(files[0].FileName).ToLower();
-            if (!this._extensionNames.Any(n => n == extensionName))
+            if (!this._webAppConfiguration.Value.settings.ImgExtensions.Any(n => n == extensionName))
                 return null;
 
             // 保存的文件夹
-            //var sortTime = DateTime.Now.ToString("yyyy_MM_dd");
             var sortTime = DateTime.Now.ToString("yyyy_MM_dd");
-
             var tempPath = this._webAppConfiguration.Value.settings.UpLoadImgRelativeSavePath.Replace("{time}", sortTime);
-            var dirPath = Path.Combine(this._hostingEnvironment.WebRootPath, tempPath);
+            var dirPath = $"{this._hostingEnvironment.WebRootPath}\\{tempPath}";
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 

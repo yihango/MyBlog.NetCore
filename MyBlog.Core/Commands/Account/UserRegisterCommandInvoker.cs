@@ -1,5 +1,4 @@
 ﻿using System;
-
 using MyExtensionsLib;
 using MyBlog.Models;
 

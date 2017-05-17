@@ -32,6 +32,10 @@ namespace MyBlog.Models
         /// 配置文件中设置的验证码字体
         /// </summary>
         public string FontFamily { get; set; }
+        /// <summary>
+        /// 配置文件中的图片后缀，只有在这个数组中的后缀名才能被上传
+        /// </summary>
+        public string[] ImgExtensions { get; set; }
     }
 
     /// <summary>

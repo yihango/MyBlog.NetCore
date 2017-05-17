@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyBlog.Core.Commands.Account
+﻿namespace MyBlog.Core.Commands.Account
 {
     /// <summary>
     /// 用户注册命令

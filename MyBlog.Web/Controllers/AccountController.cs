@@ -1,17 +1,12 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Authentication;
-
-
 using MyCommonLib;
 using MyExtensionsLib;
 using MyBlog.Models;
 using MyBlog.Core;
 using MyBlog.Core.Commands.Account;
-using System;
 using MyBlog.Web.Common;
 using MyBlog.Web.Filters;
 

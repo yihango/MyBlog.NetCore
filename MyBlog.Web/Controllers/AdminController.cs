@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using MyBlog.Core;
-using MyBlog.Web.Filters;
-using MyBlog.Core.Commands.Account;
 using Microsoft.AspNetCore.Hosting;
-using MyExtensionsLib;
-using MyBlog.Core.Commands.Admin;
-using System.Security.Claims;
-using MyBlog.Web.Common;
 using Microsoft.Extensions.Caching.Memory;
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using MyExtensionsLib;
+using MyBlog.Core;
+using MyBlog.Core.Commands.Admin;
+using MyBlog.Web.Filters;
+using MyBlog.Web.Common;
+
 
 namespace MyBlog.Web.Controllers
 {

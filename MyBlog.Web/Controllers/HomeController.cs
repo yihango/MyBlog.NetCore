@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using MyExtensionsLib;
-
-using MyBlog.Core;
-using MyBlog.Core.ViewProjections.Home;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
+using MyExtensionsLib;
+using MyBlog.Core;
+using MyBlog.Core.ViewProjections.Home;
 using MyBlog.Web.Common;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

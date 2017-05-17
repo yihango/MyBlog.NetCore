@@ -64,7 +64,7 @@ namespace MyBlog.Core.Commands.AdminPost
 
                 // 保存文章的文件夹
                 var tempPath = command.PostRelativeSavePath.Replace("{time}", sortTime);
-                var dirPath = Path.Combine(command.WebRootPath, tempPath);
+                var dirPath = $"{command.WebRootPath}\\{tempPath}";
                 if (!Directory.Exists(dirPath))
                     Directory.CreateDirectory(dirPath);
 

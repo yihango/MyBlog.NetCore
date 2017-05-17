@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyBlog.Core
+﻿namespace MyBlog.Core
 {
     /// <summary>
     /// 命令工作工厂接口

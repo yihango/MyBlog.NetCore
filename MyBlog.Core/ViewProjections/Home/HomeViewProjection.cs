@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using MySqlSugar;
-
 using MyBlog.Models;
 
 namespace MyBlog.Core.ViewProjections.Home

@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MyExtensionsLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Text;
 using MyBlog.Web.Common;
 
 namespace MyBlog.Web.Filters
@@ -26,9 +19,16 @@ namespace MyBlog.Web.Filters
                 // 清除登陆痕迹
                 AccountLoginManager.SetLoginOut(context.HttpContext);
 
-                // 如果请求的控制器为AdminPost并且为Post请求
-                if (context.HttpContext.Request.Path.Value.StartsWith("/AdminPost") && context.HttpContext.Request.Method.Equals("post", StringComparison.CurrentCultureIgnoreCase))
-                    context.Result = new JsonResult(new { code = "-2", msg = "Error:登陆过期", url = "/Account/Index" });
+                // 如果为Post请求
+                if(context.HttpContext.Request.Method.Equals("post", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // 如果请求的控制器为AdminPostController
+                    if (context.HttpContext.Request.Path.Value.StartsWith("/AdminPost"))
+                        context.Result = new JsonResult(new { code = "-2", msg = "Error:登陆过期", url = "/Account/Index" });
+                    // 如果请求的控制器为FileController
+                    else if (context.HttpContext.Request.Path.Value.StartsWith("/File"))
+                        context.Result = new ContentResult() { Content= "/Contents/Posts/UpLoadImgs/expiration.png" };
+                }
 
                 // 其他
                 context.Result = new RedirectResult($"/Account/Index?ReturnUrl={context.HttpContext.Request.Path}");

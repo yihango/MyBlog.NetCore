@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyBlog.Core.ViewProjections.Home
+﻿namespace MyBlog.Core.ViewProjections.Home
 {
     /// <summary>
     /// 近期博文绑定数据模型

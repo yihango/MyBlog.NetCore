@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using MySqlSugar;
-
 using MyBlog.Models;
-using System.IO;
 
 namespace MyBlog.Core.ViewProjections.AdminPost
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyBlog.Core.Commands.Admin
+﻿namespace MyBlog.Core.Commands.Admin
 {
     /// <summary>
     /// 异常文章数据检查命令执行结果
