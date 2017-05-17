@@ -1,0 +1,103 @@
+﻿
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>@ViewBag.Title</title>
+    @Html.Partial("~/Views/Shared/_StyleLayout.cshtml")
+    @Html.Partial("~/Views/Shared/_JqueryLayout.cshtml")
+    <link href="@Url.Content("/Contents/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Contents/Styles/my_panel.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Contents/Styles/Home/layout.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Contents/Styles/Home/post_list.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Contents/Styles/Home/post_details.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Contents/Styles/button.prev.next.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+    <span id="upup">
+        <a href="#header" class="glyphicon glyphicon-circle-arrow-up"></a>
+    </span>
+
+    @* 页首 *@
+    <header id="header">
+        <a href="/">xxxxx的个人博客</a>
+    </header>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="post-list col-xs-12 col-sm-8 col-md-8">
+                @* 主体列表 *@
+                @RenderBody()
+            </div>
+
+            <div class="infos hidden-xs col-sm-4  col-md-4">
+
+                @* 关于我 *@
+                @Html.Partial("~/Views/Home/_AboutMe.cshtml")
+
+                @* 文章标签 *@
+                <div class="panel">
+                    <div class="panel-head icon-folder-open"><strong>标签</strong></div>
+                    <div class="panel-body">
+                        @if (ViewBag.Tags.TagList.Count <= 0)
+                        {
+                            <a>暂无标签</a>
+                        }
+                        else
+                        {
+                            foreach (var item in ViewBag.Tags.TagList)
+                            {
+                            <a href="/TagPosts/Home/Tags/@(item.tag_name)/1" target="_blank">@(item.tag_name)<span class="tag-count">@item.tag_count</span></a>
+
+                            }
+                        }
+                    </div>
+                </div>
+
+                @*  *@
+                <div class="panel">
+                    <div class="panel-head icon-folder-open"><strong>最近文章</strong></div>
+                    <div class="panel-body">
+                        @if (ViewBag.RecentPost.PostList.Count <= 0)
+                        {
+                            <a>暂无文章</a>
+                        }
+                        else
+                        {
+                            foreach (var item in ViewBag.RecentPost.PostList)
+                            {
+                            <a href="~/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">@item.post_title</a><br />
+                            }
+                        }
+                    </div>
+                </div>
+
+                @* 友情链接 *@
+                <div class="panel">
+                    <div class="panel-head icon-folder-open"><strong>推荐博客</strong></div>
+                    <div class="panel-body">
+                        <a href="">友情链接</a>
+                        <a href="">友情链接</a>
+                        <a href="">友情链接</a>
+                        <a href="">友情链接</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*@* 页脚信息 *@
+    <footer id="footer">
+       111111111111111111
+    </footer>
+
+    @* 导入脚本 *@
+    @Html.Partial("~/Views/Shared/_ScriptLayout.cshtml")
+</body>
+</html>

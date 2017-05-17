@@ -1,0 +1,75 @@
+﻿@model MyBlog.Core.ViewProjections.AdminPost.AllBlogPostViewModel
+
+
+@{
+    Layout = "_AdminPostLayout";
+    ViewBag.Title = "博文管理";
+}
+
+<header id="header">
+    <a href="/admin">
+        <i class="glyphicon glyphicon-chevron-left"></i>返回
+    </a>
+</header>
+
+<div class="container" style="">
+    <a class="btn" href="/AdminPost/NewPost?page=@(Model.PageNum)">新博文</a>
+    <table class="table table-condensed table-responsive table-hover">
+        <thead>
+            <tr>
+                <th style="text-align:left;">文章名称</th>
+                <th>发布状态</th>
+                <th>编辑</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (null == Model)
+            {
+                <tr><td>暂无文章</td></tr>
+            }
+            else
+            {
+                @foreach (var item in Model.Posts)
+                {
+                    <tr>
+                        <td style="text-align:left;">
+                            <a style="display:block;font-size:15px;color:black;" href="/AdminPost/EditPost?post=@(item.post_id)&page=@(Model.PageNum)">@item.post_title</a>
+                        </td>
+                        <td>@(item.post_pub_state == 1 ? "已发布" : "未发布")</td>
+                        <td>
+                            <a class="btn btn-primary" href="/AdminPost/EditPost?post=@(item.post_id)&page=@(Model.PageNum)">编辑</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="/AdminPost/DeletePost?post=@(item.post_id)&page=@(Model.PageNum)">删除</a>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td colspan="2" style="font-size:16px;">
+                    @if (Model.IsPrev)
+                    {
+                        <a href="/AdminPost/Index/@(Model.PageNum - 1)">上一页</a>
+                    }
+                    else
+                    {<i></i>}
+                </td>
+                <td colspan="2" style="font-size:16px;">
+                    @if (Model.IsNext)
+                    {
+                        <a href="/AdminPost/Index/@(Model.PageNum + 1)">下一页</a>
+                    }
+                    else
+                    {<i></i>}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<style>
+    table td, table th {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>

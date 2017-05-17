@@ -1,0 +1,97 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Packages\**" />
+    <Compile Remove="Scripts\**" />
+    <Compile Remove="Styles\**" />
+    <Compile Remove="wwwroot\UpLoadImgs\**" />
+    <Content Remove="Packages\**" />
+    <Content Remove="Scripts\**" />
+    <Content Remove="Styles\**" />
+    <Content Remove="wwwroot\UpLoadImgs\**" />
+    <EmbeddedResource Remove="Packages\**" />
+    <EmbeddedResource Remove="Scripts\**" />
+    <EmbeddedResource Remove="Styles\**" />
+    <EmbeddedResource Remove="wwwroot\UpLoadImgs\**" />
+    <None Remove="Packages\**" />
+    <None Remove="Scripts\**" />
+    <None Remove="Styles\**" />
+    <None Remove="wwwroot\UpLoadImgs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\Errors\404.html" />
+    <Content Include="wwwroot\Errors\500.html" />
+    <Content Include="wwwroot\Scripts\myscripts\errors.js" />
+    <Content Include="wwwroot\Styles\Errors\error.css" />
+    <Content Include="wwwroot\User\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\packages.config" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.css" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.min.css" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.css" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.min.css" />
+    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\Packages\Bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Packages\Bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Packages\Bootstrap\js\npm.js" />
+    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.css" />
+    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.less" />
+    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.min.css" />
+    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.eot" />
+    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.svg" />
+    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.ttf" />
+    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.woff" />
+    <None Include="wwwroot\Packages\wangEditor\js\lib\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\Packages\wangEditor\js\lib\jquery-2.2.1.js" />
+    <None Include="wwwroot\Packages\wangEditor\js\wangEditor.js" />
+    <None Include="wwwroot\Packages\wangEditor\js\wangEditor.min.js" />
+    <None Include="wwwroot\Scripts\jquery.form.js" />
+    <None Include="wwwroot\Scripts\jquery.min.js" />
+    <None Include="wwwroot\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.min.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\Scripts\myscripts\adminIndex.js" />
+    <None Include="wwwroot\Scripts\myscripts\changePassWord.js" />
+    <None Include="wwwroot\Scripts\myscripts\editPost.js" />
+    <None Include="wwwroot\Scripts\myscripts\footer.position.js" />
+    <None Include="wwwroot\Scripts\myscripts\login.js" />
+    <None Include="wwwroot\Scripts\myscripts\register.js" />
+    <None Include="wwwroot\Styles\Admin\index.css" />
+    <None Include="wwwroot\Styles\border_radius_clear.css" />
+    <None Include="wwwroot\Styles\button.prev.next.css" />
+    <None Include="wwwroot\Styles\Home\layout.css" />
+    <None Include="wwwroot\Styles\Home\post_details.css" />
+    <None Include="wwwroot\Styles\Home\post_list.css" />
+    <None Include="wwwroot\Styles\loding.css" />
+    <None Include="wwwroot\Styles\Manager\layout.css" />
+    <None Include="wwwroot\Styles\my_panel.css" />
+    <None Include="wwwroot\Styles\m_p_clear.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
+    <ProjectReference Include="..\MyCommonLib\MyCommonLib.csproj" />
+    <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
+  </ItemGroup>
+
+</Project>

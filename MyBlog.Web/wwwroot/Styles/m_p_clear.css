@@ -1,0 +1,21 @@
+﻿div, h1, h2, h3, h4, h5, h6, header, p, a {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Microsoft YaHei UI';
+}
+
+
+    a:hover {
+        text-decoration: none;
+    }
+
+
+body {
+    background: #f7f7f7;
+    margin: 0px;
+    padding: 0px;
+}
+
+hr {
+    width: 100%;
+}

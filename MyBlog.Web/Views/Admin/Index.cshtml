@@ -1,0 +1,61 @@
+﻿@* 管理主页 *@
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "管理";
+}
+
+<link href="@Url.Content("/Contents/Styles/Admin/index.css")" rel="stylesheet" />
+<header id="header">
+    <a id="loginOut" href="/Admin/LoginOut">
+        <i class="glyphicon glyphicon-log-out"></i>退出登录
+    </a>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 tool-left">
+            <a href="/Admin/ChangePassword">
+                <div class="panel panel-primary text-center no-boder bg-color-green" style="height:100%;">
+                    <div class="panel-body">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <h3>修改密码</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 tool-left">
+            <a href="/AdminPost/Index/1">
+                <div class="panel panel-primary text-center no-boder bg-color-green" style="height:100%;">
+                    <div class="panel-body">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        <h3>文章管理</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6  tool-right">
+            <a href="" id="updataTag">
+                <div class="panel panel-primary text-center no-boder bg-color-green" style="height:100%;">
+                    <div class="panel-body">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                        <h3>刷新标签数据</h3>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6  tool-right">
+            <a href="" id="clearExceptionPosts">
+                <div class="panel panel-primary text-center no-boder bg-color-green" style="height:100%;">
+                    <div class="panel-body">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <h3>清理异常文章数据</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("/Contents/Scripts/myscripts/adminIndex.js")"></script>

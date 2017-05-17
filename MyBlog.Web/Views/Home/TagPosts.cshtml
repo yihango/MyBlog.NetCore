@@ -1,0 +1,57 @@
+﻿@model MyBlog.Core.ViewProjections.Home.TagPostsViewModel
+
+@{
+    Layout = "_HomeLayout";
+    ViewBag.Title = "标签搜索结果:" + Model.TagName;
+}
+
+@if (null != Model && Model.Posts.Count() != 0)
+{
+    foreach (var item in Model.Posts)
+    {
+        <div class="post">
+            <div class="post-details">
+                <a class="post-title" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)"  target="_blank">@item.post_title</a><br />
+                <div class="post-time">
+                    <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@item.post_pub_time</span>&nbsp;&nbsp;
+                </div>
+
+                @* 摘要内容 *@
+                <div class="post-content">
+                    <a href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)"  target="_blank" style="word-break: break-all;">
+                        @(Html.Raw(item.post_summary))
+                    </a>
+                </div>
+
+                @*  *@
+                <div>
+                    <i class="glyphicon glyphicon-tags"></i>&nbsp;
+                    @foreach (var tag in item.GetTags())
+                    {
+                        <a class="post-tag" href="/TagPosts/Home/Tags/@(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
+                    }
+                    <a class="post-read" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">阅读全文</a>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="post">
+        <div class="details">
+            <div>
+                未找到有关&nbsp;@Model.TagName&nbsp;的文章...
+            </div>
+        </div>
+    </div>
+}
+@if (Model.HasPrev)
+{
+    <a href="/TagPosts/Home/Tags/@(Model.TagName)/@(Model.PageNum-1)">上一页</a>
+}
+@if (Model.HasNext)
+{
+    <a href="/TagPosts/Home/Tags/@(Model.TagName)/@(Model.PageNum+1)">下一页</a>
+}

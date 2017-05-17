@@ -1,0 +1,98 @@
+﻿
+/* 整体内容 */
+.container {
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 标签数量 */
+.tag-count {
+    display: inline-block;
+    float: right;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    color: #fff;
+    background-color: #bab7b7;
+    border-radius: 1px;
+}
+
+/* 页首 */
+#header {
+    position: relative;
+    padding: 20px 0;
+    overflow: hidden;
+    background: #363d4d;
+    margin-bottom: 30px;
+    width:100%;
+}
+
+    #header a {
+        display: block;
+        margin-left: 10px;
+        font-family: 'Microsoft YaHei UI';
+        font-size: 30px;
+        padding: 0px;
+        padding-left: 20px;
+    }
+
+/* 页脚 */
+#footer {
+    position: relative;
+    padding: 0px;
+    padding: 20px 0;
+    height: 40px;
+    text-align: center;
+    overflow: hidden;
+    z-index: 99;
+    background: #363d4d;
+    margin-top: 30px;
+}
+
+/* 跳转到顶部 */
+#upup {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    right: 15px;
+    bottom: 50px;
+}
+
+    #upup a {
+        color: #bab7b7;
+        display: block;
+        font-size: 35px;
+        outline: 0;
+        text-decoration: none;
+    }
+
+
+@media (min-width: 1000px) {
+    .tag-count {
+        display: block;
+    }
+
+    #upup {
+        display: block;
+    }
+}
+
+@media(max-width:768px) {
+    .tag-count {
+        display: none;
+    }
+
+    #header a {
+        font-size: 24px;
+    }
+
+    #upup {
+        display: none;
+    }
+}

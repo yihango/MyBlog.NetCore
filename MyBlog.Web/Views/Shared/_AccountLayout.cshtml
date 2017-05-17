@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>@ViewBag.Title</title>
+    @Html.Partial("~/Views/Shared/_StyleLayout.cshtml")
+    @Html.Partial("~/Views/Shared/_JqueryLayout.cshtml")
+    <link href="@Url.Content("/Contents/Styles/Manager/layout.css")" rel="stylesheet" />
+</head>
+<body>
+    <header id="header">
+        <a href="/">
+            <i class="glyphicon glyphicon-share-alt"></i>返回首页
+        </a>
+    </header>
+
+    <div class="container" >
+        @RenderBody()
+    </div>
+
+    @* 加载动画 *@
+    @Html.Partial("~/Views/Shared/_LoadAnimationLayout.cshtml")
+
+    <footer id="footer" style=""></footer>
+    @* 导入脚本 *@
+    @Html.Partial("~/Views/Shared/_ScriptLayout.cshtml")
+</body>
+</html>

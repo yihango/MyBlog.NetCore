@@ -1,0 +1,60 @@
+﻿.group, .btn, .item, .form-control, .nav, .navbar, .jumbotron, .alert, .progress, .media, .list-group, .list-group-item, .panel, .well {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.dropdown, .dropdown-menu, .pagination, .Previous, .Next, .pager, .modal, .modal-header, .modal-content {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.panel-footer {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.input-sm, .form-group-sm .form-control {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.label, .navbar-toggle {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.badge {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.thumbnail {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+/*页码条上一页取消圆角*/
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    -ms-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -ms-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/*页码条下一页取消圆角*/
+.pagination > li:last-child > a, .pagination > li:last-child > span {
+    -ms-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -ms-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/*上一页，下一页 取消圆角*/
+.pager li > a {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+pre {
+    -ms-border-radius: 1;
+    border-radius: 1px;
+}

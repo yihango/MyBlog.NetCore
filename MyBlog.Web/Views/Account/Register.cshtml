@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = "_AccountLayout";
+    ViewBag.Title = "注册";
+}
+
+
+
+<div class="well col-md-5 col-md-offset-3">
+    <form action="/Account/Register"
+          method="post"
+          data-ajax="true"
+          data-ajax-method="post"
+          data-ajax-failure="error"
+          data-ajax-loading="#loding"
+          data-ajax-success="success"
+          style="width:80%;margin:0px auto;">
+        <h1>注册</h1><br />
+        <input name="UserAccount" class="form-control" type="text" value="" data-val="true" data-val-required="用户名不能为空" placeholder="账号" required="required" />
+        <span class="field-validation-valid text-danger" data-valmsg-for="UserAccount" data-valmsg-replace="true"></span>
+        <br />
+        <input name="Password" type="password" class="form-control" value="" data-val="true" data-val-required="密码不能为空" placeholder="密码" required="required" />
+        <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+        <br />
+        <input name="ConfirmPassword" type="password" class="form-control" value="" data-val="true" data-val-required="确认密码不能为空" placeholder="确认密码" required="required" />
+        <span class="field-validation-valid text-danger" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+        <br />
+        <input type="hidden" name="ReturnUrl" value="" />
+        <input type="submit" class="btn btn-default form-control" value="注册" />
+    </form>
+</div>
+@* 注册页面脚本 *@
+<script src="@Url.Content("/Contents/Scripts/myscripts/register.js")"></script>

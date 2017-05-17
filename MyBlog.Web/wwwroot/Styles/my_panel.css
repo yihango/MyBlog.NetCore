@@ -1,0 +1,35 @@
+﻿/* 信息栏 */
+.panel {
+    border: solid 1px #ddd;
+}
+
+/* 信息栏标题 */
+.panel-head {
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border-bottom: solid 1px #ddd;
+}
+
+/* 信息栏主体 */
+.panel-body {
+    padding: 15px;
+}
+
+    /* 信息栏主体中的a标签 */
+    .panel-body a {
+        cursor: pointer;
+        display: block;
+        position: relative;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-family: "Microsoft Yahei UI","Microsoft YaHei",SimHei,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        color: #3d4b66;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .panel-body a:hover {
+            outline: 0;
+            text-decoration: none;
+            background-color: #F5F5F5;
+        }

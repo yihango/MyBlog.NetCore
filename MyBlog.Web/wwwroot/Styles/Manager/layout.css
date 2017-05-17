@@ -1,0 +1,33 @@
+﻿#header {
+    position: relative;
+    padding: 20px 0;
+    overflow: hidden;
+    background: #363d4d;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+    #header a {
+        display: block;
+        margin-left: 10px;
+    }
+
+    #header i {
+        margin-right: 5px;
+    }
+
+#footer {
+    position: relative;
+    padding: 0px;
+    padding: 20px 0;
+    height: 40px;
+    text-align: center;
+    overflow: hidden;
+    z-index: 99;
+    background: #363d4d;
+    margin-top: 30px;
+}
+
+.container {
+    margin-top: 30px;
+}

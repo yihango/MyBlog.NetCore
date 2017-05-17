@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model MyBlog.Core.ViewProjections.Home.HomeViewModel
+
+@{
+    Layout = "_HomeLayout";
+    ViewBag.Title = "xxxxx的个人博客";
+}
+
+
+@if (null != Model && Model.Posts.Count != 0)
+{
+    foreach (var item in Model.Posts)
+    {
+        <div class="post">
+            <div class="post-details">
+                <a class="post-title" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">@item.post_title</a><br />
+                <div class="post-time">
+                    <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@item.post_pub_time</span>&nbsp;&nbsp;
+                </div>
+
+                @* 摘要内容 *@
+                <div class="post-content">
+                    <a href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank" style="word-break: break-all;">
+                        @(Html.Raw(item.post_summary))
+                    </a>
+                </div>
+
+                @*  *@
+                <div>
+                    <i class="glyphicon glyphicon-tags"></i>&nbsp;
+                    @foreach (var tag in item.GetTags())
+                    {
+                        <a class="post-tag" href="/TagPosts/Home/Tags/@(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
+                    }
+                    <a class="post-read" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">阅读全文</a>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="post">
+        <div class="details">
+            <div>
+               @(Model.AllPageNum >= Model.PageNum ? "未发布任何文章..." : "未找到数据...")
+            </div>
+        </div>
+    </div>
+}
+
+<div class="btns col-xs-11 col-sm-12 col-md-12">
+    @if (Model.HasPrev && Model.AllPageNum >= Model.PageNum)
+    {
+        <a class="btn-prev" href="/Home/Index/@(Model.PageNum-1)">上一页</a>
+    }
+    @if (Model.HasNext)
+    {
+        <a class="btn-next" href="/Home/Index/@(Model.PageNum+1)">下一页</a>
+    }
+</div>

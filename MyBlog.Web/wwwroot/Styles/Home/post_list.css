@@ -1,0 +1,98 @@
+﻿/* 博文列表 */
+.post-list {
+    position: relative;
+    min-height: 1px;
+    padding: 0 10px;
+}
+
+/* 博文详情 */
+.post-details {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+    /* 博文详情下面的a标签取消下划线 */
+    .post-details a {
+        text-decoration: none;
+    }
+
+/* 博文标题 */
+.post-title {
+    font-size: 30px;
+    font-weight: 400;
+    color: #3d4b66;
+}
+
+    .post-title:hover {
+        color: #e23e3e;
+    }
+
+/* 发布时间 */
+.post-time {
+    height: 25px;
+    font-size: 14px;
+    margin: 5px 0 10px 0;
+    color: #8d8d8d;
+    line-height: 32px;
+}
+
+/* 博文摘要 */
+.post-content {
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 24px;
+}
+
+    .post-content a {
+        color: #000000;
+        display: block;
+    }
+
+        .post-content a:hover {
+            color: #e23e3e;
+        }
+
+/* 阅读全文按钮 */
+.post-read {
+    float: right;
+    cursor: pointer;
+    color: #3d4b66;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+    .post-read:hover {
+        color: #e23e3e;
+    }
+
+/* 博文标签 */
+.post-tag {
+    cursor: pointer;
+    color: #3d4b66;
+}
+
+    .post-tag:hover {
+        color: #e23e3e;
+        outline: none;
+        text-decoration: none;
+    }
+
+@media(max-width:999px) {
+    .post {
+        padding-right: 0
+    }
+}
+
+@media (min-width: 1000px) {
+    .post {
+        padding-right: 15px;
+    }
+}
+
+@media(max-width:768px) {
+    .post-content {
+        font-size: 12px;
+    }
+}

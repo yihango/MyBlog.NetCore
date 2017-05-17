@@ -1,0 +1,19 @@
+﻿.btn-prev {
+    float: left;
+}
+
+.btn-next {
+    float: right;
+}
+
+.btns {
+    padding: 0px;
+    width: 98%;
+    margin: 0px auto;
+    font-size: 16px;
+}
+
+    .btns a {
+        outline: 0;
+        text-decoration: none;
+    }
