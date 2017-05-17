@@ -11,6 +11,7 @@ using MyExtensionsLib;
 using MyBlog.Core.Commands.Admin;
 using System.Security.Claims;
 using MyBlog.Web.Common;
+using Microsoft.Extensions.Caching.Memory;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyBlog.Web.Controllers
@@ -19,12 +20,14 @@ namespace MyBlog.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IMemoryCache _memoryCache;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
 
-        public AdminController(IHostingEnvironment hostingEnvironment, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        public AdminController(IHostingEnvironment hostingEnvironment, IMemoryCache memoryCache, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
         {
             this._hostingEnvironment = hostingEnvironment;
+            this._memoryCache = memoryCache;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
         }
@@ -103,6 +106,7 @@ namespace MyBlog.Web.Controllers
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            this.ClearCache(MemoryCacheKeys.Tags);
             return Json(new { code = 1, msg = "Success:刷新标签数据成功", url = string.Empty });
         }
 
@@ -118,7 +122,18 @@ namespace MyBlog.Web.Controllers
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            this.ClearCache(MemoryCacheKeys.RecentPost);
             return Json(new { code = 1, msg = $"Sussess:刷新文章数据成功,共清理 {commandResult.ClearCount} 条异常数据", url = string.Empty });
+        }
+
+
+        /// <summary>
+        /// 清除指定的缓存
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        private void ClearCache(string cacheKey)
+        {
+            this._memoryCache.Remove(cacheKey);
         }
 
         #endregion

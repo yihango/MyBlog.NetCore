@@ -7,6 +7,8 @@ using MyExtensionsLib;
 using MyBlog.Models;
 using Microsoft.Extensions.Options;
 using MyBlog.Web.Filters;
+using Microsoft.Extensions.Caching.Memory;
+using MyBlog.Web.Common;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,13 +22,15 @@ namespace MyBlog.Web.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IOptions<WebAppConfiguration> _webAppConfiguration;
+        private readonly IMemoryCache _memoryCache;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
 
-        public AdminPostController(IHostingEnvironment hostingEnvironment, IOptions<WebAppConfiguration> webAppConfiguration, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        public AdminPostController(IHostingEnvironment hostingEnvironment, IOptions<WebAppConfiguration> webAppConfiguration, IMemoryCache memoryCache, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
         {
             this._hostingEnvironment = hostingEnvironment;
             this._webAppConfiguration = webAppConfiguration;
+            this._memoryCache = memoryCache;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
         }
@@ -86,6 +90,7 @@ namespace MyBlog.Web.Controllers
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            this.ClearCache();
             return Json(new { code = 1, msg = "Success:提交成功", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
         }
 
@@ -139,6 +144,7 @@ namespace MyBlog.Web.Controllers
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            this.ClearCache();
             return Json(new { code = 1, msg = "Success:提交成功", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
         }
 
@@ -167,12 +173,14 @@ namespace MyBlog.Web.Controllers
             #endregion
 
             // 执行命令
-            var commandResult = this._commandInvokerFactory.Handle<DeletePostCommand, CommandResult>(new DeletePostCommand(){PostId = postId,WebRootPath = this._hostingEnvironment.WebRootPath});
+            var commandResult = this._commandInvokerFactory.Handle<DeletePostCommand, CommandResult>(new DeletePostCommand() { PostId = postId, WebRootPath = this._hostingEnvironment.WebRootPath });
 
             // 判断执行结果
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+
+            this.ClearCache();
             // Get 请求重定向
             if (HttpContext.Request.Method.Equals("get", System.StringComparison.CurrentCultureIgnoreCase))
                 return Redirect($"/AdminPost/Index/{pageNum}");
@@ -183,5 +191,14 @@ namespace MyBlog.Web.Controllers
 
         #endregion
 
+
+        /// <summary>
+        /// 清空缓存
+        /// </summary>
+        private void ClearCache()
+        {
+            this._memoryCache.Remove(MemoryCacheKeys.Tags);
+            this._memoryCache.Remove(MemoryCacheKeys.RecentPost);
+        }
     }
 }

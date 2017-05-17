@@ -35,7 +35,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 #region 过滤标题中无法存储为文件名的字符并转换为拼音
 
                 // 处理标签中的多余字符串生成已处理过的字符串
-                string[] chars = { @"\", "/", ":", "*", "?", "#", "<", ">", "|", "\"", " " };
+                string[] chars = { @"\", "/", ":", "*", "?", "#", "<", ">", "|", "\"", "&", " " };
                 var tempTitle = command.Title;
                 foreach (var item in chars)
                     tempTitle = tempTitle.Replace(item, "");

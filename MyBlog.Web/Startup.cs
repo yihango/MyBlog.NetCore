@@ -32,11 +32,11 @@ namespace MyBlog.Web
                 .SetFileProvider(env.WebRootFileProvider)
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
-
                 .AddEnvironmentVariables();
 
             this.Configuration = builder.Build();
 
+            // Log4Net配置读取
             Repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(Repository, new FileInfo("log4net.config"));
         }
@@ -45,10 +45,16 @@ namespace MyBlog.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // 缓存
+            services.AddMemoryCache();
 
+            // Session
+            services.AddSession();
+
+            // MVC
             services.AddMvc();
 
-            services.AddSession();
+           
 
 
             #region 读取配置文件并注册

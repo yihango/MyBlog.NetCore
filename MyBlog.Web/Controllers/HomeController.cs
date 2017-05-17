@@ -9,6 +9,8 @@ using MyBlog.Core;
 using MyBlog.Core.ViewProjections.Home;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.Memory;
+using MyBlog.Web.Common;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,12 +19,14 @@ namespace MyBlog.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IMemoryCache _memoryCache;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
 
-        public HomeController(IHostingEnvironment hostingEnvironment, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        public HomeController(IHostingEnvironment hostingEnvironment, IMemoryCache memoryCache, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
         {
             this._hostingEnvironment = hostingEnvironment;
+            this._memoryCache = memoryCache;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
         }
@@ -115,28 +119,37 @@ namespace MyBlog.Web.Controllers
 
         private void Set()
         {
-            SetTags();
-            SetRecentPostAction();
+            ViewBag.Tags = GetTags();
+            ViewBag.RecentPost = GetRecentPostAction();
         }
 
         /// <summary>
         /// 设置展示的标签 到ViewBag.Tags
         /// </summary>
-        private void SetTags()
+        private TagsViewModel GetTags()
         {
-            var viewModel = this._viewProjectionFactory.GetViewProjection<TagsBindModel, TagsViewModel>(new TagsBindModel());
-            ViewBag.Tags = viewModel;
+            TagsViewModel viewModel = null;
+            if (!this._memoryCache.TryGetValue(MemoryCacheKeys.Tags, out viewModel))
+            {
+                viewModel = this._viewProjectionFactory.GetViewProjection<TagsBindModel, TagsViewModel>(new TagsBindModel());
+                this._memoryCache.Set(MemoryCacheKeys.Tags, viewModel);
+            }
+            return viewModel;
         }
 
         /// <summary>
         /// 设置展示的最近文章 到ViewBag.RecentPost
         /// </summary>
-        private void SetRecentPostAction()
+        private RecentPostViewModel GetRecentPostAction()
         {
-            var viewModel = this._viewProjectionFactory.GetViewProjection<RecentPostBindModel, RecentPostViewModel>(new RecentPostBindModel());
-
-            ViewBag.RecentPost = viewModel;
-        } 
+            RecentPostViewModel viewModel = null;
+            if (!this._memoryCache.TryGetValue(MemoryCacheKeys.RecentPost, out viewModel))
+            {
+                viewModel = this._viewProjectionFactory.GetViewProjection<RecentPostBindModel, RecentPostViewModel>(new RecentPostBindModel());
+                this._memoryCache.Set(MemoryCacheKeys.RecentPost, viewModel);
+            }
+            return viewModel;
+        }
 
         #endregion
 
