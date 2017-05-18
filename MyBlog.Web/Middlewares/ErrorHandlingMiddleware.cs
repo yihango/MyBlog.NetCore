@@ -57,15 +57,11 @@ namespace MyBlog.Web.Middlewares
         {
             // 将异常添加到异常队列中
             ExceptionQueue.Enqueue(exception);
-            return null;
 
-            //// 根据实际需求进行具体实现
-            //var msg = exception.ToString();
-            //var code = HttpStatusCode.InternalServerError;
-            //var result = JsonConvert.SerializeObject(new { code = (int)code, msg = msg });
-            //context.Response.ContentType = "application/json";
-            //context.Response.StatusCode = (int)code;
-            //return context.Response.WriteAsync(result);
+            return Task.Run(() =>
+            {
+                context.Response.Redirect("/Error/{0}");
+            });
         }
     }
 

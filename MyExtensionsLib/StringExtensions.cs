@@ -34,6 +34,36 @@ namespace MyExtensionsLib
             return string.Format(text, args);
         }
 
+        /// <summary>
+        /// Windows/Linux路径判断(根据根目录)，处理完成拼接返回拼接后的结果
+        /// </summary>
+        /// <param name="rootPath">根目录</param>
+        /// <param name="path">要拼接的目录</param>
+        /// <returns>处理后的结果</returns>
+        public static string WinLinuxPathSwitchCombine(this string rootPath, string path)
+        {
+            // Linux
+            if (rootPath.StartsWith("/"))
+                path.Replace("\\", "/");
+            else // Windows
+                path = path.Replace("/", "\\");
+            return System.IO.Path.Combine(rootPath, path);
+        }
+        /// <summary>
+        /// Windows/Linux路径判断(根据根目录)，处理完成返回处理结果
+        /// </summary>
+        /// <param name="path">要处理的路径</param>
+        /// <param name="rootPath">根目录</param>
+        /// <returns>处理后的结果</returns>
+        public static string WinLinuxPathReplace(this string path, string rootPath)
+        {
+            // Linux
+            if (rootPath.StartsWith("/"))
+                path = path.Replace("\\", "/");
+            else // Windows
+                path = path.Replace("/", "\\");
+            return path;
+        }
 
 
         /// <summary>

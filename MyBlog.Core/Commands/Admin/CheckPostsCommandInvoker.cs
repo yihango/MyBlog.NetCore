@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using MySqlSugar;
+using MyExtensionsLib;
 using MyBlog.Models;
 
 namespace MyBlog.Core.Commands.Admin
@@ -45,26 +46,35 @@ namespace MyBlog.Core.Commands.Admin
 
                 // 遍历检测博文文件是否存在，不存在则从数据库中删除数据
                 if (queryRes != null || queryRes.Count > 0)
+                {
                     foreach (var item in queryRes)
-                        if (!File.Exists(Path.Combine(command.WebRootPath, item.post_path)))
+                    {
+                        // 如果文件不存在
+                        if (!File.Exists(Path.Combine(command.WebRootPath, item.post_path).WinLinuxPathReplace(command.WebRootPath)))
                         {
-                            if (null == dirPaths)
-                                dirPaths = new Dictionary<string, int>();
-                            dirPaths.Add(Path.GetDirectoryName(item.post_path), 0);
-
+                            if (null == dirPaths) dirPaths = new Dictionary<string, int>();
+                            // 
+                            dirPaths.Add(Path.GetDirectoryName(item.post_path)
+                                    .WinLinuxPathReplace(command.WebRootPath), 0);
+                            // 从数据中删除这一项
                             this._db.GetSession().Delete(item);
                             clearCount++;
                         }
+                    }
+                }
                 command.PageNum += 1;
             }
 
             // 删除多余文件夹
             if (null != dirPaths)
+            {
                 foreach (var item in dirPaths)
+                {
                     if (Directory.Exists(item.Key) && Directory.GetFiles(item.Key).Length <= 0)
                         Directory.Delete(item.Key);
-
-
+                }
+            }
+               
 
             return new CheckPostsCommandResult() { ClearCount = clearCount };
         }

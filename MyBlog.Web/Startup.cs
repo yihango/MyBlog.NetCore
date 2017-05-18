@@ -101,18 +101,28 @@ namespace MyBlog.Web
              * 针对这个问题进行了改进，针对500错误直接用静态文件的方式进行响应 
              * 参考博文：http://www.cnblogs.com/dudu/p/6004777.html?utm_source=tuicool&utm_medium=referral
              */
-            app.UseExceptionHandler(errorApp =>
-            {
-                errorApp.Run(async context =>
-                {
-                    context.Response.StatusCode = 500;
-                    if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
-                    {
-                        context.Response.ContentType = "text/html";
-                        await context.Response.SendFileAsync($"{env.WebRootPath}/Errors/500.html");
-                    }
-                });
-            });
+            //app.UseExceptionHandler(errorApp =>
+            //{
+            //    RequestDelegate
+            //    errorApp.Run(async (context) =>
+            //    {
+            //        context.Response.StatusCode = 500;
+            //        if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+            //        {
+            //            context.Response.ContentType = "text/html";
+            //            await context.Response.SendFileAsync($"{env.WebRootPath}/Errors/500.html");
+            //        }
+            //    });
+            //    errorApp.Run(async context =>
+            //    {
+            //        context.Response.StatusCode = 500;
+            //        if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+            //        {
+            //            context.Response.ContentType = "text/html";
+            //            await context.Response.SendFileAsync($"{env.WebRootPath}/Errors/500.html");
+            //        }
+            //    });
+            //});
             // 404错误
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
 

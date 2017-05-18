@@ -63,8 +63,9 @@ namespace MyBlog.Core.Commands.AdminPost
                 #region 保存文件到目录
 
                 // 保存文章的文件夹
-                var tempPath = command.PostRelativeSavePath.Replace("{time}", sortTime);
-                var dirPath = $"{command.WebRootPath}\\{tempPath}";
+                var tempPath = command.PostRelativeSavePath.Replace("{time}", sortTime).WinLinuxPathReplace(command.WebRootPath);
+
+                var dirPath = Path.Combine(command.WebRootPath, tempPath);
                 if (!Directory.Exists(dirPath))
                     Directory.CreateDirectory(dirPath);
 
@@ -72,7 +73,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 var filePath = string.Empty;
                 while (true)
                 {
-                    filePath = Path.Combine(dirPath, $"{postId}.html");
+                    filePath = Path.Combine(dirPath, $"{postId}.html").WinLinuxPathReplace(command.WebRootPath);
                     if (File.Exists(filePath))
                         postId = $"{tempTitle}_{DateTime.Now.ToStamp()}";
                     else
@@ -128,7 +129,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 savePost.post_pub_sortTime = sortTime;
                 savePost.post_summary = postSummary;
                 // 存储到数据库的是相对路径
-                savePost.post_path = Path.Combine(tempPath, Path.GetFileName(filePath));
+                savePost.post_path = Path.Combine(tempPath, Path.GetFileName(filePath)).WinLinuxPathReplace(command.WebRootPath);
 
                 savePost.post_tags = sbTags == null ? string.Empty : sbTags.ToString();
                 if (savePost.post_pub_state == 1)

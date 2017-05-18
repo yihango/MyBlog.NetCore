@@ -119,7 +119,7 @@ namespace MyBlog.Web.Controllers
 
             // 如果查询结果不为空，那么拼接博文路径为全路径
             if (null != viewModel.Post)
-                viewModel.Post.post_path = System.IO.Path.Combine(this._hostingEnvironment.WebRootPath, viewModel.Post.post_path);
+                viewModel.Post.post_path = this._hostingEnvironment.WebRootPath.WinLinuxPathSwitchCombine(viewModel.Post.post_path);
             else if (null == viewModel.Post)
                 return Redirect($"/AdminPost/Index/{pageNum}");
 

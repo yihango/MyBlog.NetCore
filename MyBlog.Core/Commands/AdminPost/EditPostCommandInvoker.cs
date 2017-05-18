@@ -94,7 +94,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 #region 写入到文件
 
                 // 检查文件夹是否存在,不存在创建新文件夹
-                var savePath = Path.Combine(command.WebRootPath, tempPost.post_path);
+                var savePath = Path.Combine(command.WebRootPath, tempPost.post_path).WinLinuxPathReplace(command.WebRootPath);
                 string dirPath = Path.GetDirectoryName(savePath);
                 if (!Directory.Exists(dirPath))
                     Directory.CreateDirectory(dirPath);
