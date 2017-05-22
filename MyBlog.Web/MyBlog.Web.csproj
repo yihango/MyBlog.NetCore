@@ -27,7 +27,6 @@
     <Content Include="wwwroot\Errors\404.html" />
     <Content Include="wwwroot\Errors\500.html" />
     <Content Include="wwwroot\Posts\UpLoadImgs\expiration.png" />
-    <Content Include="wwwroot\Posts\UpLoadImgs\loginTimeOut.png" />
     <Content Include="wwwroot\Scripts\myscripts\errors.js" />
     <Content Include="wwwroot\Styles\Errors\error.css" />
     <Content Include="wwwroot\User\icon.png" />
@@ -99,6 +98,7 @@
   <ItemGroup>
     <Folder Include="logfile\" />
     <Folder Include="logfile\" />
+    <Folder Include="wwwroot\Posts\PostHouse\" />
   </ItemGroup>
 
 </Project>

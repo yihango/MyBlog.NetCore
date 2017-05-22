@@ -113,7 +113,8 @@ namespace MyBlog.Core.Commands.AdminPost
 
                 // 将内容截取为简介
                 var noHtmlPostContent = command.PostContent.RemoveHtml();
-                var postSummary = $"{noHtmlPostContent.Substring(0, noHtmlPostContent.Length > 120 ? 120 : noHtmlPostContent.Length - 1)}...";
+                var postSummary = noHtmlPostContent.IsNullOrWhitespace() ? "" :
+                    $"{noHtmlPostContent.Substring(0, noHtmlPostContent.Length > 120 ? 120 : noHtmlPostContent.Length - 1)}...";
 
                 // 填充数据
                 if (tempPost.post_pub_state == 0 && int.Parse(command.PubState) == 1)
