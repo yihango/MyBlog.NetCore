@@ -15,8 +15,12 @@ namespace MyBlog.Core.Commands.Admin
         }
         public CommandResult Execute(UpdateTagCommand command)
         {
+             
             try
             {
+                // 开始事务
+                this._db.GetSession().BeginTran();
+
                 // 统计计数
                 List<tag_statistics_tb> insertAndUpdate = new List<tag_statistics_tb>();
                 List<string> delete = new List<string>();
@@ -91,7 +95,6 @@ namespace MyBlog.Core.Commands.Admin
                 // 如果存在标签统计表中的数据则修改数量，如果不存在标签统计表中的数据则插入
                 foreach (var item in insertAndUpdate)
                 {
-                    var temp = this._db.GetSession().InsertOrUpdate(item);
                     if (!(bool)this._db.GetSession().InsertOrUpdate(item))
                     {
                         this._db.GetSession().Insert<tag_statistics_tb>(item);
@@ -111,10 +114,14 @@ namespace MyBlog.Core.Commands.Admin
 
                 #endregion
 
+                // 提交事务
+                this._db.GetSession().CommitTran();
                 return new CommandResult();
             }
             catch (Exception e)
             {
+                // 回滚事务
+                this._db.GetSession().RollbackTran();
                 return new CommandResult(e.ToString());
             }
         }

@@ -28,16 +28,21 @@ namespace MyBlog.Core.Commands.Account
                 if (command.Password != command.ConfirmPassword)
                     return new UserLoginCommandResult("两次输入密码不一致");
 
+                // 开始事务
+                this._db.GetSession().BeginTran();
                 user_tb user = new user_tb();
                 user.user_account = command.UserAccount;
                 user.user_pwd = command.Password.GetMd5Hash();
 
                 this._db.GetSession().Insert(user);
-
+                // 提交事务
+                this._db.GetSession().CommitTran();
                 return new UserLoginCommandResult() { UserInfo = user };
             }
             catch (Exception e)
             {
+                // 回滚事务
+                this._db.GetSession().RollbackTran();
                 return new UserLoginCommandResult(e.ToString());
             }
         }

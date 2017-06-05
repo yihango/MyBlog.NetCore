@@ -5,10 +5,12 @@ using Microsoft.Extensions.Caching.Memory;
 using MyExtensionsLib;
 using MyBlog.Core;
 using MyBlog.Core.ViewProjections.AdminPost;
+using MyBlog.Core.Commands.Admin;
 using MyBlog.Core.Commands.AdminPost;
 using MyBlog.Models;
 using MyBlog.Web.Common;
 using MyBlog.Web.Filters;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -85,13 +87,17 @@ namespace MyBlog.Web.Controllers
             command.WebRootPath = this._hostingEnvironment.WebRootPath;
             // 设置博文保存的相对路径
             command.PostRelativeSavePath = this._webAppConfiguration.Value.settings.PostRelativeSavePath;
-            // 执行命令
+            // 执行新建博文命令
             var commandResult = this._commandInvokerFactory.Handle<NewPostCommand, CommandResult>(command);
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            // 更新标签统计
+            var commandResultB = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand());
+            var tagUpdateMsg = commandResultB.IsSuccess ? "标签更新成功" : "标签统计失败,请手动更新";
+
             this.ClearCache();
-            return Json(new { code = 1, msg = "Success:提交成功", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
+            return Json(new { code = 1, msg = $"Success:提交成功,{tagUpdateMsg}", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
         }
 
         #endregion
@@ -136,16 +142,19 @@ namespace MyBlog.Web.Controllers
         [HttpPost]
         public IActionResult EditPost(EditPostCommand command)
         {
-            // 设置当前应用静态文件所在目录
+            // 设置当前应用静态文件所在目录并执行提交编辑
             command.WebRootPath = this._hostingEnvironment.WebRootPath;
-            var commandResult = this._commandInvokerFactory.Handle<EditPostCommand, CommandResult>(command);
+            var commandResultA = this._commandInvokerFactory.Handle<EditPostCommand, CommandResult>(command);
+            // 判断是否保存成功
+            if (!commandResultA.IsSuccess)
+                return Json(new { code = -1, msg = $"Error:{commandResultA.GetErrors()[0]}", url = string.Empty });
 
-            // 
-            if (!commandResult.IsSuccess)
-                return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
+            // 更新标签统计
+            var commandResultB = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand());
+            var tagUpdateMsg = commandResultB.IsSuccess ? "标签更新成功" : "标签统计失败,请手动更新";
 
             this.ClearCache();
-            return Json(new { code = 1, msg = "Success:提交成功", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
+            return Json(new { code = 1, msg = $"Success:提交成功,{tagUpdateMsg}", url = $"/AdminPost/Index/{command.ReturnPageNum}" });
         }
 
         #endregion
@@ -172,13 +181,16 @@ namespace MyBlog.Web.Controllers
 
             #endregion
 
-            // 执行命令
+            // 执行删除命令
             var commandResult = this._commandInvokerFactory.Handle<DeletePostCommand, CommandResult>(new DeletePostCommand() { PostId = postId, WebRootPath = this._hostingEnvironment.WebRootPath });
 
             // 判断执行结果
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            // 更新标签统计
+            var commandResultB = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand());
+            var tagUpdateMsg = commandResultB.IsSuccess ? "标签更新成功" : "标签统计失败,请手动更新";
 
             this.ClearCache();
             // Get 请求重定向
@@ -186,7 +198,7 @@ namespace MyBlog.Web.Controllers
                 return Redirect($"/AdminPost/Index/{pageNum}");
 
             // Post 请求返回Json数据
-            return Json(new { code = -1, msg = "Success:删除成功", url = $"/AdminPost/Index/{pageNum}" });
+            return Json(new { code = -1, msg = $"Success:删除成功,{tagUpdateMsg}", url = $"/AdminPost/Index/{pageNum}" });
         }
 
         #endregion

@@ -43,41 +43,19 @@ namespace MyBlog.Core.Commands.AdminPost
                 #endregion
 
 
-
                 #region 从数据库中删除博文信息，删除失败抛出异常
+
+                // 开始事务
+                this._db.GetSession().BeginTran();
+                this._db.GetSession().Delete<post_tag_tb>($"post_id='{command.PostId}'");
 
                 // 删除数据库中的博文信息
                 if (!this._db.GetSession().Delete<post_tb>(p => p.post_id == command.PostId))
                     throw new Exception("从数据库中删除博文失败");
+                // 提交事务
+                this._db.GetSession().CommitTran();
 
                 #endregion
-
-
-
-                #region 删除/更新标签
-
-                List<tag_statistics_tb> updateTagList = new List<tag_statistics_tb>();
-                List<tag_statistics_tb> deleteTagList = new List<tag_statistics_tb>();
-                // 删除/更新 标签
-                foreach (var tag in tempPost.post_tags.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Distinct())
-                {
-                    var temp = this._db.GetSession().Queryable<tag_statistics_tb>(DbTableNames.tag_statistics_tb).Where(t => t.tag_name == tag);
-                    if (temp.Count() >= 1)
-                    {
-                        var tempTag = temp.FirstOrDefault();
-                        tempTag.tag_count -= 1;
-                        if (tempTag.tag_count >= 1)
-                            updateTagList.Add(tempTag);
-                        else
-                            deleteTagList.Add(tempTag);
-                    }
-                }
-
-                this._db.GetSession().SqlBulkReplace(updateTagList);
-                this._db.GetSession().Delete(deleteTagList);
-
-                #endregion
-
 
 
                 #region 从磁盘上删除文件
@@ -92,10 +70,11 @@ namespace MyBlog.Core.Commands.AdminPost
 
 
                 return new CommandResult();
-
             }
             catch (Exception e)
             {
+                // 回滚事务
+                this._db.GetSession().RollbackTran();
                 // 删除失败
                 return new CommandResult(e.ToString());
             }

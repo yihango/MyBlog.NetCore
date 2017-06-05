@@ -117,8 +117,13 @@ namespace MyBlog.Web.Controllers
             if (!commandResult.IsSuccess)
                 return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
 
+            // 更新标签统计
+            var commandResultB = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand());
+            var tagUpdateMsg = commandResultB.IsSuccess ? "标签更新成功" : "标签统计失败,请手动更新";
+
+            this.ClearCache(MemoryCacheKeys.Tags);
             this.ClearCache(MemoryCacheKeys.RecentPost);
-            return Json(new { code = 1, msg = $"Sussess:刷新文章数据成功,共清理 {commandResult.ClearCount} 条异常数据", url = string.Empty });
+            return Json(new { code = 1, msg = $"Sussess:刷新文章数据成功,共清理 {commandResult.ClearCount} 条异常数据,{tagUpdateMsg}", url = string.Empty });
         }
 
 

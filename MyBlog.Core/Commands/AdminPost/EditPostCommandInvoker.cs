@@ -24,6 +24,7 @@ namespace MyBlog.Core.Commands.AdminPost
 
         public CommandResult Execute(EditPostCommand command)
         {
+             
             try
             {
 
@@ -91,25 +92,11 @@ namespace MyBlog.Core.Commands.AdminPost
                 #endregion
 
 
-                #region 写入到文件
-
-                // 检查文件夹是否存在,不存在创建新文件夹
-                var savePath = Path.Combine(command.WebRootPath, tempPost.post_path).WinLinuxPathReplace(command.WebRootPath);
-                string dirPath = Path.GetDirectoryName(savePath);
-                if (!Directory.Exists(dirPath))
-                    Directory.CreateDirectory(dirPath);
-
-                // 写入文件内容到文件
-                using (FileStream fs = new FileStream(savePath, FileMode.Create, FileAccess.Write))
-                {
-                    var buffer = Encoding.UTF8.GetBytes(command.PostContent);
-                    fs.Write(buffer, 0, buffer.Length);
-                }
-
-                #endregion
-
-
                 #region 博文数据存储到数据库
+
+                // 开始事务
+                this._db.GetSession().BeginTran();
+
 
                 // 将内容截取为简介
                 var noHtmlPostContent = command.PostContent.RemoveHtml();
@@ -126,31 +113,41 @@ namespace MyBlog.Core.Commands.AdminPost
 
                 // 更新博文成功
                 if (this._db.GetSession().Update(tempPost))
-                    return new CommandResult();
-
-                #endregion
-
-
-                #region 修改标签数据
-
-                // 插入/更新/删除 标签数据到数据库
-                this._db.GetSession().SqlBulkCopy(insert);
-                this._db.GetSession().SqlBulkReplace(update);
-                this._db.GetSession().Delete<post_tag_tb, int>(delete.ToArray());
-
-                #endregion
-
-
-                #region 统计标签数据
-
-                // 更新标签数据
-                var invoker = new UpdateTagCommandInvoker(this._db);
-                var commandResult = invoker.Execute(new UpdateTagCommand());
-
-                if (!commandResult.IsSuccess)
                 {
-                    throw new Exception(commandResult.GetErrors()[0]);
+
+                    #region 修改标签数据
+
+                    // 插入/更新/删除 标签数据到数据库
+                    this._db.GetSession().SqlBulkCopy(insert);
+                    this._db.GetSession().SqlBulkReplace(update);
+                    this._db.GetSession().Delete<post_tag_tb, int>(delete.ToArray());
+
+                    #endregion
+
+
+                    #region 写入到文件
+
+                    // 检查文件夹是否存在,不存在创建新文件夹
+                    var savePath = Path.Combine(command.WebRootPath, tempPost.post_path).WinLinuxPathReplace(command.WebRootPath);
+                    string dirPath = Path.GetDirectoryName(savePath);
+                    if (!Directory.Exists(dirPath))
+                        Directory.CreateDirectory(dirPath);
+
+                    // 写入文件内容到文件
+                    using (FileStream fs = new FileStream(savePath, FileMode.Create, FileAccess.Write))
+                    {
+                        var buffer = Encoding.UTF8.GetBytes(command.PostContent);
+                        fs.Write(buffer, 0, buffer.Length);
+                    }
+
+                    #endregion
+
+                    // 提交事务事务
+                    this._db.GetSession().CommitTran();
+
+                    return new CommandResult();
                 }
+
                 #endregion
 
 
@@ -158,7 +155,9 @@ namespace MyBlog.Core.Commands.AdminPost
             }
             catch (Exception e)
             {
-                throw e;
+                // 回滚事务
+                this._db.GetSession().RollbackTran();
+                return new CommandResult(e.Message);
             }
         }
     }

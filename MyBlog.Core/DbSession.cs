@@ -26,6 +26,8 @@ namespace MyBlog.Core
             if (null == this._client)
             {
                 this._client = new SqlSugarClient(this._connStr);
+                // 命令超时时间
+                this.GetSession().CommandTimeOut = 15;
                 // sql日志记录功能
                 // 在这儿打断点,执行的查询都会进入该断点
                 this._client.IsEnableLogEvent = true;

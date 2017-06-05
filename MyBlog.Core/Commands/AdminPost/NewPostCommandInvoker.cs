@@ -29,6 +29,8 @@ namespace MyBlog.Core.Commands.AdminPost
         /// <returns></returns>
         public CommandResult Execute(NewPostCommand command)
         {
+            var savePath = string.Empty;
+             
             try
             {
 
@@ -70,18 +72,17 @@ namespace MyBlog.Core.Commands.AdminPost
                     Directory.CreateDirectory(dirPath);
 
                 // 保存文章的全路径
-                var filePath = string.Empty;
                 while (true)
                 {
-                    filePath = Path.Combine(dirPath, $"{postId}.html").WinLinuxPathReplace(command.WebRootPath);
-                    if (File.Exists(filePath))
+                    savePath = Path.Combine(dirPath, $"{postId}.html").WinLinuxPathReplace(command.WebRootPath);
+                    if (File.Exists(savePath))
                         postId = $"{tempTitle}_{DateTime.Now.ToStamp()}";
                     else
                         break;
                 }
 
                 // 写入到文件
-                using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                using (FileStream fs = new FileStream(savePath, FileMode.Create, FileAccess.Write))
                 {
                     var buffer = Encoding.UTF8.GetBytes(command.PostContent);
                     fs.Write(buffer, 0, buffer.Length);
@@ -117,6 +118,9 @@ namespace MyBlog.Core.Commands.AdminPost
 
                 #region 博文数据存储到数据库
 
+                // 开始事务
+                this._db.GetSession().BeginTran();
+
                 // 将内容截取为简介
                 var noHtmlPostContent = command.PostContent.RemoveHtml();
                 var postSummary = noHtmlPostContent.IsNullOrWhitespace() ? "" :
@@ -130,7 +134,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 savePost.post_pub_sortTime = sortTime;
                 savePost.post_summary = postSummary;
                 // 存储到数据库的是相对路径
-                savePost.post_path = Path.Combine(tempPath, Path.GetFileName(filePath)).WinLinuxPathReplace(command.WebRootPath);
+                savePost.post_path = Path.Combine(tempPath, Path.GetFileName(savePath)).WinLinuxPathReplace(command.WebRootPath);
 
                 savePost.post_tags = sbTags == null ? string.Empty : sbTags.ToString();
                 if (savePost.post_pub_state == 1)
@@ -140,20 +144,12 @@ namespace MyBlog.Core.Commands.AdminPost
 
                 // 插入博文信息到数据库
                 this._db.GetSession().Insert(savePost);
-
-                #endregion
-
-
-                #region 更新标签数据
-
                 // 插入标签数据到数据库
-                this._db.GetSession().SqlBulkCopy(insert);
+                this._db.GetSession().InsertRange(insert);
 
-                // 更新标签数据
-                var invoker = new UpdateTagCommandInvoker(this._db);
-                var commandResult = invoker.Execute(new UpdateTagCommand());
-                if (!commandResult.IsSuccess)
-                    throw new Exception(commandResult.GetErrors()[0]);
+
+                // 提交事务
+                this._db.GetSession().CommitTran();
 
                 #endregion
 
@@ -162,7 +158,12 @@ namespace MyBlog.Core.Commands.AdminPost
             }
             catch (Exception e)
             {
+                // 文件存在则删除此文件
+                if (File.Exists(savePath)) File.Delete(savePath);
+                // 回滚事务
+                this._db.GetSession().RollbackTran();
 
+                return new CommandResult(e.Message);
                 throw e;
             }
         }
