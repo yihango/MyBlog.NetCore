@@ -30,24 +30,9 @@ namespace MyBlog.Core.Commands.AdminPost
         public CommandResult Execute(NewPostCommand command)
         {
             var savePath = string.Empty;
-             
+
             try
             {
-
-                #region 过滤标题中无法存储为文件名的字符并转换为拼音
-
-                // 处理标签中的多余字符串生成已处理过的字符串
-                string[] chars = { @"\", "/", ":", "*", "?", "#", "<", ">", "|", "\"", "&", " " };
-                var tempTitle = command.Title;
-                foreach (var item in chars)
-                    tempTitle = tempTitle.Replace(item, "");
-
-                // 转换为拼音
-                tempTitle = tempTitle.ConvertChineseToPY();
-
-                #endregion
-
-
                 #region 创建时间戳和短时间标记
 
                 // 当前时间
@@ -57,7 +42,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 // 创建短时间标记 ( 年_月_日 )
                 var sortTime = dt.ToString("yyyy_MM_dd");
                 // 创建博文编号
-                var postId = $"{tempTitle}_{timeStamp}";
+                var postId = $"{command.Title}_{timeStamp}".GetMd5Hash();
 
                 #endregion
 
@@ -76,7 +61,7 @@ namespace MyBlog.Core.Commands.AdminPost
                 {
                     savePath = Path.Combine(dirPath, $"{postId}.html").WinLinuxPathReplace(command.WebRootPath);
                     if (File.Exists(savePath))
-                        postId = $"{tempTitle}_{DateTime.Now.ToStamp()}";
+                        postId = $"{command.Title}_{DateTime.Now.ToStamp()}".GetMd5Hash();
                     else
                         break;
                 }
