@@ -53,7 +53,9 @@ namespace MyBlog.Web.Controllers
 
             var viewModel = this._viewProjectionFactory.GetViewProjection<AllBlogPostBindModel, AllBlogPostViewModel>(new AllBlogPostBindModel() { PageNum = pageNum });
 
-            return View("Index", viewModel);
+            // TODO:使用 return View("Index", viewModel); 找不到视图
+
+            return View("/Views/AdminPost/Index.cshtml", viewModel);
         }
 
         #endregion

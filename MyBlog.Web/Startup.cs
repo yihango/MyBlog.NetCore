@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -9,13 +10,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using log4net;
-using log4net.Repository;
-using log4net.Config;
+using NLog.Extensions.Logging;
 using MyBlog.Core;
 using MyBlog.Models;
 using MyBlog.Web.Features;
 using MyBlog.Web.Middlewares;
+using MyBlog.Web.Common;
 
 
 namespace MyBlog.Web
@@ -23,7 +23,8 @@ namespace MyBlog.Web
     public class Startup
     {
         public IConfigurationRoot Configuration { get; }
-        public static ILoggerRepository Repository { get; set; }
+
+        public ILoggerFactory LoggerFactory { get; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -35,9 +36,6 @@ namespace MyBlog.Web
 
             this.Configuration = builder.Build();
 
-            // Log4Net配置读取
-            Repository = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(Repository, new FileInfo("log4net.config"));
         }
 
 
@@ -56,7 +54,22 @@ namespace MyBlog.Web
             // MVC
             services.AddMvc();
 
-           
+
+
+            #region 认证Cookie配置
+
+            // https://github.com/aspnet/Security/issues/1310
+            // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
+            var authenticationBuilder = services.AddAuthentication(Global._auth);
+
+            authenticationBuilder.AddCookie(Global._auth, conf =>
+            {
+                conf.LoginPath = new PathString("/Account/Index");
+                conf.AccessDeniedPath = new PathString("/Admin");
+            });
+
+            #endregion
+
 
 
             #region 读取配置文件并注册
@@ -64,6 +77,7 @@ namespace MyBlog.Web
             services.Configure<WebAppConfiguration>(this.Configuration.GetSection("WebAppConfiguration"));
 
             #endregion
+
 
 
             #region 视图工厂/命令工厂/数据库会话 注册
@@ -78,6 +92,7 @@ namespace MyBlog.Web
 
         }
 
+
         /// <summary>
         /// 配置Http请求管道
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,23 +102,28 @@ namespace MyBlog.Web
         /// <param name="loggerFactory"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // 编码注册
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+
+            loggerFactory.AddNLog();
 
             #region 异常捕获，日志记录，错误页跳转 配置
-            
+
             // 全局异常捕获中间件注册
             app.UseErrorHandling();
 
+            #region 暂时不用的
 
-            // 配置错误页 500
+            //// 配置错误页 500
 
-            /* 当出现底层异常时，自定义错误页面不能显示，还是一片空白
-             * 这时想到用 MVC 显示自定义错误页面的局限，如果发生的异常导致 MVC 本身不能正常工作，自定义错误页面就无法显示。
-             * 针对这个问题进行了改进，针对500错误直接用静态文件的方式进行响应 
-             * 参考博文：http://www.cnblogs.com/dudu/p/6004777.html?utm_source=tuicool&utm_medium=referral
-             */
+            ///* 当出现底层异常时，自定义错误页面不能显示，还是一片空白
+            // * 这时想到用 MVC 显示自定义错误页面的局限，如果发生的异常导致 MVC 本身不能正常工作，自定义错误页面就无法显示。
+            // * 针对这个问题进行了改进，针对500错误直接用静态文件的方式进行响应 
+            // * 参考博文：http://www.cnblogs.com/dudu/p/6004777.html?utm_source=tuicool&utm_medium=referral
+            // */
             //app.UseExceptionHandler(errorApp =>
             //{
-            //    RequestDelegate
             //    errorApp.Run(async (context) =>
             //    {
             //        context.Response.StatusCode = 500;
@@ -123,8 +143,9 @@ namespace MyBlog.Web
             //        }
             //    });
             //});
-            // 404错误
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            //// 404错误
+            //app.UseStatusCodePagesWithReExecute("/Error/{0}"); 
+            #endregion
 
 
             // 启用日志记录
@@ -134,21 +155,18 @@ namespace MyBlog.Web
 
 
 
-            #region Session，Cookie 配置
+            #region 身份认证和session
+
+            app.UseAuthentication();
+
 
             // 配置session
             app.UseSession(new SessionOptions()
             {
-                CookieName = "_coresessionid"// Session名称
-            });
-
-
-            // 配置cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions()
-            {
-                AuthenticationScheme = "_auth",// Cookie 验证方案名称，在写cookie时会用到。
-                LoginPath = new PathString("/Account/Index"),// 登录页
-                AutomaticAuthenticate = true // 是否自动启用验证，如果不启用，则即便客服端传输了Cookie信息，服务端也不会主动解析。除了明确配置了 [Authorize(ActiveAuthenticationSchemes = "上面的方案名")] 属性的地方，才会解析，此功能一般用在需要在同一应用中启用多种验证方案的时候。比如分Area.
+                Cookie = new CookieBuilder()
+                {
+                    Name = Global._session_client
+                }
             });
 
             #endregion
@@ -177,7 +195,7 @@ namespace MyBlog.Web
                 routes.MapRoute(name: "default",
                             template: "{controller}/{action}/{page?}",
                             defaults: new { controller = "Home", action = "Index" });
-            });     
+            });
 
             #endregion
 
@@ -272,7 +290,6 @@ namespace MyBlog.Web
             // 开启一个线程，扫描异常信息队列
             System.Threading.ThreadPool.QueueUserWorkItem(a =>
             {
-                ILog log4Net = LogManager.GetLogger(Repository.Name, "Global Error :");
                 while (true)
                 {
                     // 检查队列中是否存在数据
@@ -284,7 +301,7 @@ namespace MyBlog.Web
                         if (null != exception)
                         {
                             // 记录错误到日志文件
-                            log4Net.Error(exception.ToString());
+                            NLogHelper.Write("execption", exception.ToString());
                         }
                         else
                         {

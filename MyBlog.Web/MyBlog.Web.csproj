@@ -1,36 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Packages\**" />
-    <Compile Remove="Scripts\**" />
-    <Compile Remove="Styles\**" />
-    <Compile Remove="wwwroot\UpLoadImgs\**" />
-    <Content Remove="Packages\**" />
-    <Content Remove="Scripts\**" />
-    <Content Remove="Styles\**" />
-    <Content Remove="wwwroot\UpLoadImgs\**" />
-    <EmbeddedResource Remove="Packages\**" />
-    <EmbeddedResource Remove="Scripts\**" />
-    <EmbeddedResource Remove="Styles\**" />
-    <EmbeddedResource Remove="wwwroot\UpLoadImgs\**" />
-    <None Remove="Packages\**" />
-    <None Remove="Scripts\**" />
-    <None Remove="Styles\**" />
-    <None Remove="wwwroot\UpLoadImgs\**" />
+    <Compile Remove="logfile\**" />
+    <Content Remove="logfile\**" />
+    <EmbeddedResource Remove="logfile\**" />
+    <None Remove="logfile\**" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Content Include="wwwroot\Errors\404.html" />
     <Content Include="wwwroot\Errors\500.html" />
     <Content Include="wwwroot\Posts\UpLoadImgs\expiration.png" />
     <Content Include="wwwroot\Scripts\myscripts\errors.js" />
     <Content Include="wwwroot\Styles\Errors\error.css" />
     <Content Include="wwwroot\User\icon.png" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <None Include="wwwroot\packages.config" />
@@ -80,25 +68,31 @@
     <None Include="wwwroot\Styles\my_panel.css" />
     <None Include="wwwroot\Styles\m_p_clear.css" />
   </ItemGroup>
+  
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
     <ProjectReference Include="..\MyCommonLib\MyCommonLib.csproj" />
     <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="logfile\" />
-    <Folder Include="logfile\" />
     <Folder Include="wwwroot\Posts\PostHouse\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="appSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

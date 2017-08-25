@@ -52,7 +52,7 @@ namespace MyBlog.Web.Controllers
             var filePath = string.Empty;
             while (true)
             {
-                filePath = Path.Combine(dirPath, $"{DateTime.Now.ToStamp()}_{files[0].FileName}");
+                filePath = Path.Combine(dirPath, $"{DateTime.Now.ToStamp()}_{files[0].FileName}").Replace("\\", "/"); ;
                 if (!System.IO.File.Exists(filePath))
                     break;
             }
