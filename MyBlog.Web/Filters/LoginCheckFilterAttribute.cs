@@ -27,7 +27,7 @@ namespace MyBlog.Web.Filters
                         context.Result = new JsonResult(new { code = "-2", msg = "Error:登陆过期", url = "/Account/Index" });
                     // 如果请求的控制器为FileController
                     else if (context.HttpContext.Request.Path.Value.StartsWith("/File"))
-                        context.Result = new ContentResult() { Content= "/Contents/Posts/UpLoadImgs/expiration.png" };
+                        context.Result = new ContentResult() { Content= "/Posts/UpLoadImgs/expiration.png" };
                 }
 
                 // 其他

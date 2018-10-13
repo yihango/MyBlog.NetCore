@@ -6,7 +6,7 @@
 }
 
 @* wangEditor样式 *@
-<link href="@Url.Content("/Contents/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
+<link href="~/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
 
 
 <header id="header">
@@ -19,14 +19,14 @@
     <form action="/AdminPost/@(Model.Post==null?"NewPost":"EditPost")"
           method="post"
           data-ajax="true"
-          data-ajax-method="post" 
-          data-ajax-loading="#loding" 
-          data-ajax-success="success" 
-          novalidate="novalidate" 
+          data-ajax-method="post"
+          data-ajax-loading="#loding"
+          data-ajax-success="success"
+          novalidate="novalidate"
           data-val="true">
         <input name="ReturnPageNum" type="hidden" value="@(ViewBag.ReturnPageNum)" />
-        <input name="PostId" type="hidden" value="@(Model.Post==null?string.Empty:Model.Post.post_id)" />
-        <input name="OldTitle" type="hidden" value="@(Model.Post==null?string.Empty:Model.Post.post_title)" />
+        <input name="PostId" type="hidden" value="@(Model.Post==null?-1:Model.Post.Id)" />
+        <input name="OldTitle" type="hidden" value="@(Model.Post==null?string.Empty:Model.Post.Title)" />
         <input name="Title"
                type="text"
                class="form-control"
@@ -34,17 +34,23 @@
                data-val-required="请输入文章标题"
                placeholder="文章标题"
                required="required"
-               value="@(Model.Post==null?string.Empty:Model.Post.post_title)" />
+               value="@(Model.Post==null?string.Empty:Model.Post.Title)" />
         <span class="field-validation-valid text-danger" data-valmsg-for="Title" data-valmsg-replace="true"></span><br />
-        <textarea id="my_editor"
+
+        <div id="my_editor"
+             name="PostContent"
+             style="height:380px;">
+            @Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)
+        </div>
+        @*<textarea id="my_editor"
                   name="PostContent"
                   class="form-control"
-                  style="width:80%;height:380px;">@Html.Raw(Model.Post == null ? string.Empty : System.IO.File.ReadAllText(Model.Post.post_path))</textarea>
+                  style="width:80%;height:380px;">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)</textarea>*@
         <input name="Tags"
                type="text"
                class="form-control"
                placeholder="输入文章标签(使用 “,” 分隔)"
-               value="@(Model.Post==null?string.Empty:Model.Post.post_tags)" style="margin-top:10px;" />
+               value="@(Model.Post==null?string.Empty:string.Join(",",Model.Post.GetTags()))" style="margin-top:10px;" />
         <div class="row">
             <div class="col-md-5" style="margin-top:10px;">
                 <select name="PubState" class="form-control" style="display:inline-block;">
@@ -60,5 +66,5 @@
 </div>
 
 
-<script src="@Url.Content("/Contents/Packages/wangEditor/js/wangEditor.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("/Contents/Scripts/myscripts/editPost.js")" type="text/javascript"></script>
+<script src="~/Packages/wangEditor/js/wangEditor.min.js" type="text/javascript" asp-append-version="true"></script>
+<script src="/js/myscripts/editPost.js" type="text/javascript" asp-append-version="true"></script>

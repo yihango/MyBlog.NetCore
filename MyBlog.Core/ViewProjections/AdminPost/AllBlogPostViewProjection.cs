@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.AdminPost
 {
@@ -9,10 +9,10 @@ namespace MyBlog.Core.ViewProjections.AdminPost
     /// </summary>
     public class AllBlogPostViewProjection : IViewProjection<AllBlogPostBindModel, AllBlogPostViewModel>
     {
-        private readonly IDbSession _db;
-        public AllBlogPostViewProjection(IDbSession db)
+        private readonly BlogDbContext _context;
+        public AllBlogPostViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -27,9 +27,10 @@ namespace MyBlog.Core.ViewProjections.AdminPost
             var skip = (input.PageNum - 1) * input.Take;
 
             // 计算总页数
-            var allCount = this._db.GetSession().Queryable<post_tb>(DbTableNames.post_tb)
-                            .Select(p => p.post_id)
-                            .Count();
+            var postQuery = this._context.Posts.AsQueryable();
+            var allCount = postQuery.Count();
+
+
 
             allPageNum = allCount / input.Take;
             if (allCount % input.Take != 0)
@@ -39,9 +40,8 @@ namespace MyBlog.Core.ViewProjections.AdminPost
 
 
             // 查询到的结果集合
-            var queryPostList = this._db.GetSession()
-                           .Queryable<post_tb>(DbTableNames.post_tb)
-                           .OrderBy(p => p.post_pub_time, OrderByType.desc)
+            var queryPostList = postQuery
+                           .OrderByDescending(o => o.PublishDate)
                            .Skip(skip).Take(input.Take)
                            .ToList();
 

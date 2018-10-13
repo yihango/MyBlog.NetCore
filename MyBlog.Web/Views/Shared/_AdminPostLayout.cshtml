@@ -4,20 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>@ViewBag.Title</title>
-    @Html.Partial("~/Views/Shared/_StyleLayout.cshtml")
-    @Html.Partial("~/Views/Shared/_JqueryLayout.cshtml")
-    <link href="@Url.Content("/Contents/Styles/Manager/layout.css")" rel="stylesheet" />
+    <partial name="~/Views/Shared/_StyleLayout.cshtml" />
+    <partial name="~/Views/Shared/_JqueryLayout.cshtml" />
+    <link href="/css/Manager/layout.css" rel="stylesheet" />
 </head>
 <body>
 
     @RenderBody()
 
     @* 加载动画 *@
-    @Html.Partial("~/Views/Shared/_LoadAnimationLayout.cshtml")
+    <partial name="~/Views/Shared/_LoadAnimationLayout.cshtml" />
 
     <footer id="footer" style=""></footer>
 
     @* 导入脚本 *@
-    @Html.Partial("~/Views/Shared/_ScriptLayout.cshtml")
+    <partial name="~/Views/Shared/_ScriptLayout.cshtml" />
 </body>
 </html>

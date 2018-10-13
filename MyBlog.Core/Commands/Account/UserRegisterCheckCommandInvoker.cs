@@ -1,6 +1,5 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
 
 namespace MyBlog.Core.Commands.Account
 {
@@ -9,14 +8,14 @@ namespace MyBlog.Core.Commands.Account
     /// </summary>
     public class UserRegisterCheckCommandInvoker : ICommandInvoker<UserRegisterCheckCommand, CommandResult>
     {
-        private readonly IDbSession _db;
-        public UserRegisterCheckCommandInvoker(IDbSession db)
+        private readonly BlogDbContext _context;
+        public UserRegisterCheckCommandInvoker(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
         public CommandResult Execute(UserRegisterCheckCommand command)
         {
-            var queryUserCount = this._db.GetSession().Queryable<user_tb>(DbTableNames.user_tb).Count();
+            var queryUserCount = this._context.Users.Count();
             if (queryUserCount >= 1)
             {
                 return new CommandResult();

@@ -8,6 +8,6 @@
         /// <summary>
         /// 博文id
         /// </summary>
-        public string PostId { get; set; }
+        public long PostId { get; set; }
     }
 }

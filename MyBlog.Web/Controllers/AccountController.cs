@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
 using MyCommonLib;
 using MyExtensionsLib;
-using MyBlog.Models;
+
 using MyBlog.Core;
 using MyBlog.Core.Commands.Account;
 using MyBlog.Web.Common;
@@ -19,14 +19,12 @@ namespace MyBlog.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IOptions<WebAppConfiguration> _webAppConfiguration;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
 
-        public AccountController(IHostingEnvironment hostingEnvironment, IOptions<WebAppConfiguration> webAppConfiguration, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        public AccountController(IHostingEnvironment hostingEnvironment, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
         {
             this._hostingEnvironment = hostingEnvironment;
-            this._webAppConfiguration = webAppConfiguration;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
         }
@@ -168,7 +166,7 @@ namespace MyBlog.Web.Controllers
             // 文字大小
             v.SetFontSize = 18;
             // 设置字体
-            v.SetFontFamily = this._webAppConfiguration.Value.settings.FontFamily;
+            //v.SetFontFamily = this._webAppConfiguration.Value.settings.FontFamily;
             var questionItem = v.GetQuestion();
             v.SetVerifyCodeText = questionItem.Key;
 

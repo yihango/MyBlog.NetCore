@@ -34,14 +34,14 @@
                 {
                     <tr>
                         <td style="text-align:left;">
-                            <a style="display:block;font-size:15px;color:black;" href="/AdminPost/EditPost?post=@(item.post_id)&page=@(Model.PageNum)">@item.post_title</a>
+                            <a style="display:block;font-size:15px;color:black;" href="/AdminPost/EditPost?post=@(item.Id)&page=@(Model.PageNum)">@item.Title</a>
                         </td>
-                        <td>@(item.post_pub_state == 1 ? "已发布" : "未发布")</td>
+                        <td>@(item.IsPublish ? "已发布" : "未发布")</td>
                         <td>
-                            <a class="btn btn-primary" href="/AdminPost/EditPost?post=@(item.post_id)&page=@(Model.PageNum)">编辑</a>
+                            <a class="btn btn-primary" href="/AdminPost/EditPost?id=@(item.Id)&page=@(Model.PageNum)">编辑</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="/AdminPost/DeletePost?post=@(item.post_id)&page=@(Model.PageNum)">删除</a>
+                            <a class="btn btn-danger" href="/AdminPost/DeletePost?id=@(item.Id)&page=@(Model.PageNum)">删除</a>
                         </td>
                     </tr>
                 }

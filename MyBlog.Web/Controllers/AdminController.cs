@@ -87,57 +87,6 @@ namespace MyBlog.Web.Controllers
 
 
 
-        #region 更新标签/文章数据
-
-        /// <summary>
-        /// 刷新标签数据
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult RefreshTag()
-        {
-            var commandResult = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand() { });
-
-            if (!commandResult.IsSuccess)
-                return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
-
-            this.ClearCache(MemoryCacheKeys.Tags);
-            return Json(new { code = 1, msg = "Success:刷新标签数据成功", url = string.Empty });
-        }
-
-        /// <summary>
-        /// 刷新文章数据
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult RefreshPost()
-        {
-            var commandResult = this._commandInvokerFactory.Handle<CheckPostsCommand, CheckPostsCommandResult>(new CheckPostsCommand() { WebRootPath = this._hostingEnvironment.WebRootPath });
-
-            if (!commandResult.IsSuccess)
-                return Json(new { code = -1, msg = $"Error:{commandResult.GetErrors()[0]}", url = string.Empty });
-
-            // 更新标签统计
-            var commandResultB = this._commandInvokerFactory.Handle<UpdateTagCommand, CommandResult>(new UpdateTagCommand());
-            var tagUpdateMsg = commandResultB.IsSuccess ? "标签更新成功" : "标签统计失败,请手动更新";
-
-            this.ClearCache(MemoryCacheKeys.Tags);
-            this.ClearCache(MemoryCacheKeys.RecentPost);
-            return Json(new { code = 1, msg = $"Sussess:刷新文章数据成功,共清理 {commandResult.ClearCount} 条异常数据,{tagUpdateMsg}", url = string.Empty });
-        }
-
-
-        /// <summary>
-        /// 清除指定的缓存
-        /// </summary>
-        /// <param name="cacheKey"></param>
-        private void ClearCache(string cacheKey)
-        {
-            this._memoryCache.Remove(cacheKey);
-        }
-
-        #endregion
-
 
 
         #region 退出登录

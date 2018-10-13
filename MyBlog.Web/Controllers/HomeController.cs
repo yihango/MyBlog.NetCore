@@ -63,7 +63,7 @@ namespace MyBlog.Web.Controllers
         [HttpGet]
         public IActionResult Posts(PostBindModel model)
         {
-            if (null == model || model.PostId.IsNullOrWhitespace() || model.PostPutSortTime.IsNullOrWhitespace())
+            if (null == model || model.PostId.HasValue || model.PostPutSortTime.IsNullOrWhitespace())
                 return View("Index", null);
 
             // 
@@ -73,9 +73,9 @@ namespace MyBlog.Web.Controllers
             // 如果查询到的数据不为空，那么拼接出全路径
             if (null != viewModel.PostInfo)
             {
-                viewModel.PostInfo.post_path = this._hostingEnvironment.WebRootPath.WinLinuxPathSwitchCombine(viewModel.PostInfo.post_path);
-                if (!System.IO.File.Exists(viewModel.PostInfo.post_path))
-                    throw new System.Exception($"未找到文件!{viewModel.PostInfo.post_path}");
+                //viewModel.PostInfo.post_path = this._hostingEnvironment.WebRootPath.WinLinuxPathSwitchCombine(viewModel.PostInfo.post_path);
+                //if (!System.IO.File.Exists(viewModel.PostInfo.post_path))
+                //    throw new System.Exception($"未找到文件!{viewModel.PostInfo.post_path}");
             }
 
             Set();

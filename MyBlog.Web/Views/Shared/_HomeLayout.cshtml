@@ -1,18 +1,24 @@
-﻿
+﻿@{
+    Layout = null;
+}
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>@ViewBag.Title</title>
-    @Html.Partial("~/Views/Shared/_StyleLayout.cshtml")
-    @Html.Partial("~/Views/Shared/_JqueryLayout.cshtml")
-    <link href="@Url.Content("/Contents/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/my_panel.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/layout.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/post_list.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/post_details.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/button.prev.next.css")" rel="stylesheet" />
+
+
+    <partial name="~/Views/Shared/_StyleLayout.cshtml"></partial>
+
+    <partial name="~/Views/Shared/_JqueryLayout.cshtml"></partial>
+
+    <link href="/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
+    <link href="/css/my_panel.css" rel="stylesheet" />
+    <link href="/css/Home/layout.css" rel="stylesheet" />
+    <link href="/css/Home/post_list.css" rel="stylesheet" />
+    <link href="/css/Home/post_details.css" rel="stylesheet" />
+    <link href="/css/button.prev.next.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -38,7 +44,7 @@
             <div class="infos hidden-xs col-sm-4  col-md-4">
 
                 @* 关于我 *@
-                @Html.Partial("~/Views/Home/_AboutMe.cshtml")
+                <partial name="~/Views/Home/_AboutMe.cshtml" />
 
                 @* 文章标签 *@
                 <div class="panel">
@@ -52,7 +58,7 @@
                         {
                             foreach (var item in ViewBag.Tags.TagList)
                             {
-                            <a href="/TagPosts/Home/Tags/@(item.tag_name)/1" target="_blank">@(item.tag_name)<span class="tag-count">@item.tag_count</span></a>
+                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
 
                             }
                         }
@@ -71,7 +77,7 @@
                         {
                             foreach (var item in ViewBag.RecentPost.PostList)
                             {
-                            <a href="~/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">@item.post_title</a><br />
+                                <a href="~/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
                             }
                         }
                     </div>
@@ -85,7 +91,7 @@
                         <a href="http://www.cnblogs.com/yunei" target="_blank">宇内流云的园子</a>
                         <a href="http://www.cnblogs.com/shanyou" target="_blank">张善友的园子</a>
                         <a href="http://www.jhonge.com/" target="_blank">惊鸿哥的港湾</a>
-			<a href="http://yimingzhi.net/" target="_blank">衣明志的技术博客</a>
+                        <a href="http://yimingzhi.net/" target="_blank">衣明志的技术博客</a>
 
                     </div>
                 </div>
@@ -96,11 +102,11 @@
 
     @*@* 页脚信息 *@
     <footer id="footer" style="color:#fff">
-       备案号：粤ICP备xxxxx号-1
-<p></p>
+        备案号：粤ICP备xxxxx号-1
+        <p></p>
     </footer>
 
     @* 导入脚本 *@
-    @Html.Partial("~/Views/Shared/_ScriptLayout.cshtml")
+    <partial name="~/Views/Shared/_ScriptLayout.cshtml"></partial>
 </body>
 </html>

@@ -5,7 +5,6 @@
 @model MyBlog.Core.ViewProjections.Home.HomeViewModel
 
 @{
-    Layout = "_HomeLayout";
     ViewBag.Title = "玩双截棍的熊猫的博客";
 }
 
@@ -16,15 +15,15 @@
     {
         <div class="post">
             <div class="post-details">
-                <a class="post-title" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">@item.post_title</a><br />
+                <a class="post-title" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
                 <div class="post-time">
-                    <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@item.post_pub_time</span>&nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@item.PublishDate</span>&nbsp;&nbsp;
                 </div>
 
                 @* 摘要内容 *@
                 <div class="post-content">
-                    <a href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank" style="word-break: break-all;">
-                        @(Html.Raw(item.post_summary))
+                    <a href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank" style="word-break: break-all;">
+                        @(Html.Raw(item.Summary??string.Empty))
                     </a>
                 </div>
 
@@ -33,9 +32,9 @@
                     <i class="glyphicon glyphicon-tags"></i>&nbsp;
                     @foreach (var tag in item.GetTags())
                     {
-                        <a class="post-tag" href="/TagPosts/Home/Tags/@(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
+                        <a class="post-tag" href="/TagPosts/Home/Tags/@Html.Encode(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
                     }
-                    <a class="post-read" href="/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">阅读全文</a>
+                    <a class="post-read" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">阅读全文...</a>
                 </div>
 
             </div>
@@ -47,7 +46,7 @@ else
     <div class="post">
         <div class="details">
             <div>
-               @(Model.AllPageNum >= Model.PageNum ? "未发布任何文章..." : "未找到数据...")
+                @(Model.AllPageNum >= Model.PageNum ? "未发布任何文章..." : "未找到数据...")
             </div>
         </div>
     </div>

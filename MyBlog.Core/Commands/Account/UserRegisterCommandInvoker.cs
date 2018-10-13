@@ -1,6 +1,7 @@
 ﻿using System;
+using MyBlog.Core.Users;
 using MyExtensionsLib;
-using MyBlog.Models;
+
 
 namespace MyBlog.Core.Commands.Account
 {
@@ -9,11 +10,11 @@ namespace MyBlog.Core.Commands.Account
     /// </summary>
     public class UserRegisterCommandInvoker : ICommandInvoker<UserRegisterCommand, UserLoginCommandResult>
     {
-        private readonly IDbSession _db;
+        private readonly BlogDbContext _context;
 
-        public UserRegisterCommandInvoker(IDbSession db)
+        public UserRegisterCommandInvoker(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -23,26 +24,31 @@ namespace MyBlog.Core.Commands.Account
         /// <returns></returns>
         public UserLoginCommandResult Execute(UserRegisterCommand command)
         {
+
             try
             {
+
+
                 if (command.Password != command.ConfirmPassword)
                     return new UserLoginCommandResult("两次输入密码不一致");
 
-                // 开始事务
-                this._db.GetSession().BeginTran();
-                user_tb user = new user_tb();
-                user.user_account = command.UserAccount;
-                user.user_pwd = command.Password.GetMd5Hash();
+                User user = null;
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    user = new User();
+                    user.Account = command.UserAccount;
+                    user.Password = command.Password.GetMd5Hash();
 
-                this._db.GetSession().Insert(user);
-                // 提交事务
-                this._db.GetSession().CommitTran();
+                    this._context.Users.Add(user);
+
+                    this._context.SaveChanges();
+                    // 提交事务
+                    transaction.Commit();
+                }
                 return new UserLoginCommandResult() { UserInfo = user };
             }
             catch (Exception e)
             {
-                // 回滚事务
-                this._db.GetSession().RollbackTran();
                 return new UserLoginCommandResult(e.ToString());
             }
         }

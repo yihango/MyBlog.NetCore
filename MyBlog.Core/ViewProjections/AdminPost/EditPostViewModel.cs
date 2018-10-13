@@ -1,4 +1,6 @@
-﻿using MyBlog.Models;
+﻿
+
+using MyBlog.Core.Posts;
 
 namespace MyBlog.Core.ViewProjections.AdminPost
 {
@@ -10,6 +12,6 @@ namespace MyBlog.Core.ViewProjections.AdminPost
         /// <summary>
         /// 博文
         /// </summary>
-        public post_tb Post { get; set; }
+        public Post Post { get; set; }
     }
 }
