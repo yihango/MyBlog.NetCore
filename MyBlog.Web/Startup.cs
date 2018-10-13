@@ -30,7 +30,7 @@ namespace MyBlog.Web
             var builder = new ConfigurationBuilder()
                 .SetFileProvider(env.WebRootFileProvider)
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
             this.Configuration = builder.Build();
@@ -57,7 +57,7 @@ namespace MyBlog.Web
 
             services.AddDbContext<BlogDbContext>(options =>
             {
-                options.UseSqlite("");
+                options.UseSqlite("Data Source=blog.db");
             });
 
             #region 认证Cookie配置
@@ -92,7 +92,7 @@ namespace MyBlog.Web
 
             RegisterCommandInvoker(services);
 
-
+            this.RegisterDbSession(services);
             #endregion
 
         }
@@ -260,7 +260,7 @@ namespace MyBlog.Web
         /// <param name="services"></param>
         private void RegisterDbSession(IServiceCollection services)
         {
-            services.AddScoped(typeof(BlogDbContext));
+            services.AddScoped(typeof(DbContext),typeof(BlogDbContext));
         }
 
         #endregion
