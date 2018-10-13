@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using MySqlSugar;
 using MyExtensionsLib;
-using MyBlog.Models;
 
 namespace MyBlog.Core.Commands.Account
 {
@@ -10,15 +8,15 @@ namespace MyBlog.Core.Commands.Account
     /// </summary>
     public class UserLoginCommandInvoker : ICommandInvoker<UserLoginCommand, UserLoginCommandResult>
     {
-        private readonly IDbSession _db;
+        private readonly BlogDbContext _context;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="db"></param>
-        public UserLoginCommandInvoker(IDbSession db)
+        public UserLoginCommandInvoker(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -31,8 +29,9 @@ namespace MyBlog.Core.Commands.Account
             if (null != command && !command.Account.IsNullOrWhitespace() && !command.Passwrd.IsNullOrWhitespace())
             {
                 command.Passwrd = command.Passwrd.GetMd5Hash();
-
-                var queryUser = this._db.GetSession().Queryable<user_tb>(DbTableNames.user_tb).Where(u => u.user_account == command.Account && u.user_pwd == command.Passwrd);
+                var queryUser = this._context.Users
+                                    .Where(u => u.Account == command.Account 
+                                                && u.Password == command.Passwrd);
 
                 if (queryUser.Count() > 0)
                     return new UserLoginCommandResult() { UserInfo = queryUser.FirstOrDefault() };

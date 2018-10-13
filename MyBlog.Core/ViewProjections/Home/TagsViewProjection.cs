@@ -1,6 +1,8 @@
-﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+﻿using MyBlog.Core.TagStatistics;
+using System.Collections.Generic;
+using System.Linq;
+
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -9,11 +11,11 @@ namespace MyBlog.Core.ViewProjections.Home
     /// </summary>
     public class TagsViewProjection : IViewProjection<TagsBindModel, TagsViewModel>
     {
-        private readonly IDbSession _db;
+        private readonly BlogDbContext _context;
 
-        public TagsViewProjection(IDbSession db)
+        public TagsViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -23,13 +25,30 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <returns>标签视图模型</returns>
         public TagsViewModel Project(TagsBindModel input)
         {
-            var queryTagList = this._db.GetSession()
-                        .Queryable<tag_statistics_tb>(DbTableNames.tag_statistics_tb)
-                        .ToList();
+            var resList = new List<TagStatistic>();
+
+            var all = _context.PostTags.GroupBy(o => o.TagId).Select(o => o.Key);
+
+            foreach (var item in all)
+            {
+                var tmpCount = _context.PostTags.Count(o => o.TagId == item);
+
+                var tmpValue = _context.Tags.Where(o => o.Id == item).FirstOrDefault()
+                    .Value;
+
+                resList.Add(new TagStatistic()
+                {
+                    Id=item,
+                    Value = _context.Tags.Where(o => o.Id == item).FirstOrDefault()
+                    .Value,
+                    Count= _context.PostTags.Count(o => o.TagId == item)
+
+                });
+            }
 
             return new TagsViewModel()
             {
-                TagList = queryTagList
+                TagList = resList
             };
         }
     }

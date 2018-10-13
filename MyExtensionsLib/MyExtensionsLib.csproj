@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="KingLion.WebUtils.NPinyin" Version="1.0.0" />
-    <PackageReference Include="mySqlSugarCore" Version="3.5.4" />
   </ItemGroup>
 
 </Project>

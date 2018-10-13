@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using MyBlog.Models;
+
 using MyExtensionsLib;
 using MyBlog.Web.Filters;
 
@@ -16,11 +16,9 @@ namespace MyBlog.Web.Controllers
     public class FileController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IOptions<WebAppConfiguration> _webAppConfiguration;
-        public FileController(IHostingEnvironment hostingEnvironment, IOptions<WebAppConfiguration> webAppConfiguration)
+        public FileController(IHostingEnvironment hostingEnvironment)
         {
             this._hostingEnvironment = hostingEnvironment;
-            this._webAppConfiguration = webAppConfiguration;
         }
 
         /// <summary>
@@ -38,13 +36,13 @@ namespace MyBlog.Web.Controllers
 
             // 判断扩展名是否正确
             var extensionName = Path.GetExtension(files[0].FileName).ToLower();
-            if (!this._webAppConfiguration.Value.settings.ImgExtensions.Any(n => n == extensionName))
-                return null;
+            //if (!this._webAppConfiguration.Value.settings.ImgExtensions.Any(n => n == extensionName))
+            //    return null;
 
             // 保存的文件夹
             var sortTime = DateTime.Now.ToString("yyyy_MM_dd");
-            var tempPath = this._webAppConfiguration.Value.settings.UpLoadImgRelativeSavePath.Replace("{time}", sortTime);
-            var dirPath = $"{this._hostingEnvironment.WebRootPath}\\{tempPath}";
+            //var tempPath = this._webAppConfiguration.Value.settings.UpLoadImgRelativeSavePath.Replace("{time}", sortTime);
+            var dirPath = $"{this._hostingEnvironment.WebRootPath}\\";
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 
@@ -64,7 +62,7 @@ namespace MyBlog.Web.Controllers
                 fs.Flush();
             }
             // 返回路径
-            var imgPath = Path.Combine("/Contents", tempPath, Path.GetFileName(filePath)).Replace("\\", "/");
+            var imgPath = Path.Combine("", "tempPath", Path.GetFileName(filePath)).Replace("\\", "/");
 
 
             return Content(imgPath);

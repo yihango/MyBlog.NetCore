@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -9,10 +9,10 @@ namespace MyBlog.Core.ViewProjections.Home
     /// </summary>
     public class HomeViewProjection : IViewProjection<HomeBindModel, HomeViewModel>
     {
-        private readonly IDbSession _db;
-        public HomeViewProjection(IDbSession db)
+        private readonly BlogDbContext _context;
+        public HomeViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -27,10 +27,9 @@ namespace MyBlog.Core.ViewProjections.Home
             // 计算要跳过的数量
             var skip = (input.PageNum - 1) * input.Take;
             // 查询总数据量
-            var allCount = this._db.GetSession()
-                      .Queryable<post_tb>(DbTableNames.post_tb)
-                      .Where(p => p.post_pub_state == 1 && p.post_pub_time != null)
-                      .Count();
+            var postQuery = this._context.Posts
+                      .Where(p => p.IsPublish);
+            var allCount = postQuery.Count();
             // 获取总页数
             allPageNum = allCount / input.Take;
             if (allCount % input.Take != 0)
@@ -40,14 +39,25 @@ namespace MyBlog.Core.ViewProjections.Home
 
 
             // 查询博文数据
-            var queryPostList = this._db.GetSession()
-                      .Queryable<post_tb>(DbTableNames.post_tb)
-                      .Where(p => p.post_pub_state == 1 && p.post_pub_time != null)
-                      .OrderBy(p => p.post_pub_time, OrderByType.desc)
+            var queryPostList = postQuery
+                      .OrderByDescending(o => o.PublishDate)
                       .Skip(skip)
                       .Take(input.Take)
                       .ToList();
 
+            foreach (var item in queryPostList)
+            {
+                var tagIdList = this._context.PostTags.Where(o => o.PostId == item.Id)
+                    .Select(o => o.TagId)
+                    .ToList();
+
+                var tags = this._context.Tags
+                    .Where(o => tagIdList.Contains(o.Id))
+                    .Select(o => o.Value)
+                    .ToList();
+
+                item.SetTags(tags);
+            }
 
             // 返回视图模型
             return new HomeViewModel()

@@ -1,14 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="logfile\**" />
+    <Compile Remove="wwwroot\Packages\wangEditor\js\lib\**" />
     <Content Remove="logfile\**" />
+    <Content Remove="wwwroot\Packages\wangEditor\js\lib\**" />
     <EmbeddedResource Remove="logfile\**" />
+    <EmbeddedResource Remove="wwwroot\Packages\wangEditor\js\lib\**" />
     <None Remove="logfile\**" />
+    <None Remove="wwwroot\Packages\wangEditor\js\lib\**" />
   </ItemGroup>
 
   <!--<ItemGroup>
@@ -16,71 +20,57 @@
     <Content Include="wwwroot\Errors\500.html" />
     <Content Include="wwwroot\Posts\UpLoadImgs\expiration.png" />
     <Content Include="wwwroot\Scripts\myscripts\errors.js" />
-    <Content Include="wwwroot\Styles\Errors\error.css" />
+    <Content Include="wwwroot\css\Errors\error.css" />
     <Content Include="wwwroot\User\icon.png" />
   </ItemGroup>-->
 
   <ItemGroup>
-    <None Include="wwwroot\packages.config" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.css" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.css.map" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap-theme.min.css" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.css" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.css.map" />
-    <None Include="wwwroot\Packages\Bootstrap\css\bootstrap.min.css" />
-    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="wwwroot\Packages\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="wwwroot\Packages\Bootstrap\js\bootstrap.js" />
-    <None Include="wwwroot\Packages\Bootstrap\js\bootstrap.min.js" />
-    <None Include="wwwroot\Packages\Bootstrap\js\npm.js" />
-    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.css" />
-    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.less" />
-    <None Include="wwwroot\Packages\wangEditor\css\wangEditor.min.css" />
-    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.eot" />
-    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.svg" />
-    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.ttf" />
-    <None Include="wwwroot\Packages\wangEditor\fonts\icomoon.woff" />
-    <None Include="wwwroot\Packages\wangEditor\js\lib\jquery-1.10.2.min.js" />
-    <None Include="wwwroot\Packages\wangEditor\js\lib\jquery-2.2.1.js" />
-    <None Include="wwwroot\Packages\wangEditor\js\wangEditor.js" />
-    <None Include="wwwroot\Packages\wangEditor\js\wangEditor.min.js" />
-    <None Include="wwwroot\Scripts\jquery.form.js" />
-    <None Include="wwwroot\Scripts\jquery.min.js" />
-    <None Include="wwwroot\Scripts\jquery.unobtrusive-ajax.min.js" />
-    <None Include="wwwroot\Scripts\jquery.validate.min.js" />
-    <None Include="wwwroot\Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="wwwroot\Scripts\myscripts\adminIndex.js" />
-    <None Include="wwwroot\Scripts\myscripts\changePassWord.js" />
-    <None Include="wwwroot\Scripts\myscripts\editPost.js" />
-    <None Include="wwwroot\Scripts\myscripts\footer.position.js" />
-    <None Include="wwwroot\Scripts\myscripts\login.js" />
-    <None Include="wwwroot\Scripts\myscripts\register.js" />
-    <None Include="wwwroot\Styles\Admin\index.css" />
-    <None Include="wwwroot\Styles\border_radius_clear.css" />
-    <None Include="wwwroot\Styles\button.prev.next.css" />
-    <None Include="wwwroot\Styles\Home\layout.css" />
-    <None Include="wwwroot\Styles\Home\post_details.css" />
-    <None Include="wwwroot\Styles\Home\post_list.css" />
-    <None Include="wwwroot\Styles\loding.css" />
-    <None Include="wwwroot\Styles\Manager\layout.css" />
-    <None Include="wwwroot\Styles\my_panel.css" />
-    <None Include="wwwroot\Styles\m_p_clear.css" />
+    <None Include="wwwroot\packages\wangEditor\css\wangEditor.css" />
+    <None Include="wwwroot\packages\wangEditor\css\wangEditor.less" />
+    <None Include="wwwroot\packages\wangEditor\css\wangEditor.min.css" />
+    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.eot" />
+    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.svg" />
+    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.ttf" />
+    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.woff" />
+    <None Include="wwwroot\packages\wangEditor\js\wangEditor.js" />
+    <None Include="wwwroot\packages\wangEditor\js\wangEditor.min.js" />
+    <None Include="wwwroot\js\jquery.form.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
+    <None Include="wwwroot\js\jquery.unobtrusive-ajax.min.js" />
+    <None Include="wwwroot\js\jquery.validate.min.js" />
+    <None Include="wwwroot\js\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\js\myscripts\changePassWord.js" />
+    <None Include="wwwroot\js\myscripts\editPost.js" />
+    <None Include="wwwroot\js\myscripts\footer.position.js" />
+    <None Include="wwwroot\js\myscripts\login.js" />
+    <None Include="wwwroot\js\myscripts\register.js" />
+    <None Include="wwwroot\css\Admin\index.css" />
+    <None Include="wwwroot\css\border_radius_clear.css" />
+    <None Include="wwwroot\css\button.prev.next.css" />
+    <None Include="wwwroot\css\Home\layout.css" />
+    <None Include="wwwroot\css\Home\post_details.css" />
+    <None Include="wwwroot\css\Home\post_list.css" />
+    <None Include="wwwroot\css\loding.css" />
+    <None Include="wwwroot\css\Manager\layout.css" />
+    <None Include="wwwroot\css\my_panel.css" />
+    <None Include="wwwroot\css\m_p_clear.css" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta5" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.3.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\Mvc\src\Microsoft.AspNetCore.Mvc\Microsoft.AspNetCore.Mvc.csproj" />
     <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
     <ProjectReference Include="..\MyCommonLib\MyCommonLib.csproj" />
     <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
@@ -89,8 +79,71 @@
     <Folder Include="wwwroot\Posts\PostHouse\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="appSettings.json">
+    <Content Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Admin\index.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\border_radius_clear.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\button.prev.next.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Home\layout.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Home\post_details.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Home\post_list.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\loding.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Manager\layout.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\my_panel.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\m_p_clear.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery.form.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery.unobtrusive-ajax.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery.validate.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jquery.validate.unobtrusive.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\changePassWord.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\editPost.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\errors.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\footer.position.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\login.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\js\myscripts\register.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 

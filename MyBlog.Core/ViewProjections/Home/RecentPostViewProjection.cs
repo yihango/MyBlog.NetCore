@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -9,10 +9,10 @@ namespace MyBlog.Core.ViewProjections.Home
     /// </summary>
     public class RecentPostViewProjection : IViewProjection<RecentPostBindModel, RecentPostViewModel>
     {
-        private readonly IDbSession _db;
-        public RecentPostViewProjection(IDbSession db)
+        private readonly BlogDbContext _context;
+        public RecentPostViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -22,10 +22,9 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <returns></returns>
         public RecentPostViewModel Project(RecentPostBindModel input)
         {
-            var queryRecentPostList = this._db.GetSession()
-                        .Queryable<post_tb>(DbTableNames.post_tb)
-                        .OrderBy(p => p.post_pub_time, OrderByType.desc)
-                        .Where(p => p.post_pub_state == 1 && p.post_pub_time != null)
+            var queryRecentPostList = this._context.Posts
+                        .Where(p => p.IsPublish)
+                        .OrderByDescending(o=>o.PublishDate)
                         .Take(input.Take)
                         .ToList();
 

@@ -8,7 +8,7 @@
         /// <summary>
         /// 博文id
         /// </summary>
-        public string PostId { get; set; }
+        public long? PostId { get; set; }
 
         /// <summary>
         /// 博文所属的时间

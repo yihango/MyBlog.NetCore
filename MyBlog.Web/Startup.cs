@@ -12,11 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog.Extensions.Logging;
 using MyBlog.Core;
-using MyBlog.Models;
 using MyBlog.Web.Features;
 using MyBlog.Web.Middlewares;
 using MyBlog.Web.Common;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace MyBlog.Web
 {
@@ -31,7 +30,7 @@ namespace MyBlog.Web
             var builder = new ConfigurationBuilder()
                 .SetFileProvider(env.WebRootFileProvider)
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
             this.Configuration = builder.Build();
@@ -56,6 +55,11 @@ namespace MyBlog.Web
 
 
 
+            services.AddDbContext<BlogDbContext>(options =>
+            {
+                options.UseSqlite("Data Source=blog.db");
+            });
+
             #region 认证Cookie配置
 
             // https://github.com/aspnet/Security/issues/1310
@@ -74,9 +78,11 @@ namespace MyBlog.Web
 
             #region 读取配置文件并注册
 
-            services.Configure<WebAppConfiguration>(this.Configuration.GetSection("WebAppConfiguration"));
+            //services.Configure<WebAppConfiguration>(this.Configuration.GetSection("WebAppConfiguration"));
 
             #endregion
+
+
 
 
 
@@ -86,8 +92,7 @@ namespace MyBlog.Web
 
             RegisterCommandInvoker(services);
 
-            RegisterDbSession(services);
-
+            this.RegisterDbSession(services);
             #endregion
 
         }
@@ -155,8 +160,6 @@ namespace MyBlog.Web
 
 
 
-            #region 身份认证和session
-
             app.UseAuthentication();
 
 
@@ -169,25 +172,11 @@ namespace MyBlog.Web
                 }
             });
 
-            #endregion
-
-
-
-            #region 静态文件资源 配置
 
             // 配置静态文件资源
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),
-                RequestPath = new PathString("/Contents")
-
-            });
-
-            #endregion
+            app.UseStaticFiles();
 
 
-
-            #region 路由配置
 
             // 配置MVC路由
             app.UseMvc(routes =>
@@ -196,8 +185,6 @@ namespace MyBlog.Web
                             template: "{controller}/{action}/{page?}",
                             defaults: new { controller = "Home", action = "Index" });
             });
-
-            #endregion
 
         }
 
@@ -273,7 +260,7 @@ namespace MyBlog.Web
         /// <param name="services"></param>
         private void RegisterDbSession(IServiceCollection services)
         {
-            services.AddScoped(typeof(IDbSession), typeof(MyDbSession));
+            services.AddScoped(typeof(DbContext),typeof(BlogDbContext));
         }
 
         #endregion
