@@ -28,6 +28,17 @@ namespace MyBlog.Core.ViewProjections.AdminPost
                 .Where(p => p.Id == input.PostId)
                 .FirstOrDefault();
 
+            var tagIdList = this._context.PostTags.Where(o => o.PostId == queryPost.Id)
+                    .Select(o => o.TagId)
+                    .ToList();
+
+            var tags = this._context.Tags
+                .Where(o => tagIdList.Contains(o.Id))
+                .Select(o => o.Value)
+                .ToList();
+
+            queryPost.SetTags(tags);
+
             // 填充到视图模型
             return new EditPostViewModel()
             {

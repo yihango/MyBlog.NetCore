@@ -8,7 +8,7 @@
         /// <summary>
         /// 博文编号
         /// </summary>
-        public string PostId { get; set; }
+        public long PostId { get; set; }
 
         /// <summary>
         /// 博文标题
@@ -30,30 +30,11 @@
         /// </summary>
         public string PostContent { get; set; }
 
-        private string _pubState;
-
+     
         /// <summary>
         /// 是否发布（两个值，true=1，false=0）
         /// </summary>
-        public string PubState
-        {
-            get
-            {
-                return _pubState;
-            }
-            set
-            {
-                switch (value)
-                {
-                    case "true":
-                        this._pubState = "1";
-                        break;
-                    default:
-                        this._pubState = "0";
-                        break;
-                }
-            }
-        }
+        public bool PubState { get; set; }
 
         /// <summary>
         /// 之前的页码

@@ -23,7 +23,7 @@
                 @* 摘要内容 *@
                 <div class="post-content">
                     <a href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank" style="word-break: break-all;">
-                        @(Html.Raw(item.Summary))
+                        @(Html.Raw(item.Summary??string.Empty))
                     </a>
                 </div>
 
@@ -32,7 +32,7 @@
                     <i class="glyphicon glyphicon-tags"></i>&nbsp;
                     @foreach (var tag in item.GetTags())
                     {
-                        <a class="post-tag" href="/TagPosts/Home/Tags/@(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
+                        <a class="post-tag" href="/TagPosts/Home/Tags/@Html.Encode(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
                     }
                     <a class="post-read" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">阅读全文...</a>
                 </div>

@@ -106,7 +106,7 @@ namespace MyBlog.Web.Controllers
         [HttpGet]
         public IActionResult EditPost(long? id)
         {
-            if (id.HasValue)
+            if (!id.HasValue)
                 return RedirectToAction("Index", "AdminPost");
 
             var viewModel = this._viewProjectionFactory.GetViewProjection<EditPostBindModel, EditPostViewModel>(new EditPostBindModel() { PostId = id.Value });

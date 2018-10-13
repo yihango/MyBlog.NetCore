@@ -21,33 +21,11 @@
         /// </summary>
         public string PostContent { get; set; }
 
-        /// <summary>
-        /// 发布状态
-        /// </summary>
-        private string _pubState;
 
         /// <summary>
         /// 是否发布（两个值，true=1，false=0）
         /// </summary>
-        public string PubState
-        {
-            get
-            {
-                return _pubState;
-            }
-            set
-            {
-                switch (value)
-                {
-                    case "true":
-                        this._pubState = "1";
-                        break;
-                    default:
-                        this._pubState = "0";
-                        break;
-                }
-            }
-        }
+        public bool PubState { get; set; }
 
 
         /// <summary>

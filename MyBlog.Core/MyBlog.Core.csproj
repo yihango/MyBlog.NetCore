@@ -19,8 +19,4 @@
     <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Posts\DomainService\" />
-  </ItemGroup>
-
 </Project>

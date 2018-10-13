@@ -66,6 +66,19 @@ namespace MyBlog.Core.ViewProjections.Home
                 .Skip(skip)
                 .Take(input.Take)
                 .ToList();
+            foreach (var item in resList)
+            {
+                var tagIdList = this._context.PostTags.Where(o => o.PostId == item.Id)
+                  .Select(o => o.TagId)
+                  .ToList();
+
+                var tags = this._context.Tags
+                    .Where(o => tagIdList.Contains(o.Id))
+                    .Select(o => o.Value)
+                    .ToList();
+
+                item.SetTags(tags);
+            }
 
 
             return new TagPostsViewModel()

@@ -13,12 +13,12 @@
 
     <partial name="~/Views/Shared/_JqueryLayout.cshtml"></partial>
 
-    <link href="@Url.Content("/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/my_panel.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/Home/layout.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/Home/post_list.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/Home/post_details.css")" rel="stylesheet" />
-    <link href="@Url.Content("/css/button.prev.next.css")" rel="stylesheet" />
+    <link href="/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
+    <link href="/css/my_panel.css" rel="stylesheet" />
+    <link href="/css/Home/layout.css" rel="stylesheet" />
+    <link href="/css/Home/post_list.css" rel="stylesheet" />
+    <link href="/css/Home/post_details.css" rel="stylesheet" />
+    <link href="/css/button.prev.next.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -58,7 +58,7 @@
                         {
                             foreach (var item in ViewBag.Tags.TagList)
                             {
-                                <a href="/TagPosts/Home/Tags/@(item.tag_name)/1" target="_blank">@(item.tag_name)<span class="tag-count">@item.tag_count</span></a>
+                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
 
                             }
                         }

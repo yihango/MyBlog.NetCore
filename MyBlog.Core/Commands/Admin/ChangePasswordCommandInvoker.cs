@@ -38,6 +38,7 @@ namespace MyBlog.Core.Commands.Admin
 
                     this._context.Users.Update(queryUserInfo);
 
+                    this._context.SaveChanges();
                     transaction.Commit();
                 }
                 return new CommandResult();

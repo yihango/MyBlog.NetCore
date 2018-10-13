@@ -41,6 +41,7 @@ namespace MyBlog.Core.Commands.Account
 
                     this._context.Users.Add(user);
 
+                    this._context.SaveChanges();
                     // 提交事务
                     transaction.Commit();
                 }

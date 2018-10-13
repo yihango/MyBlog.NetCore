@@ -28,7 +28,7 @@
                     <i class="glyphicon glyphicon-tags"></i>&nbsp;
                     @foreach (var tag in item.GetTags())
                     {
-                        <a class="post-tag" href="/TagPosts/Home/Tags/@(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
+                        <a class="post-tag" href="/TagPosts/Home/Tags/@Html.Encode(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
                     }
                     <a class="post-read" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">阅读全文</a>
                 </div>
@@ -49,9 +49,9 @@ else
 }
 @if (Model.HasPrev)
 {
-    <a href="/TagPosts/Home/Tags/@(Model.TagName)/@(Model.PageNum-1)">上一页</a>
+    <a href="/TagPosts/Home/Tags/@Html.Encode(Model.TagName)/@(Model.PageNum-1)">上一页</a>
 }
 @if (Model.HasNext)
 {
-    <a href="/TagPosts/Home/Tags/@(Model.TagName)/@(Model.PageNum+1)">下一页</a>
+    <a href="/TagPosts/Home/Tags/@Html.Encode(Model.TagName)/@(Model.PageNum+1)">下一页</a>
 }
