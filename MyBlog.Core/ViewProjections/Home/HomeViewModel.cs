@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using MyBlog.Models;
+﻿using MyBlog.Core.Posts;
+using MyBlog.Core.Tags;
+using System.Collections.Generic;
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -11,7 +13,7 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <summary>
         /// 首页博客列表
         /// </summary>
-        public IList<post_tb> Posts { get; set; }
+        public IList<Post> Posts { get; set; }
 
         /// <summary>
         /// 当前页码

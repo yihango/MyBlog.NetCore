@@ -1,16 +1,16 @@
 ﻿@model MyBlog.Core.ViewProjections.Home.PostViewModel
 @{
     Layout = "_HomeLayout";
-    ViewBag.Title = $"文章详情:{Model.PostInfo.post_title}";
+    ViewBag.Title = $"文章详情:{Model.PostInfo.Title}";
 }
 
 <div id="post-details">
-    <b class="post-title">@Model.PostInfo.post_title</b>
+    <b class="post-title">@Model.PostInfo.Title</b>
     <div class="post-time" style="margin-bottom:30px;">
-        <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@Model.PostInfo.post_pub_time</span>
+        <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@Model.PostInfo.PublishDate</span>
     </div>
     <div style="word-break: break-all;">
-        @Html.Raw(System.IO.File.ReadAllText(Model.PostInfo.post_path))
+        @Html.Raw(Model.PostInfo.Content)
     </div>
     <div style="margin-top:20px;">
         @if (null != Model.PostTags && Model.PostTags.Length > 0)

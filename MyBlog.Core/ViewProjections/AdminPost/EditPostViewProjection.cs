@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.AdminPost
 {
@@ -9,11 +9,11 @@ namespace MyBlog.Core.ViewProjections.AdminPost
     /// </summary>
     public class EditPostViewProjection : IViewProjection<EditPostBindModel, EditPostViewModel>
     {
-        private readonly IDbSession _db;
+        private readonly BlogDbContext _context;
 
-        public EditPostViewProjection(IDbSession db)
+        public EditPostViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -24,7 +24,9 @@ namespace MyBlog.Core.ViewProjections.AdminPost
         public EditPostViewModel Project(EditPostBindModel input)
         {
             // 根据博文编号查询到博文对象
-            var queryPost = this._db.GetSession().Queryable<post_tb>(DbTableNames.post_tb).Where(p => p.post_id == input.PostId).FirstOrDefault();
+            var queryPost = this._context.Posts
+                .Where(p => p.Id == input.PostId)
+                .FirstOrDefault();
 
             // 填充到视图模型
             return new EditPostViewModel()

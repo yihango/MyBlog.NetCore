@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using MyBlog.Models;
+﻿using MyBlog.Core.Posts;
+using System.Collections.Generic;
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -44,7 +45,7 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <summary>
         /// 博文集合
         /// </summary>
-        public IEnumerable<post_tb> Posts { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
 
         /// <summary>
         /// 标签名

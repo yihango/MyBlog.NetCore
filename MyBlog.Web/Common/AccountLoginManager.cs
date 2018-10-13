@@ -34,11 +34,11 @@ namespace MyBlog.Web.Common
         /// <param name="commandResult"></param>
         public static void SetLogin(HttpContext httpContext, UserLoginCommandResult commandResult)
         {
-            httpContext.Session.SetString(Global._session_server, commandResult.UserInfo.user_account);
+            httpContext.Session.SetString(Global._session_server, commandResult.UserInfo.Account);
             // 指定身份认证类型
             var identity = new ClaimsIdentity("Forms");
             // 用户名称
-            var tempC = new Claim(ClaimTypes.Sid, commandResult.UserInfo.user_account);
+            var tempC = new Claim(ClaimTypes.Sid, commandResult.UserInfo.Account);
             identity.AddClaim(tempC);
             var principal = new ClaimsPrincipal(identity);
             // 登陆

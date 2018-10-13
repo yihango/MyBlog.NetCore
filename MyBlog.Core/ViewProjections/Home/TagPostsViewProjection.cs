@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using MySqlSugar;
-using MyExtensionsLib.SqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -10,12 +9,12 @@ namespace MyBlog.Core.ViewProjections.Home
     /// </summary>
     public class TagPostsViewProjection : IViewProjection<TagPostsBindModel, TagPostsViewModel>
     {
-        private readonly IDbSession _db;
+        private readonly BlogDbContext _context;
 
 
-        public TagPostsViewProjection(IDbSession db)
+        public TagPostsViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
 
         /// <summary>
@@ -39,42 +38,41 @@ namespace MyBlog.Core.ViewProjections.Home
             #endregion
 
 
-            // 查询出所有匹配的数据总数并计算总页数
-            var allCount = this._db.GetSession().Queryable<post_tag_tb>(DbTableNames.post_tag_tb)
-                .Where(pt => pt.tag_name == input.TagName).Count();
-            var allPageNum = allCount / input.Take;
-            if (allCount % input.Take != 0)
+            // 查询的标签
+            var tmpTag = _context.Tags.Where(o => o.Value == input.TagName).FirstOrDefault();
+
+            // 关联的博文数据总数量
+            var all = this._context.PostTags.Where(o => o.TagId == tmpTag.Id)
+                .Select(o => o.PostId)
+                .ToList();
+
+            // 查询出标签表中包含 查询标签 的查询
+            var postQuery = this._context.Posts
+                .Where(o => o.IsPublish && all.Contains(o.Id));
+
+            // 总数量
+            var allPostCount = postQuery.Count();
+
+            // 
+            var allPageNum = allPostCount / input.Take;
+            if (allPostCount % input.Take != 0)
                 allPageNum++;
 
             // 跳过的数据量
             var skip = (input.PageNum - 1) * input.Take;
 
-            // 查询出标签表中包含 查询标签 的查询
-            var childrenQueryble = this._db.GetSession()
-                .Queryable<post_tag_tb>(DbTableNames.post_tag_tb)
-                .Where(pt => pt.tag_name == input.TagName);
-
             // 
-            var queryTagPostList = this._db.GetSession()
-                .Queryable<post_tb>(DbTableNames.post_tb)
-                .WhereIn("post_id", childrenQueryble, "post_id")
-                .OrderBy(p => p.post_pub_time, OrderByType.desc)
+            var resList = postQuery.OrderByDescending(o => o.PublishDate)
                 .Skip(skip)
                 .Take(input.Take)
                 .ToList();
-
-            // 若未查询到数据则删除这个标签
-            if (queryTagPostList.Count() <= 0)
-            {
-                this._db.GetSession().Delete(new tag_statistics_tb() { tag_name = input.TagName });
-            }
 
 
             return new TagPostsViewModel()
             {
                 AllPageNum = allPageNum,
                 PageNum = input.PageNum,
-                Posts = queryTagPostList,
+                Posts = resList,
                 TagName = input.TagName
             };
 

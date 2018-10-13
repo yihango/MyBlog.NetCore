@@ -1,4 +1,6 @@
-﻿using MyBlog.Models;
+﻿
+
+using MyBlog.Core.Posts;
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -10,7 +12,7 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <summary>
         /// 文章信息
         /// </summary>
-        public post_tb PostInfo { get; set; }
+        public Post PostInfo { get; set; }
 
 
         /// <summary>

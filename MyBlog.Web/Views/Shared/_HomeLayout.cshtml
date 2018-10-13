@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>@ViewBag.Title</title>
-    @Html.Partial("~/Views/Shared/_StyleLayout.cshtml")
-    @Html.Partial("~/Views/Shared/_JqueryLayout.cshtml")
-    <link href="@Url.Content("/Contents/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/my_panel.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/layout.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/post_list.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/Home/post_details.css")" rel="stylesheet" />
-    <link href="@Url.Content("/Contents/Styles/button.prev.next.css")" rel="stylesheet" />
+    <partial name="~/Views/Shared/_StyleLayout.cshtml" />
+    <partial name="~/Views/Shared/_JqueryLayout.cshtml" />
+    <link href="@Url.Content("/Packages/wangEditor/css/wangEditor.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Styles/my_panel.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Styles/Home/layout.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Styles/Home/post_list.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Styles/Home/post_details.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Styles/button.prev.next.css")" rel="stylesheet" />
 
 </head>
 <body>
@@ -38,7 +38,7 @@
             <div class="infos hidden-xs col-sm-4  col-md-4">
 
                 @* 关于我 *@
-                @Html.Partial("~/Views/Home/_AboutMe.cshtml")
+                <partial name="~/Views/Home/_AboutMe.cshtml" />
 
                 @* 文章标签 *@
                 <div class="panel">
@@ -71,7 +71,7 @@
                         {
                             foreach (var item in ViewBag.RecentPost.PostList)
                             {
-                            <a href="~/Details/Home/Posts/@(item.post_pub_sortTime)/@(item.post_id)" target="_blank">@item.post_title</a><br />
+                            <a href="~/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
                             }
                         }
                     </div>
@@ -101,6 +101,6 @@
     </footer>
 
     @* 导入脚本 *@
-    @Html.Partial("~/Views/Shared/_ScriptLayout.cshtml")
+    <partial name="~/Views/Shared/_ScriptLayout.cshtml" />
 </body>
 </html>

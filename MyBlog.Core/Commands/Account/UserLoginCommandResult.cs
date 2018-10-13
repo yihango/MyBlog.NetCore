@@ -1,4 +1,5 @@
-﻿using MyBlog.Models;
+﻿using MyBlog.Core.Users;
+
 
 namespace MyBlog.Core.Commands.Account
 {
@@ -25,6 +26,6 @@ namespace MyBlog.Core.Commands.Account
         /// <summary>
         /// 登录账号信息
         /// </summary>
-        public user_tb UserInfo { get; set; }
+        public User UserInfo { get; set; }
     }
 }

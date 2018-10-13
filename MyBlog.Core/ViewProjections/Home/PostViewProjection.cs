@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using MySqlSugar;
-using MyBlog.Models;
+
+
 
 namespace MyBlog.Core.ViewProjections.Home
 {
@@ -10,10 +10,10 @@ namespace MyBlog.Core.ViewProjections.Home
     /// </summary>
     public class PostViewProjection : IViewProjection<PostBindModel, PostViewModel>
     {
-        private readonly IDbSession _db;
-        public PostViewProjection(IDbSession db)
+        private readonly BlogDbContext _context;
+        public PostViewProjection(BlogDbContext db)
         {
-            this._db = db;
+            this._context = db;
         }
         /// <summary>
         /// 投影数据到视图模型
@@ -22,13 +22,23 @@ namespace MyBlog.Core.ViewProjections.Home
         /// <returns>文章详情视图模型</returns>
         public PostViewModel Project(PostBindModel input)
         {
-            var queryPost = this._db.GetSession()
-                .Queryable<post_tb>(DbTableNames.post_tb)
-                .Where(p => p.post_id == input.PostId && p.post_pub_sortTime == input.PostPutSortTime)
+            // 查询博客
+            var post = this._context.Posts
+                .Where(p => p.Id == input.PostId && p.PublishSortDate == input.PostPutSortTime)
                 .FirstOrDefault();
 
+            // 
+            var tagIdList = this._context.PostTags.Where(o => o.PostId == post.Id)
+                .Select(o => o.TagId)
+                .ToList();
 
-            return new PostViewModel() { PostInfo = queryPost, PostTags = queryPost.post_tags.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) };
+            var tags = this._context.Tags
+                .Where(o => tagIdList.Contains(o.Id))
+                .Select(o=>o.Value)
+                .ToArray();
+
+
+            return new PostViewModel() { PostInfo = post, PostTags = tags };
         }
     }
 }
