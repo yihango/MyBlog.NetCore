@@ -60,7 +60,7 @@ namespace MyBlog.Core.Posts
 
         public List<string> GetTags()
         {
-            return this.Tags;
+            return this.Tags??new List<string>();
         }
     }
 }
