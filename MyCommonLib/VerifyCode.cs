@@ -320,8 +320,8 @@ namespace MyCommonLib
             {
                 questionList = new Dictionary<string, string>();
                 var operArray = new string[] { "+", "*", "num" };
-                var left = objRandom.Next(0, 10);
-                var right = objRandom.Next(0, 10);
+                var left = objRandom.Next(0, 20);
+                var right = objRandom.Next(0, 20);
                 var oper = operArray[objRandom.Next(0, operArray.Length)];
                 if (oper == "+")
                 {

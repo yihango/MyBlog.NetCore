@@ -21,12 +21,17 @@ namespace MyBlog.Web.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
-
-        public AccountController(IHostingEnvironment hostingEnvironment, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        private readonly IOptions<AppConfig> _appConfig;
+        public AccountController(
+            IHostingEnvironment hostingEnvironment, 
+            IViewProjectionFactory viewProjectionFactory, 
+            ICommandInvokerFactory commandInvokerFactory,
+            IOptions<AppConfig> appConfig)
         {
             this._hostingEnvironment = hostingEnvironment;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
+            this._appConfig = appConfig;
         }
 
 
@@ -162,11 +167,13 @@ namespace MyBlog.Web.Controllers
             // 是否随机字体颜色
             v.SetIsRandomColor = true;
             // 随机码的旋转角度
-            v.SetRandomAngle = 4;
+            v.SetRandomAngle = 30;
+            // 噪点数量
+            v.SetForeNoisePointCount = 6;
             // 文字大小
             v.SetFontSize = 18;
             // 设置字体
-            //v.SetFontFamily = this._webAppConfiguration.Value.settings.FontFamily;
+            v.SetFontFamily = this._appConfig.Value.FontFamily;
             var questionItem = v.GetQuestion();
             v.SetVerifyCodeText = questionItem.Key;
 
@@ -174,7 +181,7 @@ namespace MyBlog.Web.Controllers
             HttpContext.Session.SetString("verifycode", questionItem.Value);
             System.IO.MemoryStream imgStream = v.OutputImageStreamp();
             Response.Body.Dispose();
-            return File(imgStream.ToArray(), @"image/jpeg");
+            return File(imgStream.ToArray(), @"image/png");
         }
 
         #endregion
