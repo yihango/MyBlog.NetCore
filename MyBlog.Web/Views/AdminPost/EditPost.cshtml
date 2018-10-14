@@ -6,8 +6,8 @@
 }
 
 @* wangEditor样式 *@
-<link href="~/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
-
+@*<link href="~/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />*@
+<link href="~/packages/editormd/css/editormd.min.css" rel="stylesheet" />
 
 <header id="header">
     <a href="/AdminPost/Index/@(ViewBag.ReturnPageNum)">
@@ -37,15 +37,25 @@
                value="@(Model.Post==null?string.Empty:Model.Post.Title)" />
         <span class="field-validation-valid text-danger" data-valmsg-for="Title" data-valmsg-replace="true"></span><br />
 
-        <div id="my_editor"
-             name="PostContent"
-             style="height:380px;">
-            @Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)
-        </div>
+        @*<div id="my_editor"
+                 name="PostContent"
+                 style="height:380px;">
+                @Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)
+            </div>*@
         @*<textarea id="my_editor"
-                  name="PostContent"
-                  class="form-control"
-                  style="width:80%;height:380px;">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)</textarea>*@
+            name="PostContent"
+            class="form-control"
+            style="width:80%;height:380px;">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)</textarea>*@
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述</label>
+            <div class="col-sm-10" id="test-editormd">
+
+                <textarea style="display:none;" name="Contents" id="Contents">@Html.Raw(Model.Post==null?string.Empty:Model.Post.Content)</textarea>
+            </div>
+            <textarea style="display:none;" name="Content" id="Content" value=""></textarea>
+        </div>
+
         <input name="Tags"
                type="text"
                class="form-control"
@@ -66,5 +76,6 @@
 </div>
 
 
-<script src="~/Packages/wangEditor/js/wangEditor.min.js" type="text/javascript" asp-append-version="true"></script>
+
+<script src="~/packages/editormd/editormd.min.js" type="text/javascript" asp-append-version="true"></script>
 <script src="/js/myscripts/editPost.js" type="text/javascript" asp-append-version="true"></script>

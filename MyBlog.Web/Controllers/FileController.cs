@@ -65,7 +65,12 @@ namespace MyBlog.Web.Controllers
             var imgPath = Path.Combine("", "tempPath", Path.GetFileName(filePath)).Replace("\\", "/");
 
 
-            return Content(imgPath);
+            return Json(new
+            {
+                success = 1,
+                message = "上传成功",
+                url = imgPath        // 上传成功时才返回
+            });
         }
 
         /// <summary>
