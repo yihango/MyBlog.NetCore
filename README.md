@@ -6,15 +6,16 @@
 
 使用的组件: 日志组件:log4net
 
-orm框架：mysqlsugar,官网地址：http://www.codeisbug.com/
+orm框架：entity framework core
 
-数据库：mysql
+数据库：sqlite or pgsql or sqlserver or mysql
+    
+    数据库使用ef code first生成
+  
 
 绘图库：ZKWeb.System.Drawing
 
 中文转拼音库：KingLion.WebUtils.NPinyin
-
-注: 数据库脚本位于：MyBlog.Web mysql scripts 目录下
 
 后台管理：http://url:port/Admin/Index
 
