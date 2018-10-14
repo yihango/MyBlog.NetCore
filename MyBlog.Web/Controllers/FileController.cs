@@ -85,15 +85,6 @@ namespace MyBlog.Web.Controllers
             // 返回路径
             var imgUrlkPath = filePath.Replace(rootDir, "").Replace("\\", "/");
 
-            //if (Request.IsHttps)
-            //{
-            //    imgUrlkPath = $"https://{Request.Host.Value}{imgUrlkPath}";
-            //}
-            //else
-            //{
-            //    imgUrlkPath = $"http://{Request.Host.Value}{imgUrlkPath}";
-            //}
-
             return Json(new
             {
                 success = 1,

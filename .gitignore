@@ -213,6 +213,7 @@ UpgradeLog*.htm
 # SQL Server files
 *.mdf
 *.ldf
+*.db
 
 # Business Intelligence projects
 *.rdl.data
@@ -260,3 +261,4 @@ paket-files/
 __pycache__/
 *.pyc
 /MyBlog.Web/wwwroot/imgs/2018_10_14
+

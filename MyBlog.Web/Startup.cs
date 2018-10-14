@@ -57,7 +57,7 @@ namespace MyBlog.Web
 
             services.AddDbContext<BlogDbContext>(options =>
             {
-                options.UseSqlite(this.Configuration["connectionStrings:default"]);
+                options.UseSqlite(this.Configuration["appConfig:dbConnStr"]);
             });
 
             #region 认证Cookie配置
@@ -293,14 +293,14 @@ namespace MyBlog.Web
                         }
                         else
                         {
-                            // 若异常对象为空则休眠三秒钟
-                            System.Threading.Thread.Sleep(3000);
+                            // 若异常对象为空则休眠5秒钟
+                            System.Threading.Thread.Sleep(5000);
                         }
                     }
                     else
                     {
-                        // 若队列中没有数据则休眠三秒钟
-                        System.Threading.Thread.Sleep(3000);
+                        // 若队列中没有数据则休眠5秒钟
+                        System.Threading.Thread.Sleep(5000);
                     }
                 }
             });
