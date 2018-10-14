@@ -1,10 +1,10 @@
 # MyBlog.NetCore
 
-基于.Net Core开发的简易跨平台个人博客
+基于asp.net core开发的简易跨平台个人博客
 
-基于.Net Core开发的简易个人博客，参照 https://github.com/qihangnet/MZBlog
+基于asp.net core开发的简易个人博客，参照 https://github.com/qihangnet/MZBlog
 
-使用的组件: 日志组件:log4net
+使用的组件: 日志组件:nlog
 
 orm框架：entity framework core
 
