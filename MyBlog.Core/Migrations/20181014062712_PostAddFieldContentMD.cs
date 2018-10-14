@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MyBlog.Core.Migrations
+namespace MyBlog.Migrations
 {
     public partial class PostAddFieldContentMD : Migration
     {

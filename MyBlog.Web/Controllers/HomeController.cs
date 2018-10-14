@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
-using MyExtensionsLib;
-using MyBlog.Core;
-using MyBlog.Core.ViewProjections.Home;
+using MyBlog.Extensions;
+using MyBlog;
+using MyBlog.ViewProjections.Home;
 using MyBlog.Web.Common;
 using Microsoft.Extensions.Options;
 

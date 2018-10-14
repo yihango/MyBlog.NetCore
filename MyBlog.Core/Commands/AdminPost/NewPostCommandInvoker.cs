@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
-using MyExtensionsLib;
+using MyBlog.Extensions;
 
 
 
-using MyBlog.Core.Commands.Admin;
-using MyBlog.Core.Posts;
-using MyBlog.Core.Tags;
-using MyBlog.Core.PostTags;
+using MyBlog.Commands.Admin;
+using MyBlog.Posts;
+using MyBlog.Tags;
+using MyBlog.PostTags;
 
-namespace MyBlog.Core.Commands.AdminPost
+namespace MyBlog.Commands.AdminPost
 {
     public class NewPostCommandInvoker : ICommandInvoker<NewPostCommand, CommandResult>
     {

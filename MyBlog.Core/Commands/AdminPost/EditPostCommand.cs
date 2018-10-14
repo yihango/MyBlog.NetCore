@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.Commands.AdminPost
+﻿namespace MyBlog.Commands.AdminPost
 {
     /// <summary>
     /// 编辑博文命令

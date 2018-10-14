@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core
+﻿namespace MyBlog
 {
     /// <summary>
     /// 查询数据，将数据投影到视图 接口

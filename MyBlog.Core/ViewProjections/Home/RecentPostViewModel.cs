@@ -1,8 +1,8 @@
-﻿using MyBlog.Core.Posts;
+﻿using MyBlog.Posts;
 using System.Collections.Generic;
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 最近博文视图模型

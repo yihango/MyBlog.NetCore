@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 
-using MyExtensionsLib;
+using MyBlog.Extensions;
 using MyBlog.Web.Filters;
-using MyBlog.Core;
+using MyBlog;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

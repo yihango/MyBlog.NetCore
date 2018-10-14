@@ -2,7 +2,7 @@
 
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 

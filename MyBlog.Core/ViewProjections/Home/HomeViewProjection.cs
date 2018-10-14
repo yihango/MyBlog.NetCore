@@ -2,7 +2,7 @@
 
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 首页视图投影类

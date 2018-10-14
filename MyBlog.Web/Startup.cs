@@ -11,7 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog.Extensions.Logging;
-using MyBlog.Core;
+using MyBlog;
 using MyBlog.Web.Features;
 using MyBlog.Web.Middlewares;
 using MyBlog.Web.Common;

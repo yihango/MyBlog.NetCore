@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core
+﻿namespace MyBlog
 {
     /// <summary>
     /// 命令工作工厂接口

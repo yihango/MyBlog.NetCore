@@ -1,8 +1,8 @@
-﻿using MyBlog.Core.Posts;
+﻿using MyBlog.Posts;
 using System.Collections.Generic;
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 标签所有文章数据视图模型

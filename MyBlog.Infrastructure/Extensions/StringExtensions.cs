@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using KingLion.WebUtils.NPinyin;
 
-namespace MyExtensionsLib
+namespace MyBlog.Extensions
 {
     /// <summary>
     /// 字符串的扩展函数

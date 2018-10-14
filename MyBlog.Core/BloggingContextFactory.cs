@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace MyBlog.Core
+namespace MyBlog
 {
     public class BloggingContextFactory : IDesignTimeDbContextFactory<BlogDbContext>
     {

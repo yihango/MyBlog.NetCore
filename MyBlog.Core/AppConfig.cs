@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core
+namespace MyBlog
 {
     public class AppConfig
     {

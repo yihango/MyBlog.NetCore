@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace MyBlog.Core
+namespace MyBlog
 {
     /// <summary>
     /// 命令执行结果类

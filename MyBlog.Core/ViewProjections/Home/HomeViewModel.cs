@@ -1,9 +1,9 @@
-﻿using MyBlog.Core.Posts;
-using MyBlog.Core.Tags;
+﻿using MyBlog.Posts;
+using MyBlog.Tags;
 using System.Collections.Generic;
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 首页视图模型

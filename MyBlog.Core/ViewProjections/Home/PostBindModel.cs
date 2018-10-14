@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.ViewProjections.Home
+﻿namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 文章详情数据查询数据模型

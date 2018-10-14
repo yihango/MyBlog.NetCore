@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyExtensionsLib
+namespace MyBlog.Extensions
 {
     /// <summary>
     /// 时间扩展类

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyBlog.Core.Posts;
-using MyBlog.Core.PostTags;
-using MyBlog.Core.Tags;
-using MyBlog.Core.Users;
+using MyBlog.Posts;
+using MyBlog.PostTags;
+using MyBlog.Tags;
+using MyBlog.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core
+namespace MyBlog
 {
     public class BlogDbContext : DbContext
     {

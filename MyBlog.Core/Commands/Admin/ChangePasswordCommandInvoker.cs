@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.Options;
-using MyExtensionsLib;
+using MyBlog.Extensions;
 
 
-namespace MyBlog.Core.Commands.Admin
+namespace MyBlog.Commands.Admin
 {
     /// <summary>
     /// 修改用户密码的命令工作类

@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using System.DrawingCore;
-using System.DrawingCore.Imaging;
-using System.DrawingCore.Drawing2D;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 using System.IO;
 
-namespace MyCommonLib
+namespace MyBlog.Common
 {
     /// <summary>
     /// ** 描述：验证码类

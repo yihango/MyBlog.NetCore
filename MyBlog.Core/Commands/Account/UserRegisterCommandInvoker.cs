@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
-using MyBlog.Core.Users;
-using MyExtensionsLib;
+using MyBlog.Users;
+using MyBlog.Extensions;
 
 
-namespace MyBlog.Core.Commands.Account
+namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 用户注册命令执行

@@ -3,9 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyBlog.Core;
+using MyBlog;
 
-namespace MyBlog.Core.Migrations
+namespace MyBlog.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
     partial class BlogDbContextModelSnapshot : ModelSnapshot
@@ -16,7 +16,7 @@ namespace MyBlog.Core.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
-            modelBuilder.Entity("MyBlog.Core.Posts.Post", b =>
+            modelBuilder.Entity("MyBlog.Posts.Post", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -42,7 +42,7 @@ namespace MyBlog.Core.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("MyBlog.Core.PostTags.PostTag", b =>
+            modelBuilder.Entity("MyBlog.PostTags.PostTag", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -56,7 +56,7 @@ namespace MyBlog.Core.Migrations
                     b.ToTable("PostTags");
                 });
 
-            modelBuilder.Entity("MyBlog.Core.Tags.Tag", b =>
+            modelBuilder.Entity("MyBlog.Tags.Tag", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -68,7 +68,7 @@ namespace MyBlog.Core.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("MyBlog.Core.Users.User", b =>
+            modelBuilder.Entity("MyBlog.Users.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();

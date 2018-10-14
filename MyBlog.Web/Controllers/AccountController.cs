@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
-using MyCommonLib;
-using MyExtensionsLib;
+using MyBlog.Common;
+using MyBlog.Extensions;
 
-using MyBlog.Core;
-using MyBlog.Core.Commands.Account;
+using MyBlog;
+using MyBlog.Commands.Account;
 using MyBlog.Web.Common;
 using MyBlog.Web.Filters;
 

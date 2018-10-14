@@ -290,8 +290,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
-    <ProjectReference Include="..\MyCommonLib\MyCommonLib.csproj" />
-    <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">

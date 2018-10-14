@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core
+﻿namespace MyBlog
 {
     /// <summary>
     /// 视图投影工厂接口

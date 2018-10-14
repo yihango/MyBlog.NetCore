@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
-using MyExtensionsLib;
+using MyBlog.Extensions;
 
-using MyBlog.Core.Commands.Admin;
-using MyBlog.Core.PostTags;
-using MyBlog.Core.Tags;
-using MyBlog.Core.Posts;
+using MyBlog.Commands.Admin;
+using MyBlog.PostTags;
+using MyBlog.Tags;
+using MyBlog.Posts;
 
-namespace MyBlog.Core.Commands.AdminPost
+namespace MyBlog.Commands.AdminPost
 {
     /// <summary>
     /// 编辑博文

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core.Tags
+namespace MyBlog.Tags
 {
     /// <summary>
     /// 标签

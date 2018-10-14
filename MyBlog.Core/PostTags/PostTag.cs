@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core.PostTags
+namespace MyBlog.PostTags
 {
     /// <summary>
     /// 文章和标签的关联表

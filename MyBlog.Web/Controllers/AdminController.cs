@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
-using MyExtensionsLib;
-using MyBlog.Core;
-using MyBlog.Core.Commands.Admin;
+using MyBlog.Extensions;
+using MyBlog;
+using MyBlog.Commands.Admin;
 using MyBlog.Web.Filters;
 using MyBlog.Web.Common;
 
