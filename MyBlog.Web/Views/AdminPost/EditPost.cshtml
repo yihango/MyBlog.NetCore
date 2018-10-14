@@ -38,7 +38,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">正文</label>
             <div class="col-sm-10" id="test-editormd">
-                <textarea style="display:none;" name="Contents" id="Contents">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)</textarea>
+                <textarea style="display:none;" name="PostContentMD" id="Contents">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.ContentMD)</textarea>
             </div>
             <textarea style="display:none;" name="PostContent" id="Content" value=""></textarea>
         </div>
@@ -60,7 +60,6 @@
             </div>
         </div>
     </form>
-    @*<div id="markdwonSrc" style="display:none;">@Html.Raw(Model.Post == null ? string.Empty : Model.Post.Content)</div>*@
 </div>
 
 

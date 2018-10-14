@@ -6,14 +6,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>@ViewBag.Title</title>
+    <meta content="@ViewBag.Configs.Description" name="description">
+    <meta content="@ViewBag.Configs.Description" name="keywords">
+    <meta content="@ViewBag.Configs.Author" name="author">
+
+    <title>@(ViewBag.Configs.AppName + "-" + ViewBag.Title)</title>
 
 
-    <partial name="~/Views/Shared/_StyleLayout.cshtml"></partial>
+    <partial name="~/Views/Shared/_StyleLayout.cshtml" />
+    <partial name="~/Views/Shared/_JqueryLayout.cshtml" />
 
-    <partial name="~/Views/Shared/_JqueryLayout.cshtml"></partial>
-
-    <link href="/packages/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
+    <link href="~/packages/editormd/css/editormd.min.css" rel="stylesheet" />
+    <link href="~/packages/editormd/css/editormd.preview.min.css" rel="stylesheet" />
     <link href="/css/my_panel.css" rel="stylesheet" />
     <link href="/css/Home/layout.css" rel="stylesheet" />
     <link href="/css/Home/post_list.css" rel="stylesheet" />
@@ -29,7 +33,7 @@
 
     @* 页首 *@
     <header id="header">
-        <a href="/">玩双截棍的熊猫的博客</a>
+        <a href="/">@ViewBag.Configs.AppName</a>
     </header>
 
     <div class="container">
@@ -85,14 +89,16 @@
 
                 @* 友情链接 *@
                 <div class="panel">
-                    <div class="panel-head icon-folder-open"><strong>推荐博客</strong></div>
+                    <div class="panel-head icon-folder-open"><strong>推荐</strong></div>
                     <div class="panel-body">
-                        <a href="https://www.linuxdot.net/" target="_blank">LinuxDotNet大本营</a>
-                        <a href="http://www.cnblogs.com/yunei" target="_blank">宇内流云的园子</a>
-                        <a href="http://www.cnblogs.com/shanyou" target="_blank">张善友的园子</a>
-                        <a href="http://www.jhonge.com/" target="_blank">惊鸿哥的港湾</a>
-                        <a href="http://yimingzhi.net/" target="_blank">衣明志的技术博客</a>
-
+                        @if (ViewBag.Configs != null && ViewBag.Configs.RecommendUrls != null)
+                        {
+                            for (int i = 0; i < ViewBag.Configs.RecommendUrls.Count; i++)
+                            {
+                                var tmp = ViewBag.Configs.RecommendUrls[i];
+                                <a href="@tmp.Value" target="_blank">@tmp.Key</a>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -102,11 +108,12 @@
 
     @*@* 页脚信息 *@
     <footer id="footer" style="color:#fff">
-        备案号：粤ICP备xxxxx号-1
+        © 2018 POWERED BY <a href="https://github.com/staneee/MyBlog.NetCore" target="_blank">MyBlog</a>
+        @Html.Raw(ViewBag.Configs.AppNo)
         <p></p>
     </footer>
 
     @* 导入脚本 *@
-    <partial name="~/Views/Shared/_ScriptLayout.cshtml"></partial>
+    <partial name="~/Views/Shared/_ScriptLayout.cshtml" />
 </body>
 </html>

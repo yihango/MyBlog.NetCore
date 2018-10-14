@@ -23,7 +23,7 @@ $(function () {
 
 
     $("form").submit(function (e) {
-        $("#Content").val(testEditor.getMarkdown());
+        $("#Content").val(testEditor.getHTML());
     });
 
 });

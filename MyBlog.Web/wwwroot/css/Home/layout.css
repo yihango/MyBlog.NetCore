@@ -29,7 +29,7 @@
     overflow: hidden;
     background: #363d4d;
     margin-bottom: 30px;
-    width:100%;
+    width: 100%;
 }
 
     #header a {
@@ -72,6 +72,9 @@
         text-decoration: none;
     }
 
+img {
+    width: 100%;
+}
 
 @media (min-width: 1000px) {
     .tag-count {

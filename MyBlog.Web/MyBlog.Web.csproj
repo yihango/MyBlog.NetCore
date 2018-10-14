@@ -294,9 +294,6 @@
     <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\Posts\PostHouse\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
