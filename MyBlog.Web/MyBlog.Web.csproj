@@ -363,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="wwwroot\user\" />
   </ItemGroup>
 
 </Project>

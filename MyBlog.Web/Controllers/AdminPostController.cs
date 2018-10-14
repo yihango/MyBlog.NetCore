@@ -53,8 +53,6 @@ namespace MyBlog.Web.Controllers
             // TODO:使用 return View("Index", viewModel); 找不到视图
 
             return View("Index", viewModel);
-
-            return View("/Views/AdminPost/Index.cshtml", viewModel);
         }
 
         #endregion
