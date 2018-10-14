@@ -57,7 +57,7 @@ namespace MyBlog.Web
 
             services.AddDbContext<BlogDbContext>(options =>
             {
-                options.UseSqlite("Data Source=blog.db");
+                options.UseSqlite(this.Configuration["appConfig:connStr"]);
             });
 
             #region 认证Cookie配置
@@ -78,8 +78,8 @@ namespace MyBlog.Web
 
             #region 读取配置文件并注册
 
-            //services.Configure<WebAppConfiguration>(this.Configuration.GetSection("WebAppConfiguration"));
-
+            services.Configure<AppConfig>(this.Configuration.GetSection("appConfig"));
+         
             #endregion
 
 
@@ -93,6 +93,7 @@ namespace MyBlog.Web
             RegisterCommandInvoker(services);
 
             this.RegisterDbSession(services);
+
             #endregion
 
         }
@@ -260,7 +261,7 @@ namespace MyBlog.Web
         /// <param name="services"></param>
         private void RegisterDbSession(IServiceCollection services)
         {
-            services.AddScoped(typeof(DbContext),typeof(BlogDbContext));
+            services.AddScoped(typeof(DbContext), typeof(BlogDbContext));
         }
 
         #endregion
@@ -292,14 +293,14 @@ namespace MyBlog.Web
                         }
                         else
                         {
-                            // 若异常对象为空则休眠三秒钟
-                            System.Threading.Thread.Sleep(3000);
+                            // 若异常对象为空则休眠5秒钟
+                            System.Threading.Thread.Sleep(5000);
                         }
                     }
                     else
                     {
-                        // 若队列中没有数据则休眠三秒钟
-                        System.Threading.Thread.Sleep(3000);
+                        // 若队列中没有数据则休眠5秒钟
+                        System.Threading.Thread.Sleep(5000);
                     }
                 }
             });

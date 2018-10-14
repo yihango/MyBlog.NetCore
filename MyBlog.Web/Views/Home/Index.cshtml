@@ -5,7 +5,7 @@
 @model MyBlog.Core.ViewProjections.Home.HomeViewModel
 
 @{
-    ViewBag.Title = "玩双截棍的熊猫的博客";
+    ViewBag.Title = "首页";
 }
 
 
@@ -46,7 +46,8 @@ else
     <div class="post">
         <div class="details">
             <div>
-                @(Model.AllPageNum >= Model.PageNum ? "未发布任何文章..." : "未找到数据...")
+                @*@(Model.AllPageNum >= Model.PageNum ? "未发布任何文章..." : "未找到数据...")*@
+                啥也没找到...
             </div>
         </div>
     </div>

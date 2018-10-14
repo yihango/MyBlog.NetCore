@@ -97,6 +97,10 @@ namespace MyExtensionsLib
         /// <returns></returns>
         public static string RemoveHtml(this string strHtml)
         {
+            if (strHtml.IsNullOrWhitespace())
+            {
+                return string.Empty;
+            }
             //删除脚本
             strHtml = Regex.Replace(strHtml, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
             //删除HTML
@@ -122,6 +126,21 @@ namespace MyExtensionsLib
             return strHtml;
         }
 
+
+        public static string Sub(this string str, int maxCount)
+        {
+            if (str.IsNullOrWhitespace())
+            {
+                return string.Empty;
+            }
+
+            if (str.Length <= maxCount)
+            {
+                return $"{str}...";
+            }
+
+            return $"{str.Substring(0, maxCount)}...";
+        }
 
 
         /// <summary>

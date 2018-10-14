@@ -30,7 +30,12 @@
         /// </summary>
         public string PostContent { get; set; }
 
-     
+        /// <summary>
+        /// 博文内容
+        /// </summary>
+        public string PostContentMD { get; set; }
+
+
         /// <summary>
         /// 是否发布（两个值，true=1，false=0）
         /// </summary>

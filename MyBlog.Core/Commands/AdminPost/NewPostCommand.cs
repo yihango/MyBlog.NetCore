@@ -21,6 +21,7 @@
         /// </summary>
         public string PostContent { get; set; }
 
+        public string PostContentMD { get; set; }
 
         /// <summary>
         /// 是否发布（两个值，true=1，false=0）

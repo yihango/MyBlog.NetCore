@@ -6,6 +6,7 @@ using MyExtensionsLib;
 using MyBlog.Core;
 using MyBlog.Core.ViewProjections.Home;
 using MyBlog.Web.Common;
+using Microsoft.Extensions.Options;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,13 +19,20 @@ namespace MyBlog.Web.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly IViewProjectionFactory _viewProjectionFactory;
         private readonly ICommandInvokerFactory _commandInvokerFactory;
+        private readonly IOptions<AppConfig> _appConfig;
 
-        public HomeController(IHostingEnvironment hostingEnvironment, IMemoryCache memoryCache, IViewProjectionFactory viewProjectionFactory, ICommandInvokerFactory commandInvokerFactory)
+        public HomeController(
+            IHostingEnvironment hostingEnvironment,
+            IMemoryCache memoryCache,
+            IViewProjectionFactory viewProjectionFactory,
+            ICommandInvokerFactory commandInvokerFactory,
+            IOptions<AppConfig> appConfig)
         {
             this._hostingEnvironment = hostingEnvironment;
             this._memoryCache = memoryCache;
             this._viewProjectionFactory = viewProjectionFactory;
             this._commandInvokerFactory = commandInvokerFactory;
+            this._appConfig = appConfig;
         }
 
 
@@ -63,20 +71,11 @@ namespace MyBlog.Web.Controllers
         [HttpGet]
         public IActionResult Posts(PostBindModel model)
         {
-            if (null == model || model.PostId.HasValue || model.PostPutSortTime.IsNullOrWhitespace())
-                return View("Index", null);
+            if (null == model || !model.PostId.HasValue || model.PostPutSortTime.IsNullOrWhitespace())
+                return RedirectToAction("Index");
 
             // 
             var viewModel = this._viewProjectionFactory.GetViewProjection<PostBindModel, PostViewModel>(model);
-
-
-            // 如果查询到的数据不为空，那么拼接出全路径
-            if (null != viewModel.PostInfo)
-            {
-                //viewModel.PostInfo.post_path = this._hostingEnvironment.WebRootPath.WinLinuxPathSwitchCombine(viewModel.PostInfo.post_path);
-                //if (!System.IO.File.Exists(viewModel.PostInfo.post_path))
-                //    throw new System.Exception($"未找到文件!{viewModel.PostInfo.post_path}");
-            }
 
             Set();
             return View("PostDetails", viewModel);
@@ -121,6 +120,7 @@ namespace MyBlog.Web.Controllers
         {
             ViewBag.Tags = GetTags();
             ViewBag.RecentPost = GetRecentPostAction();
+            ViewBag.Configs = this._appConfig.Value;
         }
 
         /// <summary>

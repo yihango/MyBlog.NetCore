@@ -23,6 +23,8 @@ namespace MyBlog.Core.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<string>("ContentMD");
+
                     b.Property<bool>("IsPublish");
 
                     b.Property<string>("Key");

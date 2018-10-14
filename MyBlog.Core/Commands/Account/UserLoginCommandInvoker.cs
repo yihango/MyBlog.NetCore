@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.Extensions.Options;
 using MyExtensionsLib;
 
 namespace MyBlog.Core.Commands.Account
@@ -9,14 +10,14 @@ namespace MyBlog.Core.Commands.Account
     public class UserLoginCommandInvoker : ICommandInvoker<UserLoginCommand, UserLoginCommandResult>
     {
         private readonly BlogDbContext _context;
+        private readonly IOptions<AppConfig> _appConfig;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="db"></param>
-        public UserLoginCommandInvoker(BlogDbContext db)
+        public UserLoginCommandInvoker(
+            BlogDbContext db,
+            IOptions<AppConfig> appConfig)
         {
             this._context = db;
+            _appConfig = appConfig;
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace MyBlog.Core.Commands.Account
         {
             if (null != command && !command.Account.IsNullOrWhitespace() && !command.Passwrd.IsNullOrWhitespace())
             {
-                command.Passwrd = command.Passwrd.GetMd5Hash();
+                command.Passwrd = $"{command.Passwrd}{_appConfig.Value.PwdSalt}".GetMd5Hash();
                 var queryUser = this._context.Users
                                     .Where(u => u.Account == command.Account 
                                                 && u.Password == command.Passwrd);

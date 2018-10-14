@@ -45,10 +45,12 @@ namespace MyBlog.Core.Commands.AdminPost
                     if (post.IsPublish)
                     {
                         post.PublishDate = DateTime.Now;
-                        post.PublishSortDate = post.PublishDate.Value.ToString("yyyy-mm-dd");
+                        post.PublishSortDate = post.PublishDate.Value.ToString("yyyy-MM-dd");
                     }
+                    post.ContentMD = command.PostContentMD;
                     post.Content = command.PostContent;
                     post.Title = command.Title;
+                    post.Summary = post.Content.RemoveHtml().Sub(300);
 
                     _context.Posts.Add(post);
                     _context.SaveChanges();

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Options;
 using MyBlog.Core.Users;
 using MyExtensionsLib;
 
@@ -11,10 +12,14 @@ namespace MyBlog.Core.Commands.Account
     public class UserRegisterCommandInvoker : ICommandInvoker<UserRegisterCommand, UserLoginCommandResult>
     {
         private readonly BlogDbContext _context;
+        private readonly IOptions<AppConfig> _appConfig;
 
-        public UserRegisterCommandInvoker(BlogDbContext db)
+        public UserRegisterCommandInvoker(
+            BlogDbContext db,
+            IOptions<AppConfig> appConfig)
         {
             this._context = db;
+            _appConfig = appConfig;
         }
 
         /// <summary>
@@ -27,8 +32,6 @@ namespace MyBlog.Core.Commands.Account
 
             try
             {
-
-
                 if (command.Password != command.ConfirmPassword)
                     return new UserLoginCommandResult("两次输入密码不一致");
 
@@ -37,7 +40,7 @@ namespace MyBlog.Core.Commands.Account
                 {
                     user = new User();
                     user.Account = command.UserAccount;
-                    user.Password = command.Password.GetMd5Hash();
+                    user.Password = $"{command.Password}{_appConfig.Value.PwdSalt}".GetMd5Hash();
 
                     this._context.Users.Add(user);
 

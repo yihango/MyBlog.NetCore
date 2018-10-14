@@ -213,6 +213,7 @@ UpgradeLog*.htm
 # SQL Server files
 *.mdf
 *.ldf
+*.db
 
 # Business Intelligence projects
 *.rdl.data
@@ -259,3 +260,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MyBlog.Web/wwwroot/imgs/2018_10_14
+

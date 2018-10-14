@@ -46,6 +46,11 @@ namespace MyBlog.Core.Posts
         public string Content { get; set; }
 
         /// <summary>
+        /// 博文内容(markdwon)
+        /// </summary>
+        public string ContentMD { get; set; }
+
+        /// <summary>
         /// 是否已发布
         /// </summary>
         public bool IsPublish { get; set; }
