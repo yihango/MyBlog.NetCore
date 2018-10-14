@@ -57,7 +57,7 @@ namespace MyBlog.Web
 
             services.AddDbContext<BlogDbContext>(options =>
             {
-                options.UseSqlite(this.Configuration["appConfig:dbConnStr"]);
+                options.UseSqlite(this.Configuration["appConfig:connStr"]);
             });
 
             #region 认证Cookie配置

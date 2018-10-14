@@ -6,7 +6,7 @@ namespace MyBlog.Core
 {
     public class AppConfig
     {
-        public string DbConnStr { get; set; }
+        public string ConnStr { get; set; }
         public string FaciconUrl { get; set; }
         public string AppName { get; set; }
 
