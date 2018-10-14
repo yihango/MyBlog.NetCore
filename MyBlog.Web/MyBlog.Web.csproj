@@ -287,10 +287,6 @@
     <PackageReference Include="NLog.Extensions.Logging" Version="1.3.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -362,6 +358,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="wwwroot\user\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyBlog.EntityFrameworkCore\MyBlog.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>
