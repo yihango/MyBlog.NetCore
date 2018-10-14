@@ -15,11 +15,6 @@
     <None Remove="wwwroot\Packages\wangEditor\js\lib\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\packages\wangEditor\css\wangEditor.css" />
-    <Content Remove="wwwroot\packages\wangEditor\css\wangEditor.min.css" />
-  </ItemGroup>
-
   <!--<ItemGroup>
     <Content Include="wwwroot\Errors\404.html" />
     <Content Include="wwwroot\Errors\500.html" />
@@ -34,29 +29,10 @@
     <None Include="wwwroot\packages\editormd\.jshintrc" />
     <None Include="wwwroot\packages\editormd\BUGS.md" />
     <None Include="wwwroot\packages\editormd\CHANGE.md" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-Bold-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-BoldItalic-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-Italic-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-Light-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-LightItalic-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\fonts\OpenSans-Regular-webfont.svg" />
-    <None Include="wwwroot\packages\editormd\docs\scripts\linenumber.js" />
-    <None Include="wwwroot\packages\editormd\docs\scripts\prettify\lang-css.js" />
-    <None Include="wwwroot\packages\editormd\docs\scripts\prettify\prettify.js" />
     <None Include="wwwroot\packages\editormd\editormd.amd.js" />
     <None Include="wwwroot\packages\editormd\editormd.amd.min.js" />
     <None Include="wwwroot\packages\editormd\editormd.js" />
     <None Include="wwwroot\packages\editormd\editormd.min.js" />
-    <None Include="wwwroot\packages\editormd\examples\js\jquery.min.js" />
-    <None Include="wwwroot\packages\editormd\examples\js\require.min.js" />
-    <None Include="wwwroot\packages\editormd\examples\js\sea.js" />
-    <None Include="wwwroot\packages\editormd\examples\js\seajs-main.js" />
-    <None Include="wwwroot\packages\editormd\examples\js\zepto.min.js" />
-    <None Include="wwwroot\packages\editormd\examples\php\cross-domain-upload.php" />
-    <None Include="wwwroot\packages\editormd\examples\php\editormd.uploader.class.php" />
-    <None Include="wwwroot\packages\editormd\examples\php\post.php" />
-    <None Include="wwwroot\packages\editormd\examples\php\upload.php" />
-    <None Include="wwwroot\packages\editormd\examples\test.md" />
     <None Include="wwwroot\packages\editormd\fonts\editormd-logo.svg" />
     <None Include="wwwroot\packages\editormd\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\packages\editormd\fonts\fontawesome-webfont.woff2" />
@@ -274,13 +250,6 @@
     <None Include="wwwroot\packages\editormd\scss\lib\variables.scss" />
     <None Include="wwwroot\packages\editormd\scss\prettify.scss" />
     <None Include="wwwroot\packages\editormd\src\editormd.js" />
-    <None Include="wwwroot\packages\editormd\tests\js\bootstrap.min.js" />
-    <None Include="wwwroot\packages\editormd\tests\js\searchbox.js" />
-    <None Include="wwwroot\packages\editormd\tests\qunit\qunit-1.16.0.js" />
-    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.eot" />
-    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.svg" />
-    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.ttf" />
-    <None Include="wwwroot\packages\wangEditor\fonts\icomoon.woff" />
     <None Include="wwwroot\packages\wangEditor\js\wangEditor.js" />
     <None Include="wwwroot\packages\wangEditor\js\wangEditor.min.js" />
     <None Include="wwwroot\js\jquery.form.js" />
@@ -325,7 +294,6 @@
     <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\packages\wangEditor\css\" />
     <Folder Include="wwwroot\Posts\PostHouse\" />
   </ItemGroup>
   <ItemGroup>

@@ -18,15 +18,20 @@ $(function () {
                 url     : "图片地址"        // 上传成功时才返回
              }
              */
-
-
     });
 
 
 
     $("form").submit(function (e) {
-
-        $("#Content").val(testEditor.getHTML());
+        $("#Content").val(testEditor.getMarkdown());
     });
 
 });
+
+function success(res) {
+    if (res.code == 1) {
+        location.href = res.url;
+    } else {
+        alert(res.msg);
+    }
+}
