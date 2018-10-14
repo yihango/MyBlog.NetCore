@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Options;
 using MyExtensionsLib;
 
 
@@ -11,9 +12,14 @@ namespace MyBlog.Core.Commands.Admin
     public class ChangePasswordCommandInvoker : ICommandInvoker<ChangePasswordCommand, CommandResult>
     {
         private readonly BlogDbContext _context;
-        public ChangePasswordCommandInvoker(BlogDbContext db)
+        private readonly IOptions<AppConfig> _appConfig;
+
+        public ChangePasswordCommandInvoker(
+            BlogDbContext db,
+            IOptions<AppConfig> appConfig)
         {
             this._context = db;
+            _appConfig = appConfig;
         }
 
         /// <summary>
@@ -25,18 +31,18 @@ namespace MyBlog.Core.Commands.Admin
         {
             try
             {
-                var queryUserInfo = this._context.Users.Where(u => u.Account == command.UserAccount).FirstOrDefault();
+                var user = this._context.Users.Where(u => u.Account == command.UserAccount).FirstOrDefault();
 
-                if (null == queryUserInfo)
+                if (null == user)
                     return new CommandResult("用户不存在！");
-                else if (!queryUserInfo.Password.Equals(command.OldPassword.GetMd5Hash()))
+                else if (!user.Password.Equals(command.OldPassword.GetMd5Hash()))
                     return new CommandResult("旧密码错误！");
 
                 using (var transaction = _context.Database.BeginTransaction())
                 {
-                    queryUserInfo.Password = command.NewPassword.GetMd5Hash();
+                    user.Password = $"{command.NewPassword}{_appConfig.Value.PwdSalt}".GetMd5Hash();
 
-                    this._context.Users.Update(queryUserInfo);
+                    this._context.Users.Update(user);
 
                     this._context.SaveChanges();
                     transaction.Commit();

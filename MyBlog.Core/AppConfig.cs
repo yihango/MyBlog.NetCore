@@ -31,6 +31,8 @@ namespace MyBlog.Core
         public string Description { get; set; }
         public string Keywords { get; set; }
         public string Author { get; set; }
+
+        public string PwdSalt { get; set; }
     }
 
     public class KV
