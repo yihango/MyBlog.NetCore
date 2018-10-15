@@ -42,6 +42,12 @@
         public bool PubState { get; set; }
 
         /// <summary>
+        /// 更新发布时间
+        /// (勾选的值为 "on",不勾选没有值 )
+        /// </summary>
+        public string UpdatePublishTime { get; set; }
+
+        /// <summary>
         /// 之前的页码
         /// </summary>
         public int ReturnPageNum { get; set; }

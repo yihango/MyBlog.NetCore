@@ -35,10 +35,10 @@ namespace MyBlog.Commands.AdminPost
 
                     #region 文章
 
-                    var post = new Post();
+                    var post = _context.Posts.Where(o => o.Id == command.PostId).FirstOrDefault();
                     post.Id = command.PostId;
                     post.IsPublish = command.PubState;
-                    if (post.IsPublish)
+                    if (post.IsPublish && !command.UpdatePublishTime.IsNullOrWhitespace())
                     {
                         post.PublishDate = DateTime.Now;
                         post.PublishSortDate = post.PublishDate.Value.ToString("yyyy-MM-dd");
@@ -47,7 +47,7 @@ namespace MyBlog.Commands.AdminPost
                     post.Content = command.PostContent;
                     post.Title = command.Title;
                     post.Summary = post.Content.RemoveHtml().Sub(300);
-                   
+
 
                     _context.Posts.Update(post);
 
