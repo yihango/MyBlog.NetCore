@@ -80,6 +80,10 @@ img {
     word-break: break-all;
 }
 
+.post-title {
+    word-break: break-all;
+}
+
 @media (min-width: 1000px) {
     .tag-count {
         display: block;
