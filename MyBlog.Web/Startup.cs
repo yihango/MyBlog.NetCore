@@ -106,8 +106,6 @@ namespace MyBlog.Web
             // 编码注册
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            #region 
-
             // 确保数据库正确创建
             using (var serviceScop = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -115,10 +113,6 @@ namespace MyBlog.Web
                 context.Database.EnsureCreated();
             }
 
-
-            #endregion
-
-            loggerFactory.AddNLog();
 
             // 全局异常捕获中间件注册
             app.UseErrorHandling();
@@ -162,7 +156,7 @@ namespace MyBlog.Web
         private void RegisterViewProjection(IServiceCollection services)
         {
             // 获取程序集中所有实现了IViewProjection接口的类
-            var viewProjectTypes = typeof(IViewProjection<,>).GetTypeInfo().Assembly
+            var viewProjectTypes = typeof(AppConfig).GetTypeInfo().Assembly
                  .DefinedTypes
                  .Select(t => new
                  {
@@ -194,7 +188,7 @@ namespace MyBlog.Web
         {
 
             // 获取程序集中所有实现了IViewProjection接口的类
-            var commandInvokerTypes = typeof(ICommandInvoker<,>).GetTypeInfo().Assembly
+            var commandInvokerTypes = typeof(AppConfig).GetTypeInfo().Assembly
                  .DefinedTypes
                  .Select(t => new
                  {

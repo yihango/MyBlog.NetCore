@@ -60,7 +60,7 @@ namespace MyBlog.Web.Middlewares
 
             return Task.Run(() =>
             {
-                context.Response.Redirect("/Error/{0}");
+                context.Response.Redirect("/Error/500");
             });
         }
     }
