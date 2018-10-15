@@ -360,7 +360,7 @@
     <Folder Include="wwwroot\user\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyBlog.EntityFrameworkCore\MyBlog.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
   </ItemGroup>
 
 </Project>

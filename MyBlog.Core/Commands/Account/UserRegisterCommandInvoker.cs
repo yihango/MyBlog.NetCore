@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using MyBlog.Users;
 using MyBlog.Extensions;
-
+using MyBlog.EFCore;
 
 namespace MyBlog.Commands.Account
 {

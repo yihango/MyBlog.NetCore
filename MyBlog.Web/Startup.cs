@@ -16,6 +16,7 @@ using MyBlog.Web.Features;
 using MyBlog.Web.Middlewares;
 using MyBlog.Web.Common;
 using Microsoft.EntityFrameworkCore;
+using MyBlog.EFCore;
 
 namespace MyBlog.Web
 {
@@ -76,26 +77,20 @@ namespace MyBlog.Web
 
 
 
-            #region 读取配置文件并注册
-
+            // 注册配置文件
             services.Configure<AppConfig>(this.Configuration.GetSection("appConfig"));
-         
-            #endregion
 
 
-
-
-
-            #region 视图工厂/命令工厂/数据库会话 注册
+            #region ViewProjection 、 CommandInvoker 注册
 
             RegisterViewProjection(services);
 
             RegisterCommandInvoker(services);
 
-            this.RegisterDbSession(services);
-
             #endregion
 
+            // DbContext注入
+            services.AddScoped(typeof(DbContext), typeof(BlogDbContext));
         }
 
 
@@ -111,58 +106,25 @@ namespace MyBlog.Web
             // 编码注册
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
+            #region 
+
+            // 确保数据库正确创建
+            using (var serviceScop = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScop.ServiceProvider.GetRequiredService<BlogDbContext>();
+                context.Database.EnsureCreated();
+            }
+
+
+            #endregion
 
             loggerFactory.AddNLog();
-
-            #region 异常捕获，日志记录，错误页跳转 配置
 
             // 全局异常捕获中间件注册
             app.UseErrorHandling();
 
-            #region 暂时不用的
-
-            //// 配置错误页 500
-
-            ///* 当出现底层异常时，自定义错误页面不能显示，还是一片空白
-            // * 这时想到用 MVC 显示自定义错误页面的局限，如果发生的异常导致 MVC 本身不能正常工作，自定义错误页面就无法显示。
-            // * 针对这个问题进行了改进，针对500错误直接用静态文件的方式进行响应 
-            // * 参考博文：http://www.cnblogs.com/dudu/p/6004777.html?utm_source=tuicool&utm_medium=referral
-            // */
-            //app.UseExceptionHandler(errorApp =>
-            //{
-            //    errorApp.Run(async (context) =>
-            //    {
-            //        context.Response.StatusCode = 500;
-            //        if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
-            //        {
-            //            context.Response.ContentType = "text/html";
-            //            await context.Response.SendFileAsync($"{env.WebRootPath}/Errors/500.html");
-            //        }
-            //    });
-            //    errorApp.Run(async context =>
-            //    {
-            //        context.Response.StatusCode = 500;
-            //        if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
-            //        {
-            //            context.Response.ContentType = "text/html";
-            //            await context.Response.SendFileAsync($"{env.WebRootPath}/Errors/500.html");
-            //        }
-            //    });
-            //});
-            //// 404错误
-            //app.UseStatusCodePagesWithReExecute("/Error/{0}"); 
-            #endregion
-
-
-            // 启用日志记录
-            LogWriter();
-
-            #endregion
-
-
-
+            // 启用认证
             app.UseAuthentication();
-
 
             // 配置session
             app.UseSession(new SessionOptions()
@@ -173,11 +135,8 @@ namespace MyBlog.Web
                 }
             });
 
-
             // 配置静态文件资源
             app.UseStaticFiles();
-
-
 
             // 配置MVC路由
             app.UseMvc(routes =>
@@ -187,6 +146,9 @@ namespace MyBlog.Web
                             defaults: new { controller = "Home", action = "Index" });
             });
 
+
+            // 启用日志记录
+            LogWriter();
         }
 
 
@@ -194,7 +156,7 @@ namespace MyBlog.Web
         #region 视图投影，命令工作，数据库会话  注册
 
         /// <summary>
-        /// 注册视图投影类
+        /// 注册 ViewProjection
         /// </summary>
         /// <param name="services"></param>
         private void RegisterViewProjection(IServiceCollection services)
@@ -225,7 +187,7 @@ namespace MyBlog.Web
         }
 
         /// <summary>
-        /// 注册命令执行类
+        /// 注册 CommandInvoker
         /// </summary>
         /// <param name="services"></param>
         private void RegisterCommandInvoker(IServiceCollection services)
@@ -253,15 +215,6 @@ namespace MyBlog.Web
             {
                 return new CommandInvokerFactory(serviceProvider);
             });
-        }
-
-        /// <summary>
-        /// 注册数据库会话
-        /// </summary>
-        /// <param name="services"></param>
-        private void RegisterDbSession(IServiceCollection services)
-        {
-            services.AddScoped(typeof(DbContext), typeof(BlogDbContext));
         }
 
         #endregion

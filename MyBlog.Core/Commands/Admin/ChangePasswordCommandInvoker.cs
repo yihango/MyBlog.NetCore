@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Extensions.Options;
 using MyBlog.Extensions;
-
+using MyBlog.EFCore;
 
 namespace MyBlog.Commands.Admin
 {
