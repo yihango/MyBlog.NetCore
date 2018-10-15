@@ -76,6 +76,10 @@ img {
     width: 100%;
 }
 
+.panel-body  a {
+    word-break: break-all;
+}
+
 @media (min-width: 1000px) {
     .tag-count {
         display: block;

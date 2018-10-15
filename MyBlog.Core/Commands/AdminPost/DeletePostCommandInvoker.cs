@@ -26,18 +26,24 @@ namespace MyBlog.Commands.AdminPost
         /// <returns></returns>
         public CommandResult Execute(DeletePostCommand command)
         {
-
             try
             {
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    // 删除博客
+                    var entity = _context.Posts.Where(o => o.Id == command.PostId.Value).FirstOrDefault();
+                    _context.Posts.Remove(entity);
+                    // 删除关联标签
+                    var postTags = _context.PostTags.Where(o => o.PostId == entity.Id);
+                    _context.RemoveRange(postTags.ToArray());
 
-               
-
-
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
                 return new CommandResult();
             }
             catch (Exception e)
             {
-               
                 // 删除失败
                 return new CommandResult(e.ToString());
             }

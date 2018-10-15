@@ -15,16 +15,7 @@
     <None Remove="logfile\**" />
     <None Remove="wwwroot\Packages\wangEditor\js\lib\**" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <Content Include="wwwroot\Errors\404.html" />
-    <Content Include="wwwroot\Errors\500.html" />
-    <Content Include="wwwroot\Posts\UpLoadImgs\expiration.png" />
-    <Content Include="wwwroot\Scripts\myscripts\errors.js" />
-    <Content Include="wwwroot\css\Errors\error.css" />
-    <Content Include="wwwroot\User\icon.png" />
-  </ItemGroup>-->
-
+  
   <ItemGroup>
     <None Include="wwwroot\packages\editormd\.gitignore" />
     <None Include="wwwroot\packages\editormd\.jshintrc" />
@@ -358,7 +349,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="wwwroot\user\" />
   </ItemGroup>
   <ItemGroup>

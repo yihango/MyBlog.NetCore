@@ -163,8 +163,7 @@ namespace MyBlog.Web.Controllers
             var page = HttpContext.Request.Query["page"];
             int.TryParse(page, out pageNum);
 
-            var postId = HttpContext.Request.Query["post"];
-            if (postId.ToString().IsNullOrWhitespace())
+            if (!long.TryParse(HttpContext.Request.Query["id"], out long postId))
                 return Json(new { code = -1, msg = "Error:数据错误", url = string.Empty });
 
             #endregion
