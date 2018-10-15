@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core
+namespace MyBlog
 {
     public class AppConfig
     {
@@ -33,6 +33,7 @@ namespace MyBlog.Core
         public string Author { get; set; }
 
         public string PwdSalt { get; set; }
+        public string Cnzz { get; set; }
     }
 
     public class KV

@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.ViewProjections.AdminPost
+﻿namespace MyBlog.ViewProjections.AdminPost
 {
     /// <summary>
     /// 所有博文数据绑定模型

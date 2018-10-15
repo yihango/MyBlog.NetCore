@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Caching.Memory;
-using MyExtensionsLib;
-using MyBlog.Core;
-using MyBlog.Core.ViewProjections.AdminPost;
-using MyBlog.Core.Commands.Admin;
-using MyBlog.Core.Commands.AdminPost;
+using MyBlog.Extensions;
+using MyBlog;
+using MyBlog.ViewProjections.AdminPost;
+using MyBlog.Commands.Admin;
+using MyBlog.Commands.AdminPost;
 using MyBlog.Web.Common;
 using MyBlog.Web.Filters;
 

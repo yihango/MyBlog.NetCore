@@ -2,10 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using MyBlog.EFCore;
 
 
-
-namespace MyBlog.Core.Commands.AdminPost
+namespace MyBlog.Commands.AdminPost
 {
     /// <summary>
     /// 删除博文命令工作类

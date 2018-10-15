@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.ViewProjections.Home
+﻿namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 标签所有文章查询模型

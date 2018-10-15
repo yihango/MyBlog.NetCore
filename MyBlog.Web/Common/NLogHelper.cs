@@ -17,8 +17,8 @@ namespace MyBlog.Web.Common
         {
             var consoleTarget = new ConsoleTarget()
             {
-                Layout = @"${date:format=HH\:mm\:ss} ${message}"
-                //Encoding = Encoding.Default
+                Layout = @"${date:format=HH\:mm\:ss} ${message}",
+                Encoding = Encoding.UTF8
             };
             //采用*号命名的LoggingRule，不用显示引用，启动其他任何name的LoggingRule都会自动带上它，默认起效。
             Config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, consoleTarget));
@@ -26,7 +26,7 @@ namespace MyBlog.Web.Common
             {
                 FileName = @"${basedir}/output/" + loggerName + ".log",
                 Layout = @"${date:format=yyyy-MM-dd HH\:mm\:ss} ${message}",
-                Encoding = Encoding.Default
+                Encoding = Encoding.UTF8
             };
             Config.LoggingRules.Add(new LoggingRule(loggerName, LogLevel.Debug, fileTarget));
             LogManager.Configuration = Config;
@@ -49,7 +49,7 @@ namespace MyBlog.Web.Common
         /// </summary>
         /// <param name="logName">日志名称</param>
         /// <param name="logMsg">写入的信息</param>
-        public static void Write(string logName,string logMsg)
+        public static void Write(string logName, string logMsg)
         {
             GetFileLogger(logName).Info(logMsg);
         }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyBlog.Core.Commands.Account
+namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 用户登陆命令

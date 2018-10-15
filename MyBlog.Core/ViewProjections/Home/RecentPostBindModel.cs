@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.ViewProjections.Home
+﻿namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 近期博文绑定数据模型

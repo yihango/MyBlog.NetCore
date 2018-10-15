@@ -1,20 +1,16 @@
-﻿using MyBlog.Core.Tags;
+﻿using MyBlog.Entities;
+using MyBlog.Tags;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core.Posts
+namespace MyBlog.Posts
 {
     /// <summary>
     /// 博客实体
     /// </summary>
-    public class Post
+    public class Post:Entity<long>
     {
-        /// <summary>
-        /// id
-        /// </summary>
-        public long Id { get; set; }
-
         /// <summary>
         /// key
         /// </summary>

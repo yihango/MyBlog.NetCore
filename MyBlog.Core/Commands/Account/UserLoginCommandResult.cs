@@ -1,7 +1,7 @@
-﻿using MyBlog.Core.Users;
+﻿using MyBlog.Users;
 
 
-namespace MyBlog.Core.Commands.Account
+namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 登陆命令执行结果

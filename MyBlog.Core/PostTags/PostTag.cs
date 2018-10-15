@@ -1,16 +1,15 @@
-﻿using System;
+﻿using MyBlog.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Core.PostTags
+namespace MyBlog.PostTags
 {
     /// <summary>
     /// 文章和标签的关联表
     /// </summary>
-    public class PostTag
+    public class PostTag : Entity<long>
     {
-        public long Id { get; set; }
-
         /// <summary>
         /// 标签Id
         /// </summary>

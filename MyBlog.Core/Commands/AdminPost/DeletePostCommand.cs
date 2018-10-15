@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.Commands.AdminPost
+﻿namespace MyBlog.Commands.AdminPost
 {
     /// <summary>
     /// 删除博文命令

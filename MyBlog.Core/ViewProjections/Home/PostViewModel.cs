@@ -1,8 +1,8 @@
 ﻿
 
-using MyBlog.Core.Posts;
+using MyBlog.Posts;
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 文章详情视图模型

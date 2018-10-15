@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.Commands.Admin
+﻿namespace MyBlog.Commands.Admin
 {
     /// <summary>
     /// 修改用户密码命令

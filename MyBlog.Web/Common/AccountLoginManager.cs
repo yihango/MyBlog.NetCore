@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
-using MyBlog.Core.Commands.Account;
+using MyBlog.Commands.Account;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MyBlog.Web.Common

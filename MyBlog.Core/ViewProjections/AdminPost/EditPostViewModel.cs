@@ -1,8 +1,8 @@
 ﻿
 
-using MyBlog.Core.Posts;
+using MyBlog.Posts;
 
-namespace MyBlog.Core.ViewProjections.AdminPost
+namespace MyBlog.ViewProjections.AdminPost
 {
     /// <summary>
     /// 博文编辑视图模型

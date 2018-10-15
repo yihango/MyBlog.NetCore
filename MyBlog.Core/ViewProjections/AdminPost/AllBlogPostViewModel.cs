@@ -1,8 +1,8 @@
-﻿using MyBlog.Core.Posts;
+﻿using MyBlog.Posts;
 using System.Collections.Generic;
 
 
-namespace MyBlog.Core.ViewProjections.AdminPost
+namespace MyBlog.ViewProjections.AdminPost
 {
     /// <summary>
     /// 所有博文视图绑定模型

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
+using MyBlog.EFCore;
 
-
-namespace MyBlog.Core.Commands.Account
+namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 

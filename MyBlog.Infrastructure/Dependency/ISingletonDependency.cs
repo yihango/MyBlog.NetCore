@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyBlog.Infrastructure.Dependency
+namespace MyBlog.Dependency
 {
     public interface ISingletonDependency
     {

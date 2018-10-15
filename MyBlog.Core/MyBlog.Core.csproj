@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>MyBlog</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyCommonLib\MyCommonLib.csproj" />
-    <ProjectReference Include="..\MyExtensionsLib\MyExtensionsLib.csproj" />
+    <ProjectReference Include="..\MyBlog.Infrastructure\MyBlog.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,54 @@
+﻿@model MyBlog.Web.ViewModels.Error.ErrorViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta content="@ViewBag.Configs.Description" name="description">
+    <meta content="@ViewBag.Configs.Description" name="keywords">
+    <meta content="@ViewBag.Configs.Author" name="author">
+    <link rel="shortcut icon" href="@ViewBag.Configs.FaciconUrl" type="image/x-icon" asp-append-version="true">
+
+    <link href="/packages/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/packages/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/border_radius_clear.css" rel="stylesheet" />
+    <link href="/css/m_p_clear.css" rel="stylesheet" />
+    <link href="/css/Manager/layout.css" rel="stylesheet" />
+    <link href="/css/Errors/error.css" rel="stylesheet" />
+    <title>妈耶,出错了</title>
+</head>
+<body>
+
+    <header id="header">
+        <a href="/">
+            <i class="glyphicon glyphicon-share-alt"></i>返回首页
+        </a>
+    </header>
+
+    <div class="container">
+        <span class="STYLE12">&nbsp;:(</span><p class="STYLE7">
+            妈耶,出错了<br />
+            <!--<span id="time">9</span>秒后为您跳转到<a class="STYLE13" href="/">&nbsp;首页&nbsp;</a>-->
+            您可以在<a class="STYLE13" href="https://cn.bing.com">&nbsp;bing&nbsp;</a>试着找找您所需要的信息。
+        </p><p class="STYLE7"><span class="STYLE9">如果您想了解更多信息，则可以稍后使用搜索此错误:&nbsp;@Model.Exception.Message&nbsp;</span></p>
+    </div>
+
+
+    @*@* 页脚信息 *@
+    <footer id="footer" style="color:#fff">
+        © 2018 POWERED BY <a href="https://github.com/staneee/MyBlog.NetCore" target="_blank">MyBlog</a>
+        @Html.Raw(ViewBag.Configs.AppNo)
+        <p></p>
+    </footer>
+    <!--<script src="/js/myscripts/errors.js"></script>-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/packages/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/myscripts/footer.position.js"></script>
+
+</body>
+</html>

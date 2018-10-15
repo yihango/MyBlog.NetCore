@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using MyBlog.EFCore;
 
 
-
-namespace MyBlog.Core.ViewProjections.AdminPost
+namespace MyBlog.ViewProjections.AdminPost
 {
     /// <summary>
     /// 所有博客视图投影工厂

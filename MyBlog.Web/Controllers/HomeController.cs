@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
-using MyExtensionsLib;
-using MyBlog.Core;
-using MyBlog.Core.ViewProjections.Home;
+using MyBlog.Extensions;
+using MyBlog;
+using MyBlog.ViewProjections.Home;
 using MyBlog.Web.Common;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Diagnostics;
+using MyBlog.Web.ViewModels.Error;
+using System.Diagnostics;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -152,5 +155,6 @@ namespace MyBlog.Web.Controllers
         }
 
         #endregion
+
     }
 }

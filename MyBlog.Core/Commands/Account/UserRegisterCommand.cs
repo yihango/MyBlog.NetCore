@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Core.Commands.Account
+﻿namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 用户注册命令

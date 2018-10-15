@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.Extensions.Options;
-using MyExtensionsLib;
+using MyBlog.Extensions;
+using MyBlog.EFCore;
 
-namespace MyBlog.Core.Commands.Account
+namespace MyBlog.Commands.Account
 {
     /// <summary>
     /// 登陆命令执行类

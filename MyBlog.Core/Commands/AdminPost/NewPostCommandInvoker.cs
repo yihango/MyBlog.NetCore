@@ -3,17 +3,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using MyBlog.EFCore;
+using MyBlog.Extensions;
 
-using MyExtensionsLib;
 
 
+using MyBlog.Commands.Admin;
+using MyBlog.Posts;
+using MyBlog.Tags;
+using MyBlog.PostTags;
 
-using MyBlog.Core.Commands.Admin;
-using MyBlog.Core.Posts;
-using MyBlog.Core.Tags;
-using MyBlog.Core.PostTags;
-
-namespace MyBlog.Core.Commands.AdminPost
+namespace MyBlog.Commands.AdminPost
 {
     public class NewPostCommandInvoker : ICommandInvoker<NewPostCommand, CommandResult>
     {

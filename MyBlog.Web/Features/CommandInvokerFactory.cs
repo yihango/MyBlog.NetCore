@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using MyBlog.Core;
+using MyBlog;
 
 namespace MyBlog.Web.Features
 {

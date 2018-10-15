@@ -1,9 +1,9 @@
-﻿using MyBlog.Core.Tags;
-using MyBlog.Core.TagStatistics;
+﻿using MyBlog.Tags;
+using MyBlog.TagStatistics;
 using System.Collections.Generic;
 
 
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 标签视图模型

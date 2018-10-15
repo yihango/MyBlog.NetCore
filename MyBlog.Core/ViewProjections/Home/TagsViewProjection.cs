@@ -1,10 +1,10 @@
-﻿using MyBlog.Core.TagStatistics;
+﻿using MyBlog.TagStatistics;
 using System.Collections.Generic;
 using System.Linq;
+using MyBlog.EFCore;
 
 
-
-namespace MyBlog.Core.ViewProjections.Home
+namespace MyBlog.ViewProjections.Home
 {
     /// <summary>
     /// 标签查询视图投影类
