@@ -17,13 +17,12 @@
     <partial name="~/Views/Shared/_JqueryLayout.cshtml" />
 
     <link href="~/packages/editormd/css/editormd.min.css" rel="stylesheet" />
-    <link href="~/packages/editormd/css/editormd.preview.min.css" rel="stylesheet" />
     <link href="/css/my_panel.css" rel="stylesheet" />
     <link href="/css/Home/layout.css" rel="stylesheet" />
     <link href="/css/Home/post_list.css" rel="stylesheet" />
     <link href="/css/Home/post_details.css" rel="stylesheet" />
     <link href="/css/button.prev.next.css" rel="stylesheet" />
-
+    <link href="~/packages/tag-cloud/tag-cloud.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
 
@@ -53,7 +52,7 @@
                 @* 文章标签 *@
                 <div class="panel">
                     <div class="panel-head icon-folder-open"><strong>标签</strong></div>
-                    <div class="panel-body">
+                    <div class="tag-cloud">
                         @if (ViewBag.Tags.TagList.Count <= 0)
                         {
                             <a>暂无标签</a>
@@ -62,7 +61,7 @@
                         {
                             foreach (var item in ViewBag.Tags.TagList)
                             {
-                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
+                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" class="tag" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
 
                             }
                         }
@@ -115,6 +114,7 @@
     </footer>
 
     @* 导入脚本 *@
+    <script src="~/packages/tag-cloud/tag-cloud.js" type="text/javascript" asp-append-version="true"></script>
     <partial name="~/Views/Shared/_ScriptLayout.cshtml" />
     @Html.Raw(ViewBag.Configs.Cnzz)
 </body>
