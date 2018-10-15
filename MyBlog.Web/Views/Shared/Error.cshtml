@@ -20,7 +20,7 @@
     <link href="/css/m_p_clear.css" rel="stylesheet" />
     <link href="/css/Manager/layout.css" rel="stylesheet" />
     <link href="/css/Errors/error.css" rel="stylesheet" />
-    <title>@("阿哦,出错了-" + Model.Code)</title>
+    <title>妈耶,出错了</title>
 </head>
 <body>
 
@@ -32,10 +32,10 @@
 
     <div class="container">
         <span class="STYLE12">&nbsp;:(</span><p class="STYLE7">
-            阿哦,出错了<br />
+            妈耶,出错了<br />
             <!--<span id="time">9</span>秒后为您跳转到<a class="STYLE13" href="/">&nbsp;首页&nbsp;</a>-->
             您可以在<a class="STYLE13" href="https://cn.bing.com">&nbsp;bing&nbsp;</a>试着找找您所需要的信息。
-        </p><p class="STYLE7"><span class="STYLE9">如果您想了解更多信息，则可以稍后使用搜索此错误:&nbsp;网站 @Model.Code 错误码&nbsp;</span></p>
+        </p><p class="STYLE7"><span class="STYLE9">如果您想了解更多信息，则可以稍后使用搜索此错误:&nbsp;@Model.Exception.Message&nbsp;</span></p>
     </div>
 
 

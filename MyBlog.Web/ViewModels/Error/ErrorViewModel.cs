@@ -11,6 +11,6 @@ namespace MyBlog.Web.ViewModels.Error
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        public string Code { get; set; }
+        public System.Exception Exception { get; set; }
     }
 }

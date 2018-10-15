@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog.Extensions.Logging;
 using MyBlog;
 using MyBlog.Web.Features;
-using MyBlog.Web.Middlewares;
 using MyBlog.Web.Common;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.EFCore;
@@ -113,9 +112,15 @@ namespace MyBlog.Web
                 context.Database.EnsureCreated();
             }
 
-
-            // 全局异常捕获中间件注册
-            app.UseErrorHandling();
+            // 异常
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
 
             // 启用认证
             app.UseAuthentication();
@@ -228,10 +233,10 @@ namespace MyBlog.Web
                 while (true)
                 {
                     // 检查队列中是否存在数据
-                    if (ErrorHandlingMiddleware.ExceptionQueue.Count > 0)
+                    if (Global.ExceptionQueue.Count > 0)
                     {
                         // 将异常对象从队列中拿出来
-                        Exception exception = ErrorHandlingMiddleware.ExceptionQueue.Dequeue();
+                        Exception exception = Global.ExceptionQueue.Dequeue();
                         // 若异常对象不为空则记录日志
                         if (null != exception)
                         {

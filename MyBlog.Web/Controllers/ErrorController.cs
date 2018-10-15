@@ -4,6 +4,7 @@ using Microsoft.Net.Http.Headers;
 using MyBlog.Web.ViewModels.Error;
 using System.Diagnostics;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,16 +26,19 @@ namespace MyBlog.Web.Controllers
 
 
         // GET: /<controller>/
-        [Route("/Error/{statusCode}")]
-        [HttpGet]
+        [HttpGet("/Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error(string statusCode)
+        public IActionResult Error()
         {
             ViewBag.Configs = this._appConfig.Value;
-            return View(new ErrorViewModel
+            var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            var error = feature?.Error;
+            // 将异常添加到异常队列中
+            //Global.ExceptionQueue.Enqueue(error);
+            return View("~/Views/Shared/Error.cshtml", new ErrorViewModel()
             {
+                Exception = error,
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                Code = statusCode
             });
         }
     }
