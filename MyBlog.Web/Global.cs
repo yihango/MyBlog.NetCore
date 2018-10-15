@@ -12,8 +12,6 @@ namespace MyBlog.Web
         /// </summary>
         public static Queue<Exception> ExceptionQueue { get; set; } = new Queue<Exception>();
 
-        public const string _auth = "_auth";
-        public const string _session_server = "_login";
-        public const string _session_client = "_sid";
+        
     }
 }
