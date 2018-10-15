@@ -8,7 +8,7 @@
         /// <summary>
         /// 博文编号
         /// </summary>
-        public string PostId { get; set; }
+        public long? PostId { get; set; }
 
         /// <summary>
         /// 当前应用静态文件所在目录
