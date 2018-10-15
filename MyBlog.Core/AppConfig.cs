@@ -33,6 +33,7 @@ namespace MyBlog
         public string Author { get; set; }
 
         public string PwdSalt { get; set; }
+        public string Cnzz { get; set; }
     }
 
     public class KV

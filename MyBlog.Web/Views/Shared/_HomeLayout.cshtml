@@ -110,10 +110,12 @@
     <footer id="footer" style="color:#fff">
         © 2018 POWERED BY <a href="https://github.com/staneee/MyBlog.NetCore" target="_blank">MyBlog</a>
         @Html.Raw(ViewBag.Configs.AppNo)
+        <span id="cnzz"></span>
         <p></p>
     </footer>
 
     @* 导入脚本 *@
     <partial name="~/Views/Shared/_ScriptLayout.cshtml" />
+    @Html.Raw(ViewBag.Configs.Cnzz)
 </body>
 </html>
