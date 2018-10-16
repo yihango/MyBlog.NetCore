@@ -138,13 +138,13 @@ namespace MyBlog.Web
             app.UseStaticFiles();
 
             // 配置MVC路由
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(name: "default",
-                            template: "{controller}/{action}/{page?}",
-                            defaults: new { controller = "Home", action = "Index" });
-            });
-
+            app.UseMvcWithDefaultRoute();
+            //routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //                template: "{controller}/{action}/{page?}",
+            //                defaults: new { controller = "Home", action = "Index" });
+            //}
 
             // 启用日志记录
             LogWriter();

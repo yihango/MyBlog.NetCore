@@ -62,7 +62,7 @@
                         {
                             foreach (var item in ViewBag.Tags.TagList)
                             {
-                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" class="tag" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
+                                <a href="/posts/@item.Value/1" class="tag" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
 
                             }
                         }
@@ -81,7 +81,7 @@
                         {
                             foreach (var item in ViewBag.RecentPost.PostList)
                             {
-                                <a href="~/Details/@(item.Id)" target="_blank">@item.Title</a><br />
+                                <a href="~/details/@(item.Id)" target="_blank">@item.Title</a><br />
                             }
                         }
                     </div>

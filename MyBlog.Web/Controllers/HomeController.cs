@@ -16,6 +16,7 @@ using System.Diagnostics;
 
 namespace MyBlog.Web.Controllers
 {
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -41,13 +42,29 @@ namespace MyBlog.Web.Controllers
 
         #region 首页
 
+        ///// <summary>
+        ///// 首页
+        ///// </summary>
+        ///// <param name="page"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //public IActionResult Index(string page)
+        //{
+        //    return HomePage(page);
+        //}
+
         /// <summary>
         /// 首页
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        [HttpGet]
-        public IActionResult Index(string page)
+        [HttpGet("{page:int?}")]
+        public IActionResult List(int page)
+        {
+            return HomePage(page.ToString());
+        }
+
+        private IActionResult HomePage(string page)
         {
             if (!int.TryParse(page, out int pageNum))
             {
@@ -57,7 +74,6 @@ namespace MyBlog.Web.Controllers
             Set();
             return View("Index", resModel);
         }
-
 
         #endregion
 
@@ -70,8 +86,7 @@ namespace MyBlog.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Details/{PostId}")]
-        [HttpGet]
+        [HttpGet("details/{postId}")]
         public IActionResult Posts(PostBindModel model)
         {
             if (null == model || !model.PostId.HasValue)
@@ -96,8 +111,7 @@ namespace MyBlog.Web.Controllers
         /// <param name="tag"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        [Route("Tagposts/Home/Tags/{tag}/{page}")]
-        [HttpGet]
+        [HttpGet("posts/{tag}/{page}")]
         public IActionResult Tags(string tag, string page)
         {
             if (tag.IsNullOrWhitespace() || page.IsNullOrWhitespace())
