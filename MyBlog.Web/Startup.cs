@@ -139,12 +139,6 @@ namespace MyBlog.Web
 
             // 配置MVC路由
             app.UseMvcWithDefaultRoute();
-            //routes =>
-            //{
-            //    routes.MapRoute(name: "default",
-            //                template: "{controller}/{action}/{page?}",
-            //                defaults: new { controller = "Home", action = "Index" });
-            //}
 
             // 启用日志记录
             LogWriter();
