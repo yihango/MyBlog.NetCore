@@ -34,7 +34,10 @@ namespace MyBlog
 
         public string PwdSalt { get; set; }
         public string Cnzz { get; set; }
+
     }
+
+    
 
     public class KV
     {
