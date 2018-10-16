@@ -50,7 +50,7 @@ namespace MyBlog.Web.Controllers
         [HttpGet("{page:int?}")]
         public IActionResult List(int? page)
         {
-            if (!page.HasValue)
+            if (!page.HasValue || page.Value <= 0)
             {
                 page = 1;
             }
