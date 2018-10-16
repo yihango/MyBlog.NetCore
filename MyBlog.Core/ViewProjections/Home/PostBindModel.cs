@@ -9,10 +9,5 @@
         /// 博文id
         /// </summary>
         public long? PostId { get; set; }
-
-        /// <summary>
-        /// 博文所属的时间
-        /// </summary>
-        public string PostPutSortTime { get; set; }
     }
 }

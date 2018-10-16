@@ -80,7 +80,7 @@
                         {
                             foreach (var item in ViewBag.RecentPost.PostList)
                             {
-                                <a href="~/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
+                                <a href="~/Details/@(item.Id)" target="_blank">@item.Title</a><br />
                             }
                         }
                     </div>

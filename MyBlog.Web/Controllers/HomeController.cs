@@ -70,11 +70,11 @@ namespace MyBlog.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Details/Home/Posts/{PostPutSortTime}/{PostId}")]
+        [Route("Details/{PostId}")]
         [HttpGet]
         public IActionResult Posts(PostBindModel model)
         {
-            if (null == model || !model.PostId.HasValue || model.PostPutSortTime.IsNullOrWhitespace())
+            if (null == model || !model.PostId.HasValue)
                 return RedirectToAction("Index");
 
             // 

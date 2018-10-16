@@ -15,14 +15,14 @@
     {
         <div class="post">
             <div class="post-details">
-                <a class="post-title" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
+                <a class="post-title" href="/Details/@(item.Id)" target="_blank">@item.Title</a><br />
                 <div class="post-time">
                     <i class="glyphicon glyphicon-calendar"></i>&nbsp;<span>@item.PublishDate</span>&nbsp;&nbsp;
                 </div>
 
                 @* 摘要内容 *@
                 <div class="post-content">
-                    <a href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank" style="word-break: break-all;">
+                    <a href="/Details/@(item.Id)" target="_blank" style="word-break: break-all;">
                         @(Html.Raw(item.Summary??string.Empty))
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                     {
                         <a class="post-tag" href="/TagPosts/Home/Tags/@Html.Encode(tag)/1" target="_blank">[&nbsp;@(tag)&nbsp;]</a><i>&nbsp;</i>
                     }
-                    <a class="post-read" href="/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">阅读全文...</a>
+                    <a class="post-read" href="/Details/@(item.Id)" target="_blank">阅读全文...</a>
                 </div>
 
             </div>
