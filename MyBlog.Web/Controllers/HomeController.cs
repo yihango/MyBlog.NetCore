@@ -16,6 +16,7 @@ using System.Diagnostics;
 
 namespace MyBlog.Web.Controllers
 {
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -46,18 +47,17 @@ namespace MyBlog.Web.Controllers
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        [HttpGet]
-        public IActionResult Index(string page)
+        [HttpGet("{page:int?}")]
+        public IActionResult List(int? page)
         {
-            if (!int.TryParse(page, out int pageNum))
+            if (!page.HasValue || page.Value <= 0)
             {
-                pageNum = 1;
+                page = 1;
             }
-            var resModel = this._viewProjectionFactory.GetViewProjection<HomeBindModel, HomeViewModel>(new HomeBindModel() { PageNum = pageNum });
+            var resModel = this._viewProjectionFactory.GetViewProjection<HomeBindModel, HomeViewModel>(new HomeBindModel() { PageNum = page.Value });
             Set();
             return View("Index", resModel);
         }
-
 
         #endregion
 
@@ -70,11 +70,10 @@ namespace MyBlog.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("Details/Home/Posts/{PostPutSortTime}/{PostId}")]
-        [HttpGet]
+        [HttpGet("details/{postId}")]
         public IActionResult Posts(PostBindModel model)
         {
-            if (null == model || !model.PostId.HasValue || model.PostPutSortTime.IsNullOrWhitespace())
+            if (null == model || !model.PostId.HasValue)
                 return RedirectToAction("Index");
 
             // 
@@ -96,8 +95,7 @@ namespace MyBlog.Web.Controllers
         /// <param name="tag"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        [Route("Tagposts/Home/Tags/{tag}/{page}")]
-        [HttpGet]
+        [HttpGet("posts/{tag}/{page}")]
         public IActionResult Tags(string tag, string page)
         {
             if (tag.IsNullOrWhitespace() || page.IsNullOrWhitespace())

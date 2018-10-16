@@ -9,20 +9,21 @@
     <meta content="@ViewBag.Configs.Description" name="description">
     <meta content="@ViewBag.Configs.Description" name="keywords">
     <meta content="@ViewBag.Configs.Author" name="author">
-    <link rel="shortcut icon" href="@ViewBag.Configs.FaciconUrl" type="image/x-icon" asp-append-version="true">
+
     <title>@(ViewBag.Configs.AppName + "-" + ViewBag.Title)</title>
 
 
     <partial name="~/Views/Shared/_StyleLayout.cshtml" />
     <partial name="~/Views/Shared/_JqueryLayout.cshtml" />
 
-    <link href="~/packages/editormd/css/editormd.min.css" rel="stylesheet" />
-    <link href="/css/my_panel.css" rel="stylesheet"  asp-append-version="true" />
+    <link rel="shortcut icon" href="@ViewBag.Configs.FaciconUrl" type="image/x-icon" asp-append-version="true">
+    <link href="/css/my_panel.css" rel="stylesheet" asp-append-version="true" />
     <link href="/css/Home/layout.css" rel="stylesheet" asp-append-version="true" />
-    <link href="/css/Home/post_list.css" rel="stylesheet"  asp-append-version="true" />
-    <link href="/css/Home/post_details.css" rel="stylesheet"  asp-append-version="true" />
-    <link href="/css/button.prev.next.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="/css/Home/post_list.css" rel="stylesheet" asp-append-version="true" />
+    <link href="/css/Home/post_details.css" rel="stylesheet" asp-append-version="true" />
+    <link href="/css/button.prev.next.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/packages/tag-cloud/tag-cloud.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/packages/editormd/css/editormd.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -61,7 +62,7 @@
                         {
                             foreach (var item in ViewBag.Tags.TagList)
                             {
-                                <a href="/TagPosts/Home/Tags/@Html.Encode(item.Value)/1" class="tag" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
+                                <a href="/posts/@item.Value/1" class="tag" target="_blank">@(item.Value)<span class="tag-count">@item.Count</span></a>
 
                             }
                         }
@@ -80,7 +81,7 @@
                         {
                             foreach (var item in ViewBag.RecentPost.PostList)
                             {
-                                <a href="~/Details/Home/Posts/@(item.PublishSortDate)/@(item.Id)" target="_blank">@item.Title</a><br />
+                                <a href="~/details/@(item.Id)" target="_blank">@item.Title</a><br />
                             }
                         }
                     </div>

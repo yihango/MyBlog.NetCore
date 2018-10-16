@@ -64,9 +64,9 @@ namespace MyBlog.Web
 
             // https://github.com/aspnet/Security/issues/1310
             // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
-            var authenticationBuilder = services.AddAuthentication(Global._auth);
+            var authenticationBuilder = services.AddAuthentication(AppConsts._auth);
 
-            authenticationBuilder.AddCookie(Global._auth, conf =>
+            authenticationBuilder.AddCookie(AppConsts._auth, conf =>
             {
                 conf.LoginPath = new PathString("/Account/Index");
                 conf.AccessDeniedPath = new PathString("/Admin");
@@ -130,7 +130,7 @@ namespace MyBlog.Web
             {
                 Cookie = new CookieBuilder()
                 {
-                    Name = Global._session_client
+                    Name = AppConsts._session_client
                 }
             });
 
@@ -138,13 +138,7 @@ namespace MyBlog.Web
             app.UseStaticFiles();
 
             // 配置MVC路由
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(name: "default",
-                            template: "{controller}/{action}/{page?}",
-                            defaults: new { controller = "Home", action = "Index" });
-            });
-
+            app.UseMvcWithDefaultRoute();
 
             // 启用日志记录
             LogWriter();

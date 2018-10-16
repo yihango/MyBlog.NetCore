@@ -20,8 +20,8 @@ namespace MyBlog.Web.Common
         public static bool CheckLogin(HttpContext httpContext)
         {
             if (null == httpContext.User.FindFirst(ClaimTypes.Sid) ||
-                null == httpContext.Session.GetString(Global._session_server) ||
-                !httpContext.Session.GetString(Global._session_server)
+                null == httpContext.Session.GetString(AppConsts._session_server) ||
+                !httpContext.Session.GetString(AppConsts._session_server)
                 .Equals(httpContext.User.FindFirst(ClaimTypes.Sid).Value))
                 return false;
 
@@ -34,7 +34,7 @@ namespace MyBlog.Web.Common
         /// <param name="commandResult"></param>
         public static void SetLogin(HttpContext httpContext, UserLoginCommandResult commandResult)
         {
-            httpContext.Session.SetString(Global._session_server, commandResult.UserInfo.Account);
+            httpContext.Session.SetString(AppConsts._session_server, commandResult.UserInfo.Account);
             // 指定身份认证类型
             var identity = new ClaimsIdentity("Forms");
             // 用户名称
@@ -42,7 +42,7 @@ namespace MyBlog.Web.Common
             identity.AddClaim(tempC);
             var principal = new ClaimsPrincipal(identity);
             // 登陆
-            httpContext.SignInAsync(Global._auth, principal, new AuthenticationProperties
+            httpContext.SignInAsync(AppConsts._auth, principal, new AuthenticationProperties
             {
                 IsPersistent = true
             });
@@ -54,8 +54,8 @@ namespace MyBlog.Web.Common
         /// </summary>
         public static void SetLoginOut(HttpContext httpContext)
         {
-            httpContext.Session.Remove(Global._session_server);
-            httpContext.SignOutAsync(Global._auth);
+            httpContext.Session.Remove(AppConsts._session_server);
+            httpContext.SignOutAsync(AppConsts._auth);
         }
     }
 }

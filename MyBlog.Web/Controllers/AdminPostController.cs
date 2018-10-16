@@ -43,10 +43,14 @@ namespace MyBlog.Web.Controllers
         /// <param name="page"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Index(string page)
+        public IActionResult Index(int? id)
         {
-            var pageNum = 1;
-            int.TryParse(page, out pageNum);
+            if (!id.HasValue || id.Value <= 0)
+            {
+                id = 1;
+            }
+            var pageNum = id.Value;
+
 
             var viewModel = this._viewProjectionFactory.GetViewProjection<AllBlogPostBindModel, AllBlogPostViewModel>(new AllBlogPostBindModel() { PageNum = pageNum });
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Posts;
 using MyBlog.PostTags;
+using MyBlog.Settings;
 using MyBlog.Tags;
 using MyBlog.Users;
 using System;
@@ -14,6 +15,8 @@ namespace MyBlog.EFCore
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
             : base(options)
         { }
+        
+        //public DbSet<Setting> Settings { get; set; }
 
         public DbSet<User> Users { get; set; }
 

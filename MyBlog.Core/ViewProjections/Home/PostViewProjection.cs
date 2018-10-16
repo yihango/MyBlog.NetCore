@@ -24,7 +24,7 @@ namespace MyBlog.ViewProjections.Home
         {
             // 查询博客
             var post = this._context.Posts
-                .Where(p => p.Id == input.PostId && p.PublishSortDate == input.PostPutSortTime)
+                .Where(p => p.Id == input.PostId)
                 .FirstOrDefault();
 
             // 
