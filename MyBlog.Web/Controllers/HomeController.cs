@@ -42,35 +42,19 @@ namespace MyBlog.Web.Controllers
 
         #region 首页
 
-        ///// <summary>
-        ///// 首页
-        ///// </summary>
-        ///// <param name="page"></param>
-        ///// <returns></returns>
-        //[HttpGet]
-        //public IActionResult Index(string page)
-        //{
-        //    return HomePage(page);
-        //}
-
         /// <summary>
         /// 首页
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
         [HttpGet("{page:int?}")]
-        public IActionResult List(int page)
+        public IActionResult List(int? page)
         {
-            return HomePage(page.ToString());
-        }
-
-        private IActionResult HomePage(string page)
-        {
-            if (!int.TryParse(page, out int pageNum))
+            if (!page.HasValue)
             {
-                pageNum = 1;
+                page = 1;
             }
-            var resModel = this._viewProjectionFactory.GetViewProjection<HomeBindModel, HomeViewModel>(new HomeBindModel() { PageNum = pageNum });
+            var resModel = this._viewProjectionFactory.GetViewProjection<HomeBindModel, HomeViewModel>(new HomeBindModel() { PageNum = page.Value });
             Set();
             return View("Index", resModel);
         }
