@@ -1,5 +1,7 @@
 # MyBlog.NetCore
 
+**没别的我就想加个测试信息，还是粗体，红色没实现，等下次的**
+
 基于asp.net core开发的简易跨平台个人博客
 
 基于asp.net core开发的简易个人博客，参照 https://github.com/qihangnet/MZBlog
