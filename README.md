@@ -1,6 +1,9 @@
 # MyBlog.NetCore
 
 
+[![Build Status](https://dev.azure.com/msmadaoe/MyFirstPipelinesDemo/_apis/build/status/staneee.MyBlog.NetCore)](https://dev.azure.com/msmadaoe/MyFirstPipelinesDemo/_build/latest?definitionId=1)
+
+
 基于asp.net core开发的简易跨平台个人博客
 
 基于asp.net core开发的简易个人博客，参照 https://github.com/qihangnet/MZBlog
