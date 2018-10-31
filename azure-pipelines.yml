@@ -1,0 +1,22 @@
+# 查看更多配置信息:https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+pool:
+  vmImage: 'vs2017-win2016' # 使用azure devops提供的 vs2017+win2016 环境
+
+variables:
+  hostBuildPath: '.\\MyBlog.Web\\MyBlog.Web.csproj' # 发布的项目的csproj
+  dotnetConfig: ' -c Release -f netcoreapp2.1 -o $(Build.ArtifactStagingDirectory)' # dotnet发布的命令
+
+steps:
+
+- task: DotNetCoreCLI@2 # 预定义的task,使用dotnet进行发布编译
+  inputs:
+    command: publish
+    publishWebProjects: False
+    arguments: ' $(hostBuildPath) $(dotnetConfig)'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1 # 预定义的task
+  displayName: 'publish artifact: drop'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
